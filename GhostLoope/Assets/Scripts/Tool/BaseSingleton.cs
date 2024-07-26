@@ -8,7 +8,7 @@ public class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
 
-    private void Awake()
+    public void Init()
     {
         instance = this as T;
     }
@@ -17,11 +17,11 @@ public class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         if (instance == null)
         {
-            GameObject obj = new GameObject();
+            UnityEngine.GameObject obj = new UnityEngine.GameObject();
             instance = obj.AddComponent<T>();
 
             // in case of being cleared when scene changes
-            GameObject.DontDestroyOnLoad(obj);
+            UnityEngine.GameObject.DontDestroyOnLoad(obj);
 
             Debug.Log("CreatingInstance");
         }
