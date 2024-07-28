@@ -9,7 +9,7 @@ public enum E_PoolType
     Enemy
 }
 
-public class PoolManager : BaseSingleton<PoolManager>
+public class PoolManager : BaseSingletonMono<PoolManager>
 {
     Dictionary<E_PoolType, Pool> poolManager;
     GameObject poolManagerObject;
@@ -44,6 +44,5 @@ public class PoolManager : BaseSingleton<PoolManager>
     public void ClearPool()
     {
         poolManager.Clear();
-        poolManagerObject = null;
     }
 }

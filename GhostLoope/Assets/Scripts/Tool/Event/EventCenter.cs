@@ -4,14 +4,19 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class EventCenter : BaseSingleton<EventCenter>
+public enum E_Event
+{
+    LoadScene
+}
+
+public class EventCenter: BaseSingletonMono<EventCenter>
 {
     // Key: 事件的名字
     // Value: 对应的委托函数
-    private Dictionary<string, UnityAction<object>> m_EventListeners = new Dictionary<string, UnityAction<object>>();
+    private Dictionary<E_Event, UnityAction<object>> m_EventListeners = new Dictionary<E_Event, UnityAction<object>>();
 
 
-    public void AddEventListener(string eventName, UnityAction<object> listener)
+    public void AddEventListener(E_Event eventName, UnityAction<object> listener)
     {
         Debug.Log("AddEventListener");
         if (m_EventListeners.ContainsKey(eventName))
@@ -25,7 +30,7 @@ public class EventCenter : BaseSingleton<EventCenter>
     }
 
 
-    public void RemoveEventListener(string eventName, UnityAction<object> listener)
+    public void RemoveEventListener(E_Event eventName, UnityAction<object> listener)
     {
         if (m_EventListeners.ContainsKey(eventName))
         {
@@ -33,12 +38,11 @@ public class EventCenter : BaseSingleton<EventCenter>
         }
     }
 
-    public void EventTrigger(string eventName, object info)
+    public void EventTrigger(E_Event eventName, object info)
     {
 
         if (m_EventListeners.ContainsKey(eventName))
         {
-            Debug.Log("EventTrigger");
             m_EventListeners[eventName].Invoke(info);
         }
     }

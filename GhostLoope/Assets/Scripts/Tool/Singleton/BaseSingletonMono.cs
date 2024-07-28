@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // 'T' will be the singleton class
-public class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
+public class BaseSingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
 
