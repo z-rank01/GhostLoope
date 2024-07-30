@@ -6,17 +6,18 @@ using UnityEngine.Events;
 
 public enum E_Event
 {
-    LoadScene
+    LoadScene, 
+    input
 }
 
-public class EventCenter: BaseSingletonMono<EventCenter>
+public class EventCenter: BaseSingleton<EventCenter>
 {
     // Key: 事件的名字
     // Value: 对应的委托函数
     private Dictionary<E_Event, UnityAction<object>> m_EventListeners = new Dictionary<E_Event, UnityAction<object>>();
 
 
-    public void AddEventListener(E_Event eventName, UnityAction<object> listener)
+    public void AddEventListener<T>(E_Event eventName, UnityAction<object> listener)
     {
         Debug.Log("AddEventListener");
         if (m_EventListeners.ContainsKey(eventName))
