@@ -35,7 +35,7 @@ public class Pool
 
         // update object status
         obj.SetActive(true);
-        obj.transform.parent = parentObj.transform;
+        obj.transform.parent = null;
         return obj;
     }
 
@@ -54,7 +54,7 @@ public class Pool
 
         // update status of object
         obj.SetActive(false);
-        obj.transform.parent = null;
+        obj.transform.parent = parentObj.transform;
     }
 
     public int GetCount()
