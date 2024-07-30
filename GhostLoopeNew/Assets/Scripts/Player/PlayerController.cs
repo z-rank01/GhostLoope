@@ -44,12 +44,16 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Move");
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
         rigidBody.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) 
-                            * ActInfo.GetInstance().speed);
+                            * ActInfo.GetInstance().playerSpeed);
     }
 
     private void Fire()
     {
         Debug.Log("Fire");
+        GameObject bullet = GameObject.Instantiate(PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet));
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        Vector3 fireDirection = ActInfo.GetInstance().fireDirection;
+        rb.AddForce(ActInfo.GetInstance().fireDirection * ActInfo.GetInstance().bulletSpeed);
     }
 
     private void Interact()

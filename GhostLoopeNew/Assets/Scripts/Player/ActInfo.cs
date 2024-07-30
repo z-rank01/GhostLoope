@@ -3,19 +3,30 @@ using UnityEngine.EventSystems;
 
 public class ActInfo : BaseSingleton<ActInfo>
 {
+    // Player info
     public Vector2 moveDirection { get; set; }
-    public float speed   { get; set; }
+    public float playerSpeed   { get; set; }
+
+    // Bullet info
+    public Vector3 fireDirection { get; set; }
+    public float bulletSpeed { get; set; }
 
     public void Clear()
     {
+        // Player
         moveDirection = default(Vector2);
-        speed = default(float);
+        playerSpeed = default(float);
+
+
+        // Bullet
+        fireDirection = default(Vector3);
+        bulletSpeed = default(float);
     }
 
     public void SetActInfo(ActInfo info)
     {
         moveDirection = info.moveDirection;
-        speed = info.speed;
+        playerSpeed = info.playerSpeed;
     }
 
     public void SetActInfo(Vector2 moveDirection)
@@ -25,7 +36,7 @@ public class ActInfo : BaseSingleton<ActInfo>
 
     public void SetActInfo(float speed)
     {
-        this.speed = speed;
+        this.playerSpeed = speed;
     }
 
 }
