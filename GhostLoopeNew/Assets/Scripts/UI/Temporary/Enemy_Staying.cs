@@ -17,6 +17,7 @@ public class Enemy_Staying : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (player == null) return;
         Vector3 playerPosition = player.transform.position;
         float distance = (playerPosition - transform.position).magnitude;
 

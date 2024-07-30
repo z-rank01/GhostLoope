@@ -22,6 +22,7 @@ public class NPC : MonoBehaviour
     {
         
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (player == null) return;
         Vector3 playerPosition = player.transform.position;
         float distance = (playerPosition - transform.position).magnitude;
         //Debug.Log("distance: " + distance);

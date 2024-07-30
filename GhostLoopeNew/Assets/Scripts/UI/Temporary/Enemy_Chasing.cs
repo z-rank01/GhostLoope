@@ -9,12 +9,13 @@ public class Enemy_Chasing : Enemy
         enemyAgent = GetComponent<NavMeshAgent>();
         state = EnemyState.MovingState;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        enemyAgent.stoppingDistance = 2.0f;
+        if(enemyAgent != null ) enemyAgent.stoppingDistance = 2.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (player == null || enemyAgent == null) return;
         Vector3 playerPosition = player.transform.position;
         float distance = (playerPosition - transform.position).magnitude;
 
