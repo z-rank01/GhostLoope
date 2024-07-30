@@ -56,20 +56,27 @@ public class PlayerController : MonoBehaviour
     private void Fire()
     {
         Debug.Log("Fire");
-        
-        // Get mouse world direction
-        Vector3 mouseWorldPostion = Input.mousePosition;
 
+        // Get mouse world direction
+        Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 mouseScreenPostion = Mouse.current.position.ReadValue();
+        mouseScreenPostion.z = screenWorldPos.z;
+        Vector3 mouseWorldPostion = Camera.main.ScreenToWorldPoint(mouseScreenPostion);
+
+        // Set fire direction
+        fireDirection = new Vector3(mouseWorldPostion.x, 0, mouseWorldPostion.z) - transform.position;
+        fireDirection = Vector3.Normalize(fireDirection);
 
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
-        bullet.FireOut(transform.position + new Vector3(1, 0, 0), 
-                       new Vector3(1, 0, 0), 
+        bullet.FireOut(transform.position + fireDirection * 2.0f, 
+                       fireDirection, 
                        ActInfo.GetInstance().bulletSpeed);
     }
 
     private void Interact()
     {
         Debug.Log("Interact");
+        //EventCenter.GetInstance().EventTrigger(E_Event, );
     }
 
     private void SwallowAndFire()
