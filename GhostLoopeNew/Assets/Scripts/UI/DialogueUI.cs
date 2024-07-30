@@ -12,7 +12,7 @@ public class DialogueUI : MonoBehaviour
     public Image SettingImage;
     public Button ExitSetting;
 
-
+    public Slider MusicSetting;
 
 
     public Button ExitGame;
@@ -30,17 +30,21 @@ public class DialogueUI : MonoBehaviour
         ExitGameYes.onClick.AddListener(this.ExitButtonYesClicked);
         ExitSetting.onClick.AddListener(this.ExitSettingClicked);
         ExitGameNo.onClick.AddListener(this.ExitButtonNoClicked);
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        MusicManager.GetInstance().ChangeBKValue(MusicSetting.value);
+        //Debug.Log("Up Music Key Down" + MusicSetting.value);
     }
 
     
     public void SettingButtonClicked()
     {
+        
         SettingImage.gameObject.SetActive(true);
     }
 

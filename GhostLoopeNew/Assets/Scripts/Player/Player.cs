@@ -24,6 +24,13 @@ public class Player : MonoBehaviour
     {
         // not Mono
         playerStatus.Init();
+
+
+
+
+
+        MusicManager.GetInstance().PlayBkMusic("TestMusic");
+
     }
 
     public void Update()
