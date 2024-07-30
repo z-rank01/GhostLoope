@@ -6,13 +6,20 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rigidBody;
     PlayerInputControl playerInputControl;
+    
+    // temporary variable
+    float speed;
+    Vector3 fireDirection;
     
     private void Awake()
     {
-        rigidBody = GetComponent<Rigidbody>();
         playerInputControl = new PlayerInputControl();
+    }
+
+    private void Start()
+    {
+        speed = Player.GetInstance().GetProperty(E_Property.speed);
     }
 
 
@@ -43,13 +50,21 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Move");
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
-        rigidBody.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) 
-                            * ActInfo.GetInstance().speed);
+        transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * speed;
     }
 
     private void Fire()
     {
         Debug.Log("Fire");
+        
+        // Get mouse world direction
+        Vector3 mouseWorldPostion = Input.mousePosition;
+
+
+        Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
+        bullet.FireOut(transform.position + new Vector3(1, 0, 0), 
+                       new Vector3(1, 0, 0), 
+                       ActInfo.GetInstance().bulletSpeed);
     }
 
     private void Interact()
