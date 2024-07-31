@@ -9,22 +9,23 @@ using UnityEngine.SceneManagement;
 public class ResourcesManager : BaseSingletonMono<ResourcesManager>
 {
     // 同步加载
-    public void LoadResource<T>(string path) where T : class
+    public void LoadResource(string path, UnityAction<object> callback)
     {
         Debug.Log("Loading Resource");
 
-        T resource = default(T);
         if (!string.IsNullOrEmpty(path))
         {
-            resource = Resources.Load(path) as T;
+            object resource = Resources.Load(path);
             if (resource is GameObject)
                 GameObject.Instantiate(resource as GameObject);
+            else if (callback != null)
+                callback(resource);
         }
         else Debug.Log("Fail to load asset");
     }
 
     // 异步加载
-    public void LoadResourceAsync<T>(string path, UnityAction<T> callback) where T : class
+    public void LoadResourceAsync(string path, UnityAction<object> callback)
     {
         Debug.Log("Loading Resource Asyc");
 
@@ -34,12 +35,12 @@ public class ResourcesManager : BaseSingletonMono<ResourcesManager>
 
     }
 
-    private IEnumerator LoadResourceAsyncCoroutine<T>(string path, UnityAction<T> callback) where T : class
+    private IEnumerator LoadResourceAsyncCoroutine(string path, UnityAction<object> callback)
     {
         ResourceRequest rr = Resources.LoadAsync(path);
         yield return rr;
 
         if (callback != null)
-            callback(rr.asset as T);
+            callback(rr.asset);
     }
 }

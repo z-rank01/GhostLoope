@@ -45,6 +45,7 @@ public class Player : BaseSingletonMono<Player>
 
     public void Update()
     {
+        // Update coldDown counter
         if (currDashTime > 0) currDashTime -= Time.deltaTime;
         if (currGunHeat > 0) currGunHeat -= Time.deltaTime;
 

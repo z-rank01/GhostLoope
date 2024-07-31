@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public enum E_Event
 {
     LoadScene, 
-    input
+    Conversation
 }
 
 public class EventCenter: BaseSingleton<EventCenter>
@@ -17,7 +17,7 @@ public class EventCenter: BaseSingleton<EventCenter>
     private Dictionary<E_Event, UnityAction<object>> m_EventListeners = new Dictionary<E_Event, UnityAction<object>>();
 
 
-    public void AddEventListener<T>(E_Event eventName, UnityAction<object> listener)
+    public void AddEventListener(E_Event eventName, UnityAction<object> listener)
     {
         Debug.Log("AddEventListener");
         if (m_EventListeners.ContainsKey(eventName))
