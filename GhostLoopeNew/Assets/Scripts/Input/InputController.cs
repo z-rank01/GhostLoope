@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 
+public enum E_Action
+{
+
+}
+
 public class InputController
 {
     private PlayerInputControl playerInputControl;
@@ -23,17 +28,61 @@ public class InputController
         playerInputControl.Enable();
     }
 
-    public void Enable()
+    public void EnableInput()
     {
         playerInputControl.Enable();
     }
 
-    public void Disable()
+    public void DisableInput()
     {
         playerInputControl.Disable();
     }
 
-    // Life circle
+    public void EnableAction(E_InputStatus inputStatus)
+    {
+        switch (inputStatus)
+        {
+            case E_InputStatus.moving:
+                moveAction.Enable();
+                break;
+            case E_InputStatus.firing:
+                fireAction.Enable();
+                break;
+            case E_InputStatus.interacting:
+                interactAction.Enable();
+                break;
+            case E_InputStatus.swallowingAndFiring:
+                swallowAndFireAction.Enable();
+                break;
+            case E_InputStatus.dashing:
+                dashAction.Enable();
+                break;
+        }
+    }
+
+    public void DisableAction(E_InputStatus inputStatus)
+    {
+        switch (inputStatus)
+        {
+            case E_InputStatus.moving:
+                moveAction.Disable();
+                break;
+            case E_InputStatus.firing:
+                fireAction.Disable();
+                break;
+            case E_InputStatus.interacting:
+                interactAction.Disable();
+                break;
+            case E_InputStatus.swallowingAndFiring:
+                swallowAndFireAction.Disable();
+                break;
+            case E_InputStatus.dashing:
+                dashAction.Disable();
+                break;
+        }
+    }
+
+    // Fake Life circle
     public void Start()
     {
         Init();
@@ -52,7 +101,7 @@ public class InputController
 
     public void Update()
     {
-        
+
     }
 
     // Input event callback
@@ -73,9 +122,6 @@ public class InputController
         playerInputControl.Player.Fire.performed += (callbackContext) =>
         { GlobalInstance.GetInstance().AddStatus(E_InputStatus.firing); };
 
-        playerInputControl.Player.Fire.performed += (callbackContext) =>
-        { GlobalInstance.GetInstance().StartCounter(); };
-        
         playerInputControl.Player.Fire.performed += (callbackContext) =>
         { ActInfo.GetInstance().SetActInfo(E_ActInfo.bulletSpeed, GlobalSetting.GetInstance().bulletSpeed); };
         
@@ -99,13 +145,6 @@ public class InputController
         { GlobalInstance.GetInstance().AddStatus(E_InputStatus.dashing); };
 
 
-        playerInputControl.Player.Fire.performed += (callbackContext) =>
-        { GlobalInstance.GetInstance().StartCounterDash(); };
-
-
-
-
-
         playerInputControl.Player.Dash.canceled += (callbackContext) =>
         { GlobalInstance.GetInstance().RemoveStatus(E_InputStatus.dashing); };
     }
@@ -118,6 +157,4 @@ public class InputController
         playerInputControl.Player.SwallowAndFire.canceled += (callbackContext) =>
         { GlobalInstance.GetInstance().RemoveStatus(E_InputStatus.swallowingAndFiring); };
     }
-
-
 }

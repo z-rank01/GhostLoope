@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - MusicBK
+  - Boundary
+  - EnvironmentObject
+  - NPC
   layers:
   - Default
   - TransparentFX

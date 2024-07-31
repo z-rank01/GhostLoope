@@ -27,9 +27,9 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
         // mono
         player = globalSetting.playerObject.GetComponent<Player>();
-        player.Init();
         resourcesManager = globalInstance.AddComponent<ResourcesManager>();
         scenesManager = globalInstance.AddComponent<ScenesManager>();
+        player.Init();
         resourcesManager.Init();
         scenesManager.Init();
 
@@ -61,27 +61,6 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
     }
 
     // interface
-    public void StartCounter()
-    {
-        player.StartCounter();
-    }
-
-    public void ClearCounter()
-    {
-        player.ClearCounter();
-    }
-
-
-    public void StartCounterDash()
-    {
-        player.StartCounterDash();
-    }
-
-    public void ClearCounterDash()
-    {
-        player.ClearCounterDash();
-    }
-
 
     public void AddStatus(E_InputStatus inputStatus)
     {

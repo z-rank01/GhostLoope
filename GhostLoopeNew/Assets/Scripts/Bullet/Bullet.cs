@@ -9,11 +9,9 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     private float bulletSpeed;
     private Vector3 fireDirection;
-    private Collider collider;
 
     void Start()
     {
-        collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -21,15 +19,26 @@ public class Bullet : MonoBehaviour
     {
         Flying();
         if (!CheckWithinScreen())
+        {
             Debug.Log("OUT OF SCREEN");
-            collider.enabled = false;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Boooommm!!");
-        PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
+        if (other.gameObject.CompareTag("EnvironmentObject"))
+        {
+            Debug.Log("Collider Boooommm!!");
+            PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Boundary"))
+        {
+            Debug.Log("OUT OF BOUNDARY");
+            PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
+        }
     }
+
 
     // interface
     public void FireOut(Vector3 position, Vector3 fireDirection, float bulletSpeed)
