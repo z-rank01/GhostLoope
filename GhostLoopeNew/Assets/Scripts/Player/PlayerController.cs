@@ -76,8 +76,11 @@ public class PlayerController : MonoBehaviour
         fireDirection = Vector3.Normalize(fireDirection);
         fireDirection.y = 0;
 
+        // Set fire origin
+        Vector3 fireOrigin = new Vector3(transform.position.x, 0.1f, transform.position.z) + fireDirection * 2.0f;
+
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
-        bullet.FireOut(transform.position + fireDirection * 2.0f, 
+        bullet.FireOut(fireOrigin, 
                        fireDirection, 
                        ActInfo.GetInstance().bulletSpeed);
     }

@@ -11,22 +11,12 @@ public class Player : BaseSingletonMono<Player>
     PlayerController playerController;
 
     [SerializeField]
-    private int coldDown;
+    private float gunHeat;
+    private float currGunHeat = 0;
 
     [SerializeField]
-    private int dashColdDown;
-
-
-    private int counter = 0;
-    private bool isCount = false;
-
-
-    private int counterDash = 0;
-    private bool isCountDash = false;
-
-
-    float dashTime = 0.5f; // 冲刺的冷却时间
-    float curDashTime = 0.0f; // 触发下一次冲刺的冷却时间，如果 <= 0则可以冲刺
+    private float dashTime = 1f; // dash的冷却时间
+    private float currDashTime = 0f; // 触发下一次dash的冷却时间，如果 <= 0则可以dash
 
 
     float swallowTime = 1.0f; //吞噬技能的冷却时间
@@ -49,30 +39,36 @@ public class Player : BaseSingletonMono<Player>
         playerStatus.Init();
 
 
-
-
-
-        MusicManager.GetInstance().PlayBkMusic("TestMusic");
+        // MusicManager.GetInstance().PlayBkMusic("TestMusic");
 
     }
 
     public void Update()
     {
+        if (currDashTime > 0) currDashTime -= Time.deltaTime;
+        if (currGunHeat > 0) currGunHeat -= Time.deltaTime;
+
         // Check action
         if (ContainStatus(E_InputStatus.moving))
         {
             playerController.Act(E_InputStatus.moving);
         }
+
         if (ContainStatus(E_InputStatus.firing))
         {
             if (CheckFire())
+            {
+                currGunHeat = gunHeat;
                 playerController.Act(E_InputStatus.firing);
+            }
+                
         }
+
         if (ContainStatus(E_InputStatus.interacting))
         {
             playerController.Act(E_InputStatus.interacting);
         }
-        if (curSwallowTime > 0) curSwallowTime -= Time.deltaTime;
+
         if (ContainStatus(E_InputStatus.swallowingAndFiring))
         {
             if (CheckSwallowAndFire())
@@ -82,13 +78,12 @@ public class Player : BaseSingletonMono<Player>
 
             }
         }
-        if (curDashTime > 0) curDashTime -= Time.deltaTime;
-
+        
         if (ContainStatus(E_InputStatus.dashing))
         {
             if (CheckDash())
             {
-                curDashTime = dashTime;
+                currDashTime = dashTime;
 
 
                 float res = playerProperty.GetProperty(E_Property.resilience);
@@ -97,76 +92,27 @@ public class Player : BaseSingletonMono<Player>
                 playerController.Act(E_InputStatus.dashing);
             }
         }
-
-        if (isCount)
-            UpdateCounter();
-
     }
 
     
     private bool CheckFire()
     {
-        if (counter % coldDown == 0) return true;
+        if (currGunHeat <= 0) return true;
         return false;
     }
 
 
     private bool CheckDash()
     {
-        if (curDashTime <= 0 && playerProperty.GetProperty(E_Property.resilience) >= 10) return true;
+        if (currDashTime <= 0 && playerProperty.GetProperty(E_Property.resilience) >= 10) return true;
         return false;
-
-
-        //if (counterDash % dashColdDown == 0 && playerProperty.GetProperty(E_Property.resilience) >= 10)
-        //{
-        //    Debug.Log("couterDash: " + counterDash);
-        //    Debug.Log("dashColdDown: " + dashColdDown);
-        //    return true;
-        //}
-        //return false;
     }
 
     private bool CheckSwallowAndFire()
     {
         return curSwallowTime <= 0;
     }
-    private void UpdateCounter()
-    {
-        counter++;
-    }
-    private void UpdateCounterDash()
-    {
-        counterDash++;
-    }
-
     // interface
-
-    // Counter
-    public void StartCounter()
-    {
-        isCount = true;
-    }
-
-    public void ClearCounter()
-    {
-        counter = 0;
-        isCount = false;
-    }
-
-
-    public void StartCounterDash()
-    {
-        isCountDash = true;
-    }
-
-    public void ClearCounterDash()
-    {
-        counterDash = 0;
-        isCountDash = false;
-    }
-
-
-
 
     // property control
     public void SetProperty(E_Property eProperty, object property)
