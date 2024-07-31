@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy_Chasing : Enemy
 {
+
+    //public Slider ChasingHP;
     // Start is called before the first frame update
     void Start()
     {
@@ -10,6 +13,10 @@ public class Enemy_Chasing : Enemy
         state = EnemyState.MovingState;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if(enemyAgent != null ) enemyAgent.stoppingDistance = 2.0f;
+
+        //ChasingHP = Instantiate();
+        
+        
     }
 
     // Update is called once per frame

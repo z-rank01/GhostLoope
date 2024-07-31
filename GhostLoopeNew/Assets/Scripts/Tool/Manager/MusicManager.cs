@@ -85,7 +85,7 @@ public class MusicManager : BaseSingleton<MusicManager>
     }
     public void ChangeBKValue(float value)
     {
-        //bkValue = value;
+        if(bkMusic == null) return;
         bkMusic.volume = value;
     }
 }

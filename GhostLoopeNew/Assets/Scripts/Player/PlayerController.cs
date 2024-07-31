@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         fireDirection.y = 0;
 
         // Set fire origin
-        Vector3 fireOrigin = new Vector3(transform.position.x, 0.1f, transform.position.z) + fireDirection * 2.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 2.0f;
 
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
         bullet.FireOut(fireOrigin, 
@@ -125,6 +125,13 @@ public class PlayerController : MonoBehaviour
     { 
         
         Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
+        SpecialBullet bullet = collision.collider.gameObject.GetComponent<SpecialBullet>();
+        if (bullet != null)
+        {
+            Debug.Log("有子弹击中了你!!!");
+            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
+        }
+
     }
     // 进入吞噬范围, 将进入吞噬范围内的子弹放入列表
     public void OnTriggerEnter(Collider other)
