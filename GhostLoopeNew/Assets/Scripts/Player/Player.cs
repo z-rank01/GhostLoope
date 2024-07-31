@@ -18,6 +18,11 @@ public class Player : BaseSingletonMono<Player>
     private float dashTime = 1f; // dash的冷却时间
     private float currDashTime = 0f; // 触发下一次dash的冷却时间，如果 <= 0则可以dash
 
+
+    float swallowTime = 1.0f; //吞噬技能的冷却时间
+    float curSwallowTime = 0.0f; // 触发下一次吞噬的冷却时间，如果 <= 0则可以吞噬
+
+
     public void Awake()
     {
         // Mono
@@ -66,7 +71,12 @@ public class Player : BaseSingletonMono<Player>
 
         if (ContainStatus(E_InputStatus.swallowingAndFiring))
         {
-            playerController.Act(E_InputStatus.swallowingAndFiring);
+            if (CheckSwallowAndFire())
+            {
+                curSwallowTime = swallowTime;
+                playerController.Act(E_InputStatus.swallowingAndFiring);
+
+            }
         }
         
         if (ContainStatus(E_InputStatus.dashing))
@@ -98,7 +108,10 @@ public class Player : BaseSingletonMono<Player>
         return false;
     }
 
-
+    private bool CheckSwallowAndFire()
+    {
+        return curSwallowTime <= 0;
+    }
     // interface
 
     // property control
