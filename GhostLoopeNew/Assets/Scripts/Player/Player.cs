@@ -12,8 +12,21 @@ public class Player : BaseSingletonMono<Player>
 
     [SerializeField]
     private int coldDown;
+
+    [SerializeField]
+    private int dashColdDown;
+
+
     private int counter = 0;
     private bool isCount = false;
+
+
+    private int counterDash = 0;
+    private bool isCountDash = false;
+
+
+    float dashTime = 1f; // dash的冷却时间
+    float curDashTime = 0f; // 触发下一次dash的冷却时间，如果 <= 0则可以dash
 
     public void Awake()
     {
@@ -58,13 +71,26 @@ public class Player : BaseSingletonMono<Player>
         {
             playerController.Act(E_InputStatus.swallowingAndFiring);
         }
+        if(curDashTime > 0) curDashTime -= Time.deltaTime;
+
         if (ContainStatus(E_InputStatus.dashing))
         {
-            playerController.Act(E_InputStatus.dashing);
+            if (CheckDash())
+            {
+                curDashTime = dashTime;
+
+
+                float res = playerProperty.GetProperty(E_Property.resilience);
+                playerProperty.SetProperty(E_Property.resilience, res - 10);
+
+                playerController.Act(E_InputStatus.dashing);
+            }
         }
 
         if (isCount)
             UpdateCounter();
+
+        //if(isCountDash) UpdateCounterDash();
     }
 
     
@@ -74,11 +100,31 @@ public class Player : BaseSingletonMono<Player>
         return false;
     }
 
+
+    private bool CheckDash()
+    {
+        if (curDashTime <= 0 && playerProperty.GetProperty(E_Property.resilience) >= 10) return true;
+        return false;
+
+
+        //if (counterDash % dashColdDown == 0 && playerProperty.GetProperty(E_Property.resilience) >= 10)
+        //{
+        //    Debug.Log("couterDash: " + counterDash);
+        //    Debug.Log("dashColdDown: " + dashColdDown);
+        //    return true;
+        //}
+        return false;
+    }
+
+
     private void UpdateCounter()
     {
         counter++;
     }
-
+    private void UpdateCounterDash()
+    {
+        counterDash++;
+    }
 
     // interface
 
@@ -93,6 +139,21 @@ public class Player : BaseSingletonMono<Player>
         counter = 0;
         isCount = false;
     }
+
+
+    public void StartCounterDash()
+    {
+        isCountDash = true;
+    }
+
+    public void ClearCounterDash()
+    {
+        counterDash = 0;
+        isCountDash = false;
+    }
+
+
+
 
     // property control
     public void SetProperty(E_Property eProperty, object property)

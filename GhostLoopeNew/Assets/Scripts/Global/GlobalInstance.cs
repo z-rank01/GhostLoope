@@ -52,6 +52,7 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         SetProperty(E_Property.san, GlobalSetting.GetInstance().san);
         SetProperty(E_Property.resilience, GlobalSetting.GetInstance().resilience);
         SetProperty(E_Property.speed, GlobalSetting.GetInstance().playerSpeed);
+        SetProperty(E_Property.dashSpeed, GlobalSetting.GetInstance().playerDashSpeed);
     }
 
     void Update()
@@ -69,6 +70,18 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
     {
         player.ClearCounter();
     }
+
+
+    public void StartCounterDash()
+    {
+        player.StartCounterDash();
+    }
+
+    public void ClearCounterDash()
+    {
+        player.ClearCounterDash();
+    }
+
 
     public void AddStatus(E_InputStatus inputStatus)
     {

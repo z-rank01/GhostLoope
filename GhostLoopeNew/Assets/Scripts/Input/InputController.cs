@@ -97,7 +97,15 @@ public class InputController
     {
         playerInputControl.Player.Dash.started += (callbackContext) =>
         { GlobalInstance.GetInstance().AddStatus(E_InputStatus.dashing); };
-        
+
+
+        playerInputControl.Player.Fire.performed += (callbackContext) =>
+        { GlobalInstance.GetInstance().StartCounterDash(); };
+
+
+
+
+
         playerInputControl.Player.Dash.canceled += (callbackContext) =>
         { GlobalInstance.GetInstance().RemoveStatus(E_InputStatus.dashing); };
     }

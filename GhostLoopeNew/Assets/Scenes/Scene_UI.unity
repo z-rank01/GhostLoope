@@ -961,7 +961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   san: 0
   resilience: 0
-  speed: 5
+  speed: 0
+  dashSpeed: 0
 --- !u!114 &298042775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,6 +987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4faba782a4e93be409f983a823ce15ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coldDown: 15
+  dashColdDown: 40
 --- !u!114 &298042777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,8 +1001,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
-  m_NotificationBehavior: 0
+  m_Actions: {fileID: -944628639613478452, guid: c10c1b2bbfab9824d9b4e25f33fb853a,
+    type: 3}
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1010,10 +1014,70 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d6a95551-fc81-486d-b69f-ca1f97118490
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2711be28-6513-4161-90b9-08902ccbcf37
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d533a651-0dcc-4a08-a7e5-45c7bba7cfc6
+    m_ActionName: Player/Interact[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 779ce9d5-933c-4d87-80fe-e1e9ec6ce6ab
+    m_ActionName: Player/Dash[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 47e84e18-3776-42eb-8a41-c47d7491183a
+    m_ActionName: Player/SwallowAndFire[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3f004385-0653-4d9d-a842-3adda230fb23
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c6f49782-5f9d-4929-90f4-ebefec44205e
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e9d46480-b269-4fba-a164-4d9edbabb505
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94b5afd3-9083-4fe6-a68f-3efccaa2e268
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 74acf764-c312-436d-8532-43734680d50b
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f3caec6b-3368-497e-874e-37453641fa67
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af8cb24d-1c01-4cd2-a6ad-3631cb5170a5
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7aa78d6f-58b8-4642-b111-b6196c8e75c3
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7df6354d-5fd9-44c8-8f5b-7e0991e0220e
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e121be39-5bbc-4008-bf83-43da5d289a7f
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!54 &298042778
@@ -4265,7 +4329,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleBullet: {fileID: 4334884947890925409, guid: 121ea0888c3fb1a4ea6be7a66bd0507d,
     type: 3}
+  bulletSpeed: 0
   playerObject: {fileID: 146638660}
+  san: 100
+  resilience: 40
+  playerSpeed: 0.07
+  playerDashSpeed: 0.7
 --- !u!4 &1504040242
 Transform:
   m_ObjectHideFlags: 0

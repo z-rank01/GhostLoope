@@ -449,6 +449,7 @@ MonoBehaviour:
   san: 100
   resilience: 100
   playerSpeed: 0.07
+  playerDashSpeed: 1
 --- !u!4 &549880594
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,6 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coldDown: 15
+  dashColdDown: 40
 --- !u!54 &1204933552673436525
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     
     // temporary variable
     float speed;
+    float dashSpeed;
     Vector3 fireDirection;
     
     private void Awake()
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         speed = Player.GetInstance().GetProperty(E_Property.speed);
+        dashSpeed = Player.GetInstance().GetProperty(E_Property.dashSpeed);
     }
 
 
@@ -79,7 +81,13 @@ public class PlayerController : MonoBehaviour
 
     private void Dash()
     {
+        
         Debug.Log("Dash");
+
+        Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
+        Debug.Log("MoveDirection: " +  moveDirection);
+        Debug.Log("dashSpeed: " + dashSpeed);
+        transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed;
     }
 
     

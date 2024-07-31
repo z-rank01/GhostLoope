@@ -15,4 +15,5 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public float san;
     public float resilience;
     public float playerSpeed;
+    public float playerDashSpeed;
 }
