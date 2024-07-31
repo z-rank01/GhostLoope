@@ -72,8 +72,9 @@ public class PlayerController : MonoBehaviour
         Vector3 mouseWorldPostion = Camera.main.ScreenToWorldPoint(mouseScreenPostion);
 
         // Set fire direction
-        fireDirection = new Vector3(mouseWorldPostion.x, 0, mouseWorldPostion.z) - transform.position;
+        fireDirection = mouseWorldPostion - transform.position;
         fireDirection = Vector3.Normalize(fireDirection);
+        fireDirection.y = 0;
 
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
         bullet.FireOut(transform.position + fireDirection * 2.0f, 
