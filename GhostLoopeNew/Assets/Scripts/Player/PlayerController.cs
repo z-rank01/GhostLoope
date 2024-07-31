@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -12,7 +13,12 @@ public class PlayerController : MonoBehaviour
     float speed;
     float dashSpeed;
     Vector3 fireDirection;
-    
+
+
+    SpecialBullet swallowBullet = null; // 所吞噬的特殊子弹
+
+    List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
+
     private void Awake()
     {
         playerInputControl = new PlayerInputControl();
@@ -77,8 +83,59 @@ public class PlayerController : MonoBehaviour
     private void SwallowAndFire()
     {
         Debug.Log("SwallowAndFire");
+        float SAN = Player.GetInstance().GetProperty(E_Property.san);
+        Player.GetInstance().SetProperty(E_Property.san, SAN - 10);
+        
+        // 如果已经吞噬了特殊子弹，则射击
+        if (swallowBullet != null)
+        {
+            Debug.Log("射击已经吞噬的特殊子弹");
+
+            swallowBullet = null;
+        }
+        // 否则，进入吞噬判定
+        else
+        {
+            // 选择第一个进入吞噬范围内的特殊子弹进行吞噬
+            if (specialBullets.Count > 0)
+            {
+                Debug.Log("选择第一个进入吞噬范围内的特殊子弹进行吞噬");
+                swallowBullet = specialBullets[0];
+                specialBullets.RemoveAt(0);
+            }
+        }
+
     }
 
+
+    
+    // 进入玩家本身碰撞体的范围
+    public void OnCollisionEnter(Collision collision) 
+    { 
+        
+        Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
+    }
+    // 进入吞噬范围, 将进入吞噬范围内的子弹放入列表
+    public void OnTriggerEnter(Collider other)
+    {
+        SpecialBullet currentBullet = other.GetComponent<SpecialBullet>();
+        if (currentBullet != null)
+        {
+            specialBullets.Add(other.GetComponent<SpecialBullet>());
+        }
+        Debug.Log("In Player OnTriggerEnter: " + other.name);
+    }
+
+    // 退出吞噬范围，将退出吞噬范围内的子弹移除列表
+    public void OnTriggerExit(Collider other)
+    {
+        SpecialBullet currentBullet = other.GetComponent<SpecialBullet>();
+        if (currentBullet != null && specialBullets.Contains(currentBullet))
+        {
+            specialBullets.Remove(currentBullet);
+        }
+        Debug.Log("In Player OnTriggerExit: " + other.name);
+    }
     private void Dash()
     {
         

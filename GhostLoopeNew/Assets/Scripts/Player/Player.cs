@@ -25,8 +25,13 @@ public class Player : BaseSingletonMono<Player>
     private bool isCountDash = false;
 
 
-    float dashTime = 1f; // dash的冷却时间
-    float curDashTime = 0f; // 触发下一次dash的冷却时间，如果 <= 0则可以dash
+    float dashTime = 0.5f; // 冲刺的冷却时间
+    float curDashTime = 0.0f; // 触发下一次冲刺的冷却时间，如果 <= 0则可以冲刺
+
+
+    float swallowTime = 1.0f; //吞噬技能的冷却时间
+    float curSwallowTime = 0.0f; // 触发下一次吞噬的冷却时间，如果 <= 0则可以吞噬
+
 
     public void Awake()
     {
@@ -67,11 +72,17 @@ public class Player : BaseSingletonMono<Player>
         {
             playerController.Act(E_InputStatus.interacting);
         }
+        if (curSwallowTime > 0) curSwallowTime -= Time.deltaTime;
         if (ContainStatus(E_InputStatus.swallowingAndFiring))
         {
-            playerController.Act(E_InputStatus.swallowingAndFiring);
+            if (CheckSwallowAndFire())
+            {
+                curSwallowTime = swallowTime;
+                playerController.Act(E_InputStatus.swallowingAndFiring);
+
+            }
         }
-        if(curDashTime > 0) curDashTime -= Time.deltaTime;
+        if (curDashTime > 0) curDashTime -= Time.deltaTime;
 
         if (ContainStatus(E_InputStatus.dashing))
         {
@@ -90,7 +101,6 @@ public class Player : BaseSingletonMono<Player>
         if (isCount)
             UpdateCounter();
 
-        //if(isCountDash) UpdateCounterDash();
     }
 
     
@@ -113,10 +123,13 @@ public class Player : BaseSingletonMono<Player>
         //    Debug.Log("dashColdDown: " + dashColdDown);
         //    return true;
         //}
-        return false;
+        //return false;
     }
 
-
+    private bool CheckSwallowAndFire()
+    {
+        return curSwallowTime <= 0;
+    }
     private void UpdateCounter()
     {
         counter++;
