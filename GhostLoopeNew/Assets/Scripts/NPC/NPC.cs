@@ -43,7 +43,7 @@ public class NPC : MonoBehaviour
         }
     }
 
-    public void Conversation(object nothing)
+    public void Conversation()
     {
         ConversationHUD.GetInstance().Speak();
         ConversationHUD.GetInstance().NextLine();

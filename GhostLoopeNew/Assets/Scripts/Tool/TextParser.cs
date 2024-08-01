@@ -1,28 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TextParser
 {
-    TextAsset textAsset;
     List<string> context;
     int cursor = 0;
 
     public TextParser()
     {
-        this.textAsset = new TextAsset();
         this.context = new List<string>();
     }
 
-    public void Parse(TextAsset textAsset)
+    public void Parse(TextAsset newTextAsset)
     {
-        this.textAsset = textAsset;
-        string[] newContext = textAsset.text.Split('n');
-        Debug.Log(textAsset.text);
+        string[] newContext = newTextAsset.text.Split('\n');
         foreach (string ctx in newContext)
         {
             context.Add(ctx);
         }
+        
         Debug.Log(context.Count);
     }
 
@@ -30,23 +28,25 @@ public class TextParser
     {
         // speaker
         string[] currLine = context[cursor].Split(':');
-        
         return (currLine[0], currLine[1]);
     }
 
-    public bool NextLine()
+    public void NextLine()
     {
-        if (cursor >= context.Count) 
-            return false;
+        if (cursor + 1 >= context.Count) 
+            cursor = 0;
         else
             cursor++;
-            return true;
+    }
+
+    public void ResetCursor()
+    {
+        cursor = 0;
     }
 
     public void ClearTextParser()
     {
-        textAsset = null;
-        context = null;
+        context.Clear();
         cursor = 0;
     }
 }

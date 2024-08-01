@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
@@ -14,9 +15,11 @@ public enum E_ConversationClip
 public class ConversationHUD : BaseSingletonMono<ConversationHUD>
 {
     [SerializeField]
-    TextAsset  currTextAsset;
-    TMPro.TextMeshPro textMeshPro;
-    TextParser textParser;
+    private TextAsset  currTextAsset;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI textMeshPro;
+    private TextParser textParser;
+    private Transform originParent;
 
     // current information
     string speaker;
@@ -26,9 +29,10 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
     void Awake()
     {
         base.Init();
-        currTextAsset = new TextAsset();
+        gameObject.SetActive(false);
         textParser = new TextParser();
-        //textMeshPro = new TMPro.TextMeshPro();
+        textMeshPro = GetComponent<TextMeshProUGUI>();
+        originParent = this.transform.parent;
     }
 
     // interface
@@ -38,10 +42,12 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
         GameObject speakerObj = GameObject.Find(speaker);
         if (speakerObj != null)
         {
-            textMeshPro.SetText(sentence);
-            textMeshPro.transform.parent = speakerObj.transform;
-            textMeshPro.transform.localPosition = Vector3.one;
-            textMeshPro.gameObject.SetActive(true);
+            textMeshPro.SetText(speaker + ": " + sentence);
+            transform.parent = speakerObj.transform;
+            transform.localPosition = Vector3.zero;
+            transform.LookAt(Camera.main.transform);
+            //transform.position = Camera.main.WorldToScreenPoint(speakerObj.transform.position);
+            gameObject.SetActive(true);
         }
         else
             Debug.LogError("Fail to find speaker! Please Check the text");
@@ -54,8 +60,12 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
 
     public void LoadConversation(E_ConversationClip clip)
     {
-        if (GetText(clip))
+        GetText(clip);
+        if (currTextAsset != null)
+        {
+            Debug.Log(currTextAsset.text);
             textParser.Parse(currTextAsset);
+        }
         else
             Debug.Log("Fail to get text file");
     }
@@ -63,9 +73,9 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
     public void UnloadConversation()
     {
         currTextAsset = null;
-        textMeshPro.transform.parent = transform;
-        textMeshPro.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         textParser.ClearTextParser();
+        textMeshPro.SetText("");
     }
 
 
@@ -73,7 +83,7 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
     private bool GetText(E_ConversationClip clip)
     {
         string path = "Passages/" + clip;
-        ResourcesManager.GetInstance().LoadResourceAsync("Passages/" + clip.ToString(), GetTextResource);
+        ResourcesManager.GetInstance().LoadResource("Passages/" + clip.ToString(), GetTextResource);
         if (currTextAsset == null) return false;
         return true;
     }
@@ -81,5 +91,11 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
     private void GetTextResource(object textAsset)
     {
         currTextAsset = textAsset as TextAsset;
+    }
+
+    private bool CheckLoadingStatus()
+    {
+        if (currTextAsset == null) return false;
+        else return true;
     }
 }

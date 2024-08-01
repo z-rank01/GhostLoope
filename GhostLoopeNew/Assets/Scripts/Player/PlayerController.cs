@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
     private void Interact()
     {
         Debug.Log("Interact");
-        EventCenter.GetInstance().EventTrigger(E_Event.Conversation, null);
+        EventCenter.GetInstance().EventTrigger(E_Event.Conversation);
     }
 
     private void SwallowAndFire()

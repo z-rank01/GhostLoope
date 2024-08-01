@@ -11,8 +11,8 @@ public class Player : BaseSingletonMono<Player>
     PlayerController playerController;
 
     [SerializeField]
-    private float gunHeat;
-    private float currGunHeat = 0;
+    private float gunHeat;  // 普通射击冷却时间
+    private float currGunHeat = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以dash
 
     [SerializeField]
     private float dashTime = 1f; // dash的冷却时间
@@ -21,6 +21,10 @@ public class Player : BaseSingletonMono<Player>
 
     float swallowTime = 1.0f; //吞噬技能的冷却时间
     float curSwallowTime = 0.0f; // 触发下一次吞噬的冷却时间，如果 <= 0则可以吞噬
+
+    [SerializeField]
+    private float interactTime;  // 普通射击冷却时间
+    private float currinteractTime = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以dash
 
 
     public void Awake()
@@ -51,6 +55,7 @@ public class Player : BaseSingletonMono<Player>
         if (currDashTime > 0) currDashTime -= Time.deltaTime;
         if (currGunHeat > 0) currGunHeat -= Time.deltaTime;
         if(curSwallowTime > 0)curSwallowTime -= Time.deltaTime;
+        if (currinteractTime > 0) currinteractTime -= Time.deltaTime;
 
         // Check action
         if (ContainStatus(E_InputStatus.moving))
@@ -70,7 +75,11 @@ public class Player : BaseSingletonMono<Player>
 
         if (ContainStatus(E_InputStatus.interacting))
         {
-            playerController.Act(E_InputStatus.interacting);
+            if (CheckInteract())
+            {
+                currinteractTime = interactTime;
+                playerController.Act(E_InputStatus.interacting);
+            }
         }
 
         if (ContainStatus(E_InputStatus.swallowingAndFiring))
@@ -117,7 +126,11 @@ public class Player : BaseSingletonMono<Player>
         return curSwallowTime <= 0;
     }
 
-
+    private bool CheckInteract()
+    {
+        if (currinteractTime <= 0) return true;
+        return false;
+    }
 
     public void PlayerReceiveDamage(SpecialBullet bullet)
     {
