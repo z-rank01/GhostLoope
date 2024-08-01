@@ -1,3 +1,4 @@
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -5,19 +6,62 @@ using UnityEngine.UI;
 public class Enemy_Chasing : Enemy
 {
 
+    public NavMeshAgent enemyAgent;
+
     //public Slider ChasingHP;
     // Start is called before the first frame update
     void Start()
     {
-        enemyAgent = GetComponent<NavMeshAgent>();
-        state = EnemyState.MovingState;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        if(enemyAgent != null ) enemyAgent.stoppingDistance = 2.0f;
+        Debug.Log("In ChasingStart");
+        base.Start();
 
+        enemyAgent = gameObject.AddComponent<NavMeshAgent>();
+        enemyAgent.stoppingDistance = 2.0f;
+
+        //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
         //ChasingHP = Instantiate();
-        
-        
+
+
     }
+    public void ReceiveDamage(float damage)
+    {
+        if (Enemy_HP == null) return;
+
+
+        Debug.Log("InReceiveDamage");
+        HP -= damage;
+        Enemy_HP.value -= damage;
+        if (HP <= 0)
+        {
+            GameObject.Destroy(gameObject);
+            GameObject.Destroy(Enemy_HP.gameObject);
+        }
+    }
+
+    public void EnemyFire()
+    {
+        Debug.Log("EnemyFire!");
+
+
+        Vector3 playerPosition = Player.GetInstance().transform.position;
+
+
+        // Set fire direction
+        Vector3 fireDirection = playerPosition - transform.position;
+        fireDirection = Vector3.Normalize(fireDirection);
+        fireDirection.y = 0;
+
+        // Set fire origin
+        Vector3 fireOrigin = transform.position + fireDirection * 2.0f;
+
+        SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
+
+
+        bullet.FireOut(fireOrigin,
+                       fireDirection,
+                       GlobalSetting.GetInstance().enemyBulletSpeed);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -26,10 +70,8 @@ public class Enemy_Chasing : Enemy
         Vector3 playerPosition = player.transform.position;
         float distance = (playerPosition - transform.position).magnitude;
 
-        //Debug.Log("distance: " + distance);
-        //if(player.transform.position)
 
-
+        if (CurFireDelay > 0) CurFireDelay -= Time.deltaTime;
 
         // ½øÈë¾¯½ä·¶Î§ÄÚ£¬×·×ÙÍæ¼Ò
 
@@ -45,7 +87,12 @@ public class Enemy_Chasing : Enemy
         {
             Debug.Log("Enemy_Chasing Attack");
 
-            // Attack();
+
+            if (CurFireDelay <= 0)
+            {
+                EnemyFire();
+                CurFireDelay = FireDelay;
+            }
         }
 
 

@@ -24,7 +24,7 @@ public class DialogueUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NewGame.onClick.AddListener(this.Hide);
+        NewGame.onClick.AddListener(this.NewGameButtonClicked);
         Setting.onClick.AddListener(this.SettingButtonClicked);
         ExitGame.onClick.AddListener(this.ExitButtonClicked);
         ExitGameYes.onClick.AddListener(this.ExitButtonYesClicked);
@@ -81,8 +81,9 @@ public class DialogueUI : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    public void Hide()
+    public void NewGameButtonClicked()
     {
+        MusicManager.GetInstance().PlayBkMusic("µ⁄“ªπÿ-≈‰¿÷");
         gameObject.SetActive(false);
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Boundary
   - EnvironmentObject
   - NPC
+  - Enemy
   layers:
   - Default
   - TransparentFX
