@@ -73,7 +73,7 @@ public class MusicManager : BaseSingleton<MusicManager>
     }
     public void update()
     {
-        Debug.Log("Music Update");
+        //Debug.Log("Music Update");
         for (int i = soundList.Count - 1; i >= 0; i--)
         {
             if (!soundList[i].isPlaying)
@@ -85,7 +85,7 @@ public class MusicManager : BaseSingleton<MusicManager>
     }
     public void ChangeBKValue(float value)
     {
-        //bkValue = value;
+        if(bkMusic == null) return;
         bkMusic.volume = value;
     }
 }

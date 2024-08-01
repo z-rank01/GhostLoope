@@ -28,6 +28,11 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("EnvironmentObject"))
         {
+            Enemy_Staying enemy = other.gameObject.GetComponent<Enemy_Staying>();
+            if (enemy != null)
+            {
+                EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, 10);
+            }
             Debug.Log("Collider Boooommm!!");
             PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
         }

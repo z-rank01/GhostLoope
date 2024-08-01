@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 
 public class Enemy : MonoBehaviour
 {
     protected NavMeshAgent enemyAgent;
     public float AlertDistance = 5.0f;
     public float AttackDistance = 3.0f;
+    public float HP = 100f;
     public bool IsFollowPlayer = false;
     public Player player;
+
+
+    public Slider Enemy_HP;
+
+    
     public enum EnemyState
     {
         MovingState,
@@ -31,6 +39,9 @@ public class Enemy : MonoBehaviour
     //}
 
     
+    
+
+
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("In OnTriggerEnter Enemy");

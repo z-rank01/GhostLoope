@@ -39,6 +39,8 @@ public class Player : BaseSingletonMono<Player>
         playerStatus.Init();
 
 
+        // 击中玩家后的响应事件
+        EventCenter.GetInstance().AddEventListener<SpecialBullet>(E_Event.PlayerReceiveDamage, PlayerReceiveDamage);
         // MusicManager.GetInstance().PlayBkMusic("TestMusic");
 
     }
@@ -48,6 +50,7 @@ public class Player : BaseSingletonMono<Player>
         // Update coldDown counter
         if (currDashTime > 0) currDashTime -= Time.deltaTime;
         if (currGunHeat > 0) currGunHeat -= Time.deltaTime;
+        if(curSwallowTime > 0)curSwallowTime -= Time.deltaTime;
 
         // Check action
         if (ContainStatus(E_InputStatus.moving))
@@ -113,6 +116,19 @@ public class Player : BaseSingletonMono<Player>
     {
         return curSwallowTime <= 0;
     }
+
+
+
+    public void PlayerReceiveDamage(SpecialBullet bullet)
+    {
+        Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.type);
+    }
+
+
+
+
+
+
     // interface
 
     // property control
