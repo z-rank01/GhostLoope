@@ -16772,7 +16772,7 @@ MonoBehaviour:
   san: 100
   resilience: 0
   playerSpeed: 3
-  playerDashSpeed: 5
+  playerDashSpeed: 50
 --- !u!4 &1559934989
 Transform:
   m_ObjectHideFlags: 0
@@ -19694,10 +19694,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.2711762
+  m_Radius: 1.7556976
+  m_Height: 3.5113952
   m_Direction: 1
-  m_Center: {x: 0, y: 0.758691, z: 0}
+  m_Center: {x: -0.078457646, y: 0.758691, z: -0.034939956}
 --- !u!135 &1967704834
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19717,8 +19717,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.8456573
-  m_Center: {x: 0, y: 1.3456577, z: 0}
+  m_Radius: 2.4727967
+  m_Center: {x: 0.060307313, y: 1.3456577, z: 0.02120514}
 --- !u!43 &1996744347
 Mesh:
   m_ObjectHideFlags: 0

@@ -138,6 +138,8 @@ public class Player : BaseSingletonMono<Player>
 
         playerProperty.SetProperty(E_Property.san, playerProperty.GetProperty(E_Property.san) - bullet.damage);
 
+
+
         switch (bullet.bulletType)
         {
             case E_PoolType.FireBullet:
