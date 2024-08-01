@@ -25,9 +25,9 @@ public class MusicManager : BaseSingleton<MusicManager>
             
         }
 
-        ResourcesManager.GetInstance().LoadResourceAsync<AudioClip>("Music/BK/" + name, (clip) =>
+        ResourcesManager.GetInstance().LoadResourceAsync("Music/BK/" + name, (clip) =>
         {
-            bkMusic.clip = clip;
+            bkMusic.clip = clip as AudioClip;
             bkMusic.loop = true;
             bkMusic.volume = bkValue;
             bkMusic.Play();
@@ -50,11 +50,11 @@ public class MusicManager : BaseSingleton<MusicManager>
             soundObj.name = "Sound";
         }
 
-        ResourcesManager.GetInstance().LoadResourceAsync<AudioClip>("Music/BK/" + name, (clip) =>
+        ResourcesManager.GetInstance().LoadResourceAsync("Music/BK/" + name, (clip) =>
         {
             AudioSource source = soundObj.AddComponent<AudioSource>();
 
-            source.clip = clip;
+            source.clip = clip as AudioClip;
             source.volume = soundValue;
             source.Play();
 

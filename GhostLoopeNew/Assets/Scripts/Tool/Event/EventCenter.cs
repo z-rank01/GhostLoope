@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public enum E_Event
 {
     LoadScene, 
-    input,
+    Conversation,
     ReceiveDamage,
     PlayerReceiveDamage
 }
