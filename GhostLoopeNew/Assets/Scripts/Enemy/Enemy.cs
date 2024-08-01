@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("In Enemy Start");
+        //Debug.Log("In Enemy Start");
         //Enemy_HP = gameObject.AddComponent<Slider>();
 
         if(Enemy_HP != null ) Enemy_HP.value = Enemy_HP.maxValue = 100;

@@ -65,7 +65,7 @@ public class Enemy_Staying : Enemy
         Vector3 fireOrigin = transform.position + fireDirection * 2.0f;
 
         SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
-
+        bullet.bulletType = EnemyBulletType;
 
         bullet.FireOut(fireOrigin,
                        fireDirection,

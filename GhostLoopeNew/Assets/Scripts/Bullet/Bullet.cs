@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     public float damage = 5.0f; // 怪物发出子弹的基础伤害
     public float extraDamage = 0.0f; // 怪物发出子弹的额外伤害
 
-    public float playerDamage = 5.0f; // 玩家发出子弹的伤害
+    public float playerDamage = 25.0f; // 玩家发出子弹的伤害
 
     
     

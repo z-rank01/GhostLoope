@@ -1,4 +1,3 @@
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -12,7 +11,7 @@ public class Enemy_Chasing : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("In ChasingStart");
+        //Debug.Log("In ChasingStart");
         base.Start();
 
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
@@ -52,10 +51,10 @@ public class Enemy_Chasing : Enemy
         fireDirection.y = 0;
 
         // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 2.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
 
         SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
-
+        bullet.bulletType = EnemyBulletType;
 
         bullet.FireOut(fireOrigin,
                        fireDirection,
@@ -78,8 +77,8 @@ public class Enemy_Chasing : Enemy
         if (IsFollowPlayer || distance <= AlertDistance)
         {
             IsFollowPlayer = true;
+            enemyAgent.speed = 10;
             enemyAgent.SetDestination(player.transform.position);
-
         }
 
         // ½øÈë¹¥»÷·¶Î§ÄÚ£¬Ö´ÐÐ¹¥»÷Âß¼­

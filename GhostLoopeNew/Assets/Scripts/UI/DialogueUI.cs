@@ -21,9 +21,17 @@ public class DialogueUI : MonoBehaviour
     public Button ExitGameNo;
 
 
+    public Slider SAN;
+    public Slider Resilience;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        SAN.maxValue = GlobalSetting.GetInstance().san;
+
+        Resilience.maxValue = 40;
+
         NewGame.onClick.AddListener(this.NewGameButtonClicked);
         Setting.onClick.AddListener(this.SettingButtonClicked);
         ExitGame.onClick.AddListener(this.ExitButtonClicked);
@@ -37,7 +45,19 @@ public class DialogueUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        //Debug.Log("In DialogueUI Update: " + SAN.value);
+        SAN.value = Player.GetInstance().GetProperty(E_Property.san);
+        Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
+
+
         MusicManager.GetInstance().ChangeBKValue(MusicSetting.value);
+
+
+
+        //SAN.value = Player.GetInstance().GetProperty(E_Property.san);
+        //Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
         //Debug.Log("Up Music Key Down" + MusicSetting.value);
     }
 
@@ -83,6 +103,7 @@ public class DialogueUI : MonoBehaviour
     }
     public void NewGameButtonClicked()
     {
+        Debug.Log("new GameButtonClicked");
         MusicManager.GetInstance().PlayBkMusic("µ⁄“ªπÿ-≈‰¿÷");
         gameObject.SetActive(false);
     }
