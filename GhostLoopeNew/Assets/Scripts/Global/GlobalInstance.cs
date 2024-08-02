@@ -29,7 +29,6 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         player = globalSetting.playerObject.GetComponent<Player>();
         resourcesManager = globalInstance.AddComponent<ResourcesManager>();
         scenesManager = globalInstance.AddComponent<ScenesManager>();
-        player.Init();
         resourcesManager.Init();
         scenesManager.Init();
 
@@ -51,6 +50,8 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         poolManager.AddPool(E_PoolType.IceBullet, globalSetting.IceBullet);
         poolManager.AddPool(E_PoolType.PoisonBullet, globalSetting.PoisonBullet);
         poolManager.AddPool(E_PoolType.SpiritPoisonBullet, globalSetting.SpiritPoisonBullet);
+
+        
     }
 
     private void Start()
@@ -58,7 +59,7 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         inputController.Start();
 
         // Set up property
-        Debug.Log("Set up Player Property");
+        //Debug.Log("Set up Player Property");
         SetProperty(E_Property.san, GlobalSetting.GetInstance().san);
         SetProperty(E_Property.resilience, GlobalSetting.GetInstance().resilience);
         SetProperty(E_Property.speed, GlobalSetting.GetInstance().playerSpeed);

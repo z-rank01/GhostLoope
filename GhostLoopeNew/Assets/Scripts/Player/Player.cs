@@ -10,7 +10,7 @@ public class Player : BaseSingletonMono<Player>
     PlayerProperty playerProperty;
     PlayerStatus playerStatus;
     PlayerController playerController;
-    PlayerAnimator_GhostLoope playerAnimator;
+    //PlayerAnimator_GhostLoope playerAnimator;
 
     [SerializeField]
     private float gunHeat;  // 普通射击冷却时间
@@ -31,26 +31,22 @@ public class Player : BaseSingletonMono<Player>
 
     public void Awake()
     {
+        Init();
         // Mono
         playerProperty = gameObject.AddComponent<PlayerProperty>();
         playerController = gameObject.AddComponent<PlayerController>();
-        playerAnimator = gameObject.AddComponent<PlayerAnimator_GhostLoope>();
+        //playerAnimator = gameObject.AddComponent<PlayerAnimator_GhostLoope>();
 
         // not Mono
         playerStatus = new PlayerStatus();
-    }
-
-    public void Start()
-    {
-        // not Mono
         playerStatus.Init();
 
 
         // 击中玩家后的响应事件
         EventCenter.GetInstance().AddEventListener<SpecialBullet>(E_Event.PlayerReceiveDamage, PlayerReceiveDamage);
         // MusicManager.GetInstance().PlayBkMusic("TestMusic");
-
     }
+
 
     public void Update()
     {
@@ -64,15 +60,15 @@ public class Player : BaseSingletonMono<Player>
         if (ContainStatus(E_InputStatus.moving))
         {
             playerController.Act(E_InputStatus.moving);
-            playerAnimator.MoveForward();
-            playerAnimator.MoveLeft();
-            playerAnimator.MoveRight();
+            //playerAnimator.MoveForward();
+            //playerAnimator.MoveLeft();
+            //playerAnimator.MoveRight();
         }
         else
         {
-            playerAnimator.ClearForwad();
-            playerAnimator.ClearLeft();
-            playerAnimator.ClearRight();
+            //playerAnimator.ClearForwad();
+            //playerAnimator.ClearLeft();
+            //playerAnimator.ClearRight();
         }
 
         if (ContainStatus(E_InputStatus.firing))
@@ -81,7 +77,8 @@ public class Player : BaseSingletonMono<Player>
             {
                 currGunHeat = gunHeat;
                 playerController.Act(E_InputStatus.firing);
-                playerAnimator.Attack();
+                //LookAtMouseDirection();
+                //playerAnimator.Attack();
             }
                 
         }
@@ -116,11 +113,9 @@ public class Player : BaseSingletonMono<Player>
                 playerProperty.SetProperty(E_Property.resilience, res - 10);
 
                 playerController.Act(E_InputStatus.dashing);
-                playerAnimator.Dash();
+                //playerAnimator.Dash();
             }
         }
-
-        LookAtMouseDirection();
     }
 
     private void LookAtMouseDirection()

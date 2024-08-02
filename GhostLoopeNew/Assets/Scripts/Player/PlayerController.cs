@@ -20,20 +20,14 @@ public class PlayerController : MonoBehaviour
     SpecialBullet swallowBullet; // 所吞噬的特殊子弹
     List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
 
-    private void Awake()
+    public void Start()
     {
         playerInputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody>();
-    }
 
-    private void Start()
-    {
         speed = Player.GetInstance().GetProperty(E_Property.speed);
         dashSpeed = Player.GetInstance().GetProperty(E_Property.dashSpeed);
-
         //swallowBullet = Player.GetInstance().AddComponent<SpecialBullet>();
-
-
     }
 
     public void Update()
@@ -70,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Debug.Log("Move");
+        Debug.Log("Move, " + speed);
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
         //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * speed;
         rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * speed);
@@ -111,11 +105,11 @@ public class PlayerController : MonoBehaviour
     // 发射已经吞噬的特殊子弹
     private void FireSpecial(SpecialBullet bullet)
     {
-        Debug.Log("FireSpecial Before");
+        //Debug.Log("FireSpecial Before");
         if(bullet == null) return;
 
 
-        Debug.Log("FireSpecial End");
+        //Debug.Log("FireSpecial End");
 
         // Get mouse world direction
         Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -166,8 +160,8 @@ public class PlayerController : MonoBehaviour
         if (swallowBullet != null)
         {
             
-            Debug.Log("射击已经吞噬的特殊子弹");
-            Debug.Log("swallowBullet.bulletType: " + swallowBullet.bulletType);
+            //Debug.Log("射击已经吞噬的特殊子弹");
+            //Debug.Log("swallowBullet.bulletType: " + swallowBullet.bulletType);
             FireSpecial(swallowBullet);
 
 
@@ -196,8 +190,8 @@ public class PlayerController : MonoBehaviour
                 swallowBullet = PoolManager.GetInstance().GetObj(swallowBulletType).GetComponent<SpecialBullet>();
 
                 swallowBullet.bulletType = swallowBulletType;
-                Debug.Log("swallowBulletType: " + swallowBulletType);
-                Debug.Log("选择第一个进入吞噬范围内的特殊子弹进行吞噬");
+                //Debug.Log("swallowBulletType: " + swallowBulletType);
+                //Debug.Log("选择第一个进入吞噬范围内的特殊子弹进行吞噬");
 
 
                 PoolManager.GetInstance().ReturnObj(specialBullets[0].bulletType, specialBullets[0].gameObject);
@@ -215,7 +209,7 @@ public class PlayerController : MonoBehaviour
     public void OnCollisionEnter(Collision collision) 
     { 
         
-        Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
+        //Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
         SpecialBullet bullet = collision.collider.gameObject.GetComponent<SpecialBullet>();
         if (bullet != null)
         {
@@ -223,7 +217,7 @@ public class PlayerController : MonoBehaviour
             {
                 specialBullets.Remove(bullet);
             }
-            Debug.Log("有子弹击中了你!!!");
+            //Debug.Log("有子弹击中了你!!!");
             EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
 
 
@@ -239,10 +233,10 @@ public class PlayerController : MonoBehaviour
         SpecialBullet currentBullet = other.GetComponent<SpecialBullet>();
         if (currentBullet != null)
         {
-            Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!In Player OnTriggerEnter: " + other.name);
+            //Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!In Player OnTriggerEnter: " + other.name);
 
 
-            Debug.Log(other.gameObject.GetComponent<SpecialBullet>().bulletType);
+            //Debug.Log(other.gameObject.GetComponent<SpecialBullet>().bulletType);
             specialBullets.Add(other.GetComponent<SpecialBullet>());
         }
     }
@@ -255,17 +249,18 @@ public class PlayerController : MonoBehaviour
         {
             specialBullets.Remove(currentBullet);
         }
-        Debug.Log("In Player OnTriggerExit: " + other.name);
+       // Debug.Log("In Player OnTriggerExit: " + other.name);
     }
     private void Dash()
     {
         
-        Debug.Log("Dash");
+        Debug.Log("Dash, " + dashSpeed);
 
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
-        Debug.Log("MoveDirection: " +  moveDirection);
-        Debug.Log("dashSpeed: " + dashSpeed);
-        transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed;
+        //Debug.Log("MoveDirection: " +  moveDirection);
+        //Debug.Log("dashSpeed: " + dashSpeed);
+        //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed;
+        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed);
     }
 
     

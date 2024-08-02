@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
             if (enemyStaying != null)
             {
                 // 怪物收到玩家造成的该子弹的伤害
-                Debug.Log("playerDamage: " + playerDamage);
+                //Debug.Log("playerDamage: " + playerDamage);
                 enemyStaying.ReceiveDamage(playerDamage);
 
 
@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
             if (enemyChasing != null)
             {
                 // 怪物收到玩家造成的该子弹的伤害
-                Debug.Log("playerDamage: " + playerDamage);
+                //Debug.Log("playerDamage: " + playerDamage);
                 enemyChasing.ReceiveDamage(playerDamage);
 
                 PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
