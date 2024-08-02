@@ -22,6 +22,24 @@ public class Enemy_Chasing : Enemy
 
 
     }
+
+
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    Bullet bullet = other.GetComponent<Bullet>();
+
+    //    if (bullet != null)
+    //    {
+    //        PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
+
+    //        ReceiveDamage(bullet.playerDamage);
+
+    //    }
+    //}
+
+
+
+
     public void ReceiveDamage(float damage)
     {
         if (Enemy_HP == null) return;
@@ -55,6 +73,10 @@ public class Enemy_Chasing : Enemy
 
         SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
         bullet.bulletType = EnemyBulletType;
+
+
+        bullet.Activate();
+
 
         bullet.FireOut(fireOrigin,
                        fireDirection,

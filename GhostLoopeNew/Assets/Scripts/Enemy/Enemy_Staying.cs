@@ -21,17 +21,28 @@ public class Enemy_Staying : Enemy
     //}
 
 
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("In Enemy_Staying OnTriggerEnter:" + other.gameObject.name);
-        Bullet bullet = other.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            Debug.Log("bullet.playerDamage: " +  bullet.playerDamage);
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    Debug.Log("In Enemy_Staying OnTriggerEnter:" + other.gameObject.name);
+    //    Bullet bullet = other.GetComponent<Bullet>();
+    //    if (bullet != null)
+    //    {
+    //        Debug.Log("bullet.playerDamage: " +  bullet.playerDamage);
+    //    }
+    //}
 
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    Bullet bullet = other.GetComponent<Bullet>();
 
+    //    if (bullet != null)
+    //    {
+    //        PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
+
+    //        ReceiveDamage(bullet.playerDamage);
+
+    //    }
+    //}
     public void ReceiveDamage(float damage)
     {
         

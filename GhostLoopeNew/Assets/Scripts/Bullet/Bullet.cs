@@ -14,10 +14,10 @@ public class Bullet : MonoBehaviour
 
     public float playerDamage = 25.0f; // 玩家发出子弹的伤害
 
-    
-    
 
-    // Start is called before the first frame update
+    public bool isSwallowed = false; // 该子弹是否被吞噬
+
+    private bool activated = true;
     private float bulletSpeed;
     private Vector3 fireDirection;
 
@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Flying();
+        if (activated) Flying();
         if (!CheckWithinScreen())
         {
             Debug.Log("OUT OF SCREEN");
@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
         }
 
         // 玩家的子弹击中了敌人
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && isSwallowed == false)
         {
             Enemy_Staying enemyStaying = other.gameObject.GetComponent<Enemy_Staying>();
             Enemy_Chasing enemyChasing = other.gameObject.GetComponent<Enemy_Chasing>();
@@ -61,23 +61,24 @@ public class Bullet : MonoBehaviour
             }
             if (enemyChasing != null)
             {
+
                 // 怪物收到玩家造成的该子弹的伤害
-                //Debug.Log("playerDamage: " + playerDamage);
+                Debug.Log("怪物收到玩家造成的该子弹的伤害: " + playerDamage + " Bullet.IsSwallowed: " + isSwallowed);
                 enemyChasing.ReceiveDamage(playerDamage);
 
                 PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
 
                 //EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, playerDamage);
             }
-            
+
         }
 
-        //// 怪物的子弹击中玩家
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
-            // EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, this);
-        }
+        ////// 怪物的子弹击中玩家
+        //if (other.gameObject.CompareTag("Player"))
+        //{
+        //    //PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
+        //    // EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, this);
+        //}
 
 
 
@@ -114,5 +115,15 @@ public class Bullet : MonoBehaviour
             viewPortPosition.z > 0)
             return true;
         else return false;
+    }
+
+    public void Activate()
+    {
+        activated = true;
+    }
+
+    public void Deactivate()
+    {
+        activated = false;
     }
 }
