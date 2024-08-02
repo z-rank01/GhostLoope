@@ -21,10 +21,18 @@ public class DialogueUI : MonoBehaviour
     public Button ExitGameNo;
 
 
+    public Slider SAN;
+    public Slider Resilience;
+
     // Start is called before the first frame update
     void Start()
     {
-        NewGame.onClick.AddListener(this.Hide);
+
+        SAN.maxValue = GlobalSetting.GetInstance().san;
+
+        Resilience.maxValue = 40;
+
+        NewGame.onClick.AddListener(this.NewGameButtonClicked);
         Setting.onClick.AddListener(this.SettingButtonClicked);
         ExitGame.onClick.AddListener(this.ExitButtonClicked);
         ExitGameYes.onClick.AddListener(this.ExitButtonYesClicked);
@@ -37,30 +45,51 @@ public class DialogueUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        //Debug.Log("In DialogueUI Update: " + SAN.value);
+        SAN.value = Player.GetInstance().GetProperty(E_Property.san);
+        Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
+
+
         MusicManager.GetInstance().ChangeBKValue(MusicSetting.value);
+
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            NewGame.gameObject.SetActive(true);
+            Setting.gameObject.SetActive(true);
+            ExitGame.gameObject.SetActive(true);
+        }
+        //SAN.value = Player.GetInstance().GetProperty(E_Property.san);
+        //Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
         //Debug.Log("Up Music Key Down" + MusicSetting.value);
     }
 
     
     public void SettingButtonClicked()
     {
-        
+        MusicManager.GetInstance().PlaySound("界面选择音");
         SettingImage.gameObject.SetActive(true);
     }
 
 
     public void ExitSettingClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         SettingImage.gameObject.SetActive(false);
     }
     public void ExitButtonClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         ExitImage.gameObject.SetActive(true);
     }
     public void ExitButtonYesClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
+
         #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
         #else
             Application.Quit();
         #endif
@@ -68,6 +97,7 @@ public class DialogueUI : MonoBehaviour
     }
     public void ExitButtonNoClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         ExitImage.gameObject.SetActive(false);
     }
 
@@ -81,8 +111,15 @@ public class DialogueUI : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    public void Hide()
+    public void NewGameButtonClicked()
     {
-        gameObject.SetActive(false);
+        MusicManager.GetInstance().PlaySound("界面选择音");
+        Debug.Log("new GameButtonClicked");
+        MusicManager.GetInstance().PlayBkMusic("第一关-配乐");
+
+        NewGame.gameObject.SetActive(false);
+        Setting.gameObject.SetActive(false);
+        ExitGame.gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

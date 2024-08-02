@@ -7,7 +7,15 @@ using UnityEngine;
 public enum E_PoolType
 {
     SimpleBullet,
-    SpecialBullet,
+
+    FireBullet,
+    ThunderBullet,
+    ExplodeBullet,
+    BurnBullet,
+    IceBullet,
+    PoisonBullet,
+    SpiritPoisonBullet,
+
     Enemy
 }
 

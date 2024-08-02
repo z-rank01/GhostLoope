@@ -165,7 +165,30 @@ public class Player : BaseSingletonMono<Player>
 
     public void PlayerReceiveDamage(SpecialBullet bullet)
     {
-        Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.type);
+        Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.bulletType + bullet.damage);
+
+        playerProperty.SetProperty(E_Property.san, playerProperty.GetProperty(E_Property.san) - bullet.damage);
+
+
+
+        switch (bullet.bulletType)
+        {
+            case E_PoolType.FireBullet:
+                break;
+            case E_PoolType.ThunderBullet:
+                break;
+            case E_PoolType.ExplodeBullet:
+                break;
+            case E_PoolType.BurnBullet:
+                break;
+            case E_PoolType.IceBullet:
+                break;
+            case E_PoolType.PoisonBullet:
+                break;
+            case E_PoolType.SpiritPoisonBullet:
+                
+                break;
+        }
     }
 
 

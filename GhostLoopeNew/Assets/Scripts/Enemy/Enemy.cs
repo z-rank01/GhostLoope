@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    protected NavMeshAgent enemyAgent;
+    
     public float AlertDistance = 5.0f;
     public float AttackDistance = 3.0f;
     public float HP = 100f;
@@ -17,7 +17,14 @@ public class Enemy : MonoBehaviour
 
     public Slider Enemy_HP;
 
-    
+
+    public float FireDelay = 1.0f; // 怪物发射子弹的间隔
+    protected float CurFireDelay = 0.0f;
+
+    public E_PoolType EnemyBulletType; // 怪物发出的子弹类型
+
+
+
     public enum EnemyState
     {
         MovingState,
@@ -26,26 +33,23 @@ public class Enemy : MonoBehaviour
 
     protected EnemyState state;
 
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    enemyAgent = GetComponent<NavMeshAgent>();
-    //    state = EnemyState.MovingState;
-    //    player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-    //    //Collider collider= GetComponent<Collider>();
-    //    //collider.enabled = true;
-    //    //collider.isTrigger = false;
-    //}
-
-    
-    
-
-
-    void OnTriggerEnter(Collider other)
+    public void Start()
     {
-        Debug.Log("In OnTriggerEnter Enemy");
+        //Debug.Log("In Enemy Start");
+        //Enemy_HP = gameObject.AddComponent<Slider>();
+
+        if(Enemy_HP != null ) Enemy_HP.value = Enemy_HP.maxValue = 100;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        
     }
+
+
+    
+    
+
+
+    
     Vector3 FindRandomPosition()
     {
         Vector3 randomDir = new Vector3(Random.Range(-1, 1f), 0, Random.Range(-1, 1f));

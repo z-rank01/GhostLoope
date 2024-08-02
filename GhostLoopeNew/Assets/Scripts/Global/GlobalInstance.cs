@@ -41,6 +41,16 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         eventCenter.Init();
         poolManager.Init();
         poolManager.AddPool(E_PoolType.SimpleBullet, globalSetting.simpleBullet);
+
+
+        // 为对象池添加特殊子弹
+        poolManager.AddPool(E_PoolType.FireBullet, globalSetting.FireBullet);
+        poolManager.AddPool(E_PoolType.ThunderBullet, globalSetting.ThunderBullet);
+        poolManager.AddPool(E_PoolType.ExplodeBullet, globalSetting.ExplodeBullet);
+        poolManager.AddPool(E_PoolType.BurnBullet, globalSetting.BurnBullet);
+        poolManager.AddPool(E_PoolType.IceBullet, globalSetting.IceBullet);
+        poolManager.AddPool(E_PoolType.PoisonBullet, globalSetting.PoisonBullet);
+        poolManager.AddPool(E_PoolType.SpiritPoisonBullet, globalSetting.SpiritPoisonBullet);
     }
 
     private void Start()
