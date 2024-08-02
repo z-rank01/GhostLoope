@@ -64,23 +64,27 @@ public class DialogueUI : MonoBehaviour
     
     public void SettingButtonClicked()
     {
-        
+        MusicManager.GetInstance().PlaySound("界面选择音");
         SettingImage.gameObject.SetActive(true);
     }
 
 
     public void ExitSettingClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         SettingImage.gameObject.SetActive(false);
     }
     public void ExitButtonClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         ExitImage.gameObject.SetActive(true);
     }
     public void ExitButtonYesClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
+
         #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
         #else
             Application.Quit();
         #endif
@@ -88,6 +92,7 @@ public class DialogueUI : MonoBehaviour
     }
     public void ExitButtonNoClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         ExitImage.gameObject.SetActive(false);
     }
 
@@ -103,6 +108,7 @@ public class DialogueUI : MonoBehaviour
     }
     public void NewGameButtonClicked()
     {
+        MusicManager.GetInstance().PlaySound("界面选择音");
         Debug.Log("new GameButtonClicked");
         MusicManager.GetInstance().PlayBkMusic("第一关-配乐");
         gameObject.SetActive(false);

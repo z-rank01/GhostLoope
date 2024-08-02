@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
 
     SpecialBullet swallowBullet; // 所吞噬的特殊子弹
-    bool isSwallowed = false;
     List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
 
     private void Awake()
@@ -85,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
 
         // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 10.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
 
         fireOrigin += new Vector3(0.0f, 5.0f, 0.0f);
 
@@ -118,7 +117,7 @@ public class PlayerController : MonoBehaviour
         fireDirection.y = 0;
 
         // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 10.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
 
 
 
@@ -149,21 +148,18 @@ public class PlayerController : MonoBehaviour
     private void SwallowAndFire()
     {
         Debug.Log("SwallowAndFire");
-        
-        
+
+
         // 如果已经吞噬了特殊子弹，则射击
-        if (isSwallowed)
+        if (swallowBullet != null)
         {
-            if (swallowBullet == null) 
-            {
-                isSwallowed = false;
-            }
-            isSwallowed = false;
+            
             Debug.Log("射击已经吞噬的特殊子弹");
             Debug.Log("swallowBullet.bulletType: " + swallowBullet.bulletType);
             FireSpecial(swallowBullet);
-            //swallowBullet = null;
-            //GameObject.Destroy(swallowBullet);
+
+
+            swallowBullet = null;
         }
         // 否则，进入吞噬判定
         else
@@ -171,6 +167,7 @@ public class PlayerController : MonoBehaviour
             // 选择第一个进入吞噬范围内的特殊子弹进行吞噬
             if (specialBullets.Count > 0)
             {
+                
                 // 吞噬成功减去SAN值
                 float SAN = Player.GetInstance().GetProperty(E_Property.san);
                 float RES = Player.GetInstance().GetProperty(E_Property.resilience);
@@ -182,20 +179,19 @@ public class PlayerController : MonoBehaviour
 
                 E_PoolType swallowBulletType = specialBullets[0].bulletType;
 
+
+                
                 swallowBullet = PoolManager.GetInstance().GetObj(swallowBulletType).GetComponent<SpecialBullet>();
 
                 swallowBullet.bulletType = swallowBulletType;
-
+                Debug.Log("swallowBulletType: " + swallowBulletType);
                 Debug.Log("选择第一个进入吞噬范围内的特殊子弹进行吞噬");
 
 
-
-                GameObject.Destroy(specialBullets[0].gameObject);
-
+                PoolManager.GetInstance().ReturnObj(specialBullets[0].bulletType, specialBullets[0].gameObject);
 
                 specialBullets.RemoveAt(0);
 
-                isSwallowed = true;
             }
         }
 
@@ -211,11 +207,17 @@ public class PlayerController : MonoBehaviour
         SpecialBullet bullet = collision.collider.gameObject.GetComponent<SpecialBullet>();
         if (bullet != null)
         {
+            if (specialBullets.Contains(bullet))
+            {
+                specialBullets.Remove(bullet);
+            }
             Debug.Log("有子弹击中了你!!!");
             EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
 
 
             PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
+
+
         }
 
     }
