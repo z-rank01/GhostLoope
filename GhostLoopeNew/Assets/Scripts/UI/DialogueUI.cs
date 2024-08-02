@@ -55,7 +55,12 @@ public class DialogueUI : MonoBehaviour
         MusicManager.GetInstance().ChangeBKValue(MusicSetting.value);
 
 
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            NewGame.gameObject.SetActive(true);
+            Setting.gameObject.SetActive(true);
+            ExitGame.gameObject.SetActive(true);
+        }
         //SAN.value = Player.GetInstance().GetProperty(E_Property.san);
         //Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
         //Debug.Log("Up Music Key Down" + MusicSetting.value);
@@ -111,6 +116,10 @@ public class DialogueUI : MonoBehaviour
         MusicManager.GetInstance().PlaySound("界面选择音");
         Debug.Log("new GameButtonClicked");
         MusicManager.GetInstance().PlayBkMusic("第一关-配乐");
-        gameObject.SetActive(false);
+
+        NewGame.gameObject.SetActive(false);
+        Setting.gameObject.SetActive(false);
+        ExitGame.gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

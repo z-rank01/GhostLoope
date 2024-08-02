@@ -1,6 +1,7 @@
 using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -33,6 +34,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Update()
+    {
+        float SAN = Player.GetInstance().GetProperty(E_Property.san);
+        if (SAN <= 0)
+        {
+            Destroy(Player.GetInstance().gameObject);
+        }
+    }
 
     // interface
     public void Act(E_InputStatus inputStatus)
