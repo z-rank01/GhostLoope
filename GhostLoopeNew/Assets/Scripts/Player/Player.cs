@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : BaseSingletonMono<Player>
 {
     PlayerProperty playerProperty;
     PlayerStatus playerStatus;
     PlayerController playerController;
+    PlayerAnimator_GhostLoope playerAnimator;
 
     [SerializeField]
     private float gunHeat;  // ∆’Õ®…‰ª˜¿‰»¥ ±º‰
@@ -32,6 +34,7 @@ public class Player : BaseSingletonMono<Player>
         // Mono
         playerProperty = gameObject.AddComponent<PlayerProperty>();
         playerController = gameObject.AddComponent<PlayerController>();
+        playerAnimator = gameObject.AddComponent<PlayerAnimator_GhostLoope>();
 
         // not Mono
         playerStatus = new PlayerStatus();
@@ -61,6 +64,15 @@ public class Player : BaseSingletonMono<Player>
         if (ContainStatus(E_InputStatus.moving))
         {
             playerController.Act(E_InputStatus.moving);
+            playerAnimator.MoveForward();
+            playerAnimator.MoveLeft();
+            playerAnimator.MoveRight();
+        }
+        else
+        {
+            playerAnimator.ClearForwad();
+            playerAnimator.ClearLeft();
+            playerAnimator.ClearRight();
         }
 
         if (ContainStatus(E_InputStatus.firing))
@@ -69,6 +81,7 @@ public class Player : BaseSingletonMono<Player>
             {
                 currGunHeat = gunHeat;
                 playerController.Act(E_InputStatus.firing);
+                playerAnimator.Attack();
             }
                 
         }
@@ -103,8 +116,26 @@ public class Player : BaseSingletonMono<Player>
                 playerProperty.SetProperty(E_Property.resilience, res - 10);
 
                 playerController.Act(E_InputStatus.dashing);
+                playerAnimator.Dash();
             }
         }
+
+        LookAtMouseDirection();
+    }
+
+    private void LookAtMouseDirection()
+    {
+        // Get mouse world direction
+        Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 mouseScreenPostion = Mouse.current.position.ReadValue();
+        mouseScreenPostion.z = screenWorldPos.z;
+        Vector3 mouseWorldPostion = Camera.main.ScreenToWorldPoint(mouseScreenPostion);
+
+        // Set mouse direction
+        Vector3 mouseDirection = mouseWorldPostion - transform.position;
+        //mouseDirection = Vector3.Normalize(mouseDirection);
+        mouseDirection.y = 0;
+        transform.LookAt(mouseDirection);
     }
 
     

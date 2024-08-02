@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     PlayerInputControl playerInputControl;
+    Rigidbody rb;
     
     // temporary variable
     float speed;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerInputControl = new PlayerInputControl();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -58,7 +60,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Move");
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
-        transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * speed;
+        //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * speed;
+        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * speed);
     }
 
     private void Fire()
