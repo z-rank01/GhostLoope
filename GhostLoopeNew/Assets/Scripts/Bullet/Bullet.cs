@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             //PoolManager.GetInstance().ReturnObj(E_PoolType.SimpleBullet, gameObject);
-            // EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, this);
+            //EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, this);
         }
 
 

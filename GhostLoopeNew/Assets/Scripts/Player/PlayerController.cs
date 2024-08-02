@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
     public void OnCollisionEnter(Collision collision) 
     { 
         
-        //Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
+        Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
         SpecialBullet bullet = collision.collider.gameObject.GetComponent<SpecialBullet>();
         if (bullet != null)
         {
