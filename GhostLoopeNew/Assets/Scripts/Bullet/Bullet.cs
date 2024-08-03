@@ -37,6 +37,8 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        if (isSwallowed == true) return; // 吞噬的子弹不需要做碰撞处理
+
         if (other.gameObject.CompareTag("EnvironmentObject"))
         {
             Debug.Log("Collider Boooommm!!");

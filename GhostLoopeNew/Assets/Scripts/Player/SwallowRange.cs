@@ -11,6 +11,10 @@ public class SwallowRange : MonoBehaviour
     private List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
     private bool readyToFire = false;
 
+
+    public Transform swallowedBulletPosition; // 所吞噬的子弹放的位置
+
+
     // 进入吞噬范围，将进入玩家吞噬范围的子弹放入列表
     public void OnTriggerEnter(Collider other)
     {
@@ -54,13 +58,11 @@ public class SwallowRange : MonoBehaviour
 
             swallowedBullet.isSwallowed = true; // 设为已吞噬的子弹
 
+            swallowedBullet.transform.SetParent(swallowedBulletPosition, true);
+            swallowedBullet.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-            swallowedBullet.transform.parent = transform;
-            swallowedBullet.transform.localPosition = Vector3.zero;
+            swallowedBullet.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-
-            //swallowedBullet.transform.position += new Vector3(50, 0, 0);
-            
             specialBullets.RemoveAt(0);
 
             readyToFire = true;
@@ -72,7 +74,10 @@ public class SwallowRange : MonoBehaviour
     {
         Debug.Log("FireSpecial Before");
         if (swallowedBullet == null) return;
-        
+
+        swallowedBullet.transform.SetParent(null); // 发射子弹，将parent设为null
+        swallowedBullet.isSwallowed = false;
+        swallowedBullet.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
 
         Debug.Log("FireSpecial End");
@@ -102,7 +107,7 @@ public class SwallowRange : MonoBehaviour
                                 GlobalSetting.GetInstance().specialBulletSpeed);
 
 
-        swallowedBullet.isSwallowed = false;
+        
 
 
         swallowedBullet = null;
