@@ -5,85 +5,56 @@ using UnityEngine;
 
 public class PlayerAnimator_GhostLoope : PlayerAnimator
 {
+    private float moveFrame = 0;
+    
     public void Move()
     {
-        if (ActInfo.GetInstance().moveDirection.x == 0
-            &&
-            ActInfo.GetInstance().moveDirection.y == 1)
-            animator.SetBool("Forward", true);
-
-        if (ActInfo.GetInstance().moveDirection.x == -1
-            &&
-            ActInfo.GetInstance().moveDirection.y == 0)
-            animator.SetBool("TurnLeft", true);
-
-        if (ActInfo.GetInstance().moveDirection.x == 1
-            &&
-            ActInfo.GetInstance().moveDirection.y == 0)
-            animator.SetBool("TurnLeft", true);
-    }
-
-    public void MoveForward()
-    {
-        if (ActInfo.GetInstance().moveDirection.x == 0 
-            && 
-            ActInfo.GetInstance().moveDirection.y == 1)
-            animator.SetBool("Forward", true);
-    }
-
-    public void MoveLeft()
-    {
-        if (ActInfo.GetInstance().moveDirection.x == -1
-            &&
-            ActInfo.GetInstance().moveDirection.y == 0)
-            animator.SetBool("TurnLeft", true);
-    }
-
-    public void MoveRight()
-    {
-        if (ActInfo.GetInstance().moveDirection.x == 1
-            &&
-            ActInfo.GetInstance().moveDirection.y == 0)
-            animator.SetBool("TurnLeft", true);
+        moveFrame += Time.deltaTime;// * GlobalSetting.GetInstance().playerSpeed / 10;
+        if (moveFrame > 1) moveFrame = 1;
+        SetFloat("Move", moveFrame);
     }
 
     public void Attack()
     {
-        animator.SetBool("Attack", true);
+        SetBool("Attack", true);
     }
 
     public void Dash()
     {
-        animator.SetBool("Dash", true);
+        SetBool("Dash", true);
     }
 
-    public void Clear()
+    public void TakeDamage()
     {
-        animator.SetBool("Forward", false);
-        animator.SetBool("TurnLeft", false);
-        animator.SetBool("TurnRight", false);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Dash", false);
+        SetBool("TakeDamage", true);
     }
 
-    public void ClearForwad()
+    public void Die()
     {
-        animator.SetBool("Forward", false);
+        SetTrigger("Die");
     }
 
-    public void ClearLeft()
-    {
-        animator.SetBool("TurnLeft", false);
-    }
 
-    public void ClearRight()
+    public void Idle()
     {
-        animator.SetBool("TurnRight", false);
+        moveFrame -= Time.deltaTime;// * GlobalSetting.GetInstance().playerSpeed / 10;
+        if (moveFrame < 0) moveFrame = 0;
+        SetFloat("Move", moveFrame);
     }
 
     public void ClearAttack()
     {
-        animator.SetBool("Attack", false);
+        SetBool("Attack", false);
+    }
+
+    public void ClearDash()
+    {
+        SetBool("Dash", false);
+    }
+
+    public void ClearTakeDamage()
+    {
+        SetBool("TakeDamage", false);
     }
 
 }

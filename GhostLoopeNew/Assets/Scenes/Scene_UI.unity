@@ -1069,6 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunHeat: 1
   dashTime: 1
+  swallowTime: 1
   interactTime: 0
 --- !u!114 &298042777
 MonoBehaviour:
@@ -2389,13 +2390,20 @@ MonoBehaviour:
   Setting: {fileID: 502198512}
   SettingImage: {fileID: 1305342031}
   ExitSetting: {fileID: 1636876794}
-  MusicSetting: {fileID: 807001543}
+  BackMusicSlider: {fileID: 0}
+  EnviromentSlider: {fileID: 0}
+  FireSlider: {fileID: 0}
   ExitGame: {fileID: 173266009}
   ExitImage: {fileID: 1293337429}
-  ExitGameYes: {fileID: 1933213519}
-  ExitGameNo: {fileID: 356717465}
   SAN: {fileID: 0}
   Resilience: {fileID: 0}
+  PauseGame: {fileID: 0}
+  ContinueGame: {fileID: 0}
+  OperationGuide: {fileID: 0}
+  MusicSetting: {fileID: 0}
+  ReturnMainMenu: {fileID: 0}
+  GuideImage: {fileID: 0}
+  GuideReturn: {fileID: 0}
 --- !u!1 &653598623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,7 +2601,10 @@ MonoBehaviour:
   bulletType: 0
   damage: 5
   extraDamage: 0
+  extraDamageTime: 0
   playerDamage: 50
+  thunderRadius: 100
+  explodeRadius: 100
   isSwallowed: 0
   BulletParticleSystem: {fileID: 0}
 --- !u!1 &744435265
@@ -5035,6 +5046,7 @@ MonoBehaviour:
   resilience: 40
   playerSpeed: 0.07
   playerDashSpeed: 0.7
+  playerSlowSpeed: 0
 --- !u!4 &1504040242
 Transform:
   m_ObjectHideFlags: 0

@@ -12,8 +12,13 @@ public class Bullet : MonoBehaviour
     public float damage = 5.0f; // 怪物发出子弹的基础伤害
     public float extraDamage = 0.0f; // 怪物发出子弹的额外伤害
 
+    public float extraDamageTime = 0.0f; // 额外伤害持续时间
+
     public float playerDamage = 25.0f; // 玩家发出子弹的伤害
 
+    public float thunderRadius = 100.0f; // 连锁闪电可追踪的最大范围
+
+    public float explodeRadius = 100.0f; // 爆炸范围
 
     public bool isSwallowed = false; // 该子弹是否被吞噬
 
@@ -28,6 +33,10 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if (Time.timeScale == 0.0f) return; //暂停子弹的运动
+
+
         if (activated) Flying();
         if (!CheckWithinScreen())
         {
@@ -54,9 +63,9 @@ public class Bullet : MonoBehaviour
             {
                 // 怪物收到玩家造成的该子弹的伤害
                 //Debug.Log("playerDamage: " + playerDamage);
-                enemyStaying.ReceiveDamage(playerDamage);
+                //enemyStaying.ReceiveDamage(playerDamage);
 
-
+                enemyStaying.EnemyReceiveDamage(this);
                 PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
 
                 //EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, playerDamage);
@@ -66,8 +75,9 @@ public class Bullet : MonoBehaviour
 
                 // 怪物收到玩家造成的该子弹的伤害
                 Debug.Log("怪物收到玩家造成的该子弹的伤害: " + playerDamage + " Bullet.IsSwallowed: " + isSwallowed);
-                enemyChasing.ReceiveDamage(playerDamage);
+                //enemyChasing.ReceiveDamage(playerDamage);
 
+                enemyChasing.EnemyReceiveDamage(this);
                 PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
 
                 //EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, playerDamage);

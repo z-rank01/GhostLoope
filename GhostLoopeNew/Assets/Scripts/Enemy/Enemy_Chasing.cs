@@ -38,61 +38,17 @@ public class Enemy_Chasing : Enemy
     //}
 
 
-
-
-    public void ReceiveDamage(float damage)
-    {
-        if (Enemy_HP == null) return;
-
-
-        Debug.Log("InReceiveDamage");
-        HP -= damage;
-        Enemy_HP.value -= damage;
-        if (HP <= 0)
-        {
-            GameObject.Destroy(gameObject);
-            GameObject.Destroy(Enemy_HP.gameObject);
-        }
-    }
-
-    public void EnemyFire()
-    {
-        Debug.Log("EnemyFire!");
-
-
-        Vector3 playerPosition = Player.GetInstance().transform.position;
-
-
-        // Set fire direction
-        Vector3 fireDirection = playerPosition - transform.position;
-        fireDirection = Vector3.Normalize(fireDirection);
-        fireDirection.y = 0;
-
-        // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
-
-        SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
-        bullet.bulletType = EnemyBulletType;
-
-
-        bullet.Activate();
-
-
-        bullet.FireOut(fireOrigin,
-                       fireDirection,
-                       GlobalSetting.GetInstance().enemyBulletSpeed);
-    }
-
-
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        Debug.Log("In Enemy_Chasing Update");
+       
         if (player == null || enemyAgent == null) return;
         Vector3 playerPosition = player.transform.position;
         float distance = (playerPosition - transform.position).magnitude;
 
-
         if (CurFireDelay > 0) CurFireDelay -= Time.deltaTime;
+
 
         // 进入警戒范围内，追踪玩家
 
@@ -100,6 +56,11 @@ public class Enemy_Chasing : Enemy
         {
             IsFollowPlayer = true;
             enemyAgent.speed = 10;
+
+
+            Debug.Log("enemyAgent: " + enemyAgent);
+
+
             enemyAgent.SetDestination(player.transform.position);
         }
 
