@@ -16,6 +16,9 @@ public class Bullet : MonoBehaviour
 
     public float playerDamage = 25.0f; // 玩家发出子弹的伤害
 
+    public float thunderRadius = 100.0f; // 连锁闪电可追踪的最大范围
+
+    public float explodeRadius = 100.0f; // 爆炸范围
 
     public bool isSwallowed = false; // 该子弹是否被吞噬
 
@@ -30,6 +33,10 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if (Time.timeScale == 0.0f) return; //暂停子弹的运动
+
+
         if (activated) Flying();
         if (!CheckWithinScreen())
         {

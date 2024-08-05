@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     protected float CurFireDelay = 0.0f;
 
     public E_PoolType EnemyBulletType; // 怪物发出的子弹类型
-
+    protected bool isAlreadyChained = false; // 当前怪物是否已经收到了连锁闪电伤害
 
     public enum EnemyState
     {
@@ -67,6 +67,67 @@ public class Enemy : MonoBehaviour
         return HP;
     }
 
+    // 闪电最多还可连锁到count个敌人
+    void ReceiveThunderChainDamage(int count,float damage, float thunderRadius)
+    {
+        if (count <= 0) return;
+
+        isAlreadyChained = true; // 打上标记，防止重复受到伤害
+        SetEnemyHP(GetEnemyHP() - damage);
+
+
+        GameObject[] EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        float minDistance = 100000000.0f;
+        int id = -1;
+        for (int i = 0; i < EnemyArray.Length; i++)
+        {
+            if (EnemyArray[i] == null || EnemyArray[i].GetComponent<Enemy>().isAlreadyChained) continue;
+
+
+            Debug.Log("EnemyArray[i]: " + EnemyArray[i].name);
+            float dis = (EnemyArray[i].transform.position - transform.position).magnitude;
+            Debug.Log("distance: " + dis);
+
+            // 找到距离当前怪物最近的一个怪物
+            if (dis <= thunderRadius && dis < minDistance)
+            {
+                minDistance = dis;
+                id = i;
+            }
+        }
+
+        if (id != -1)
+        {
+            Debug.Log("Next Thunder Enemy:  " + EnemyArray[id].name);
+            EnemyArray[id].GetComponent<Enemy>().ReceiveThunderChainDamage(count-1, damage, thunderRadius);
+        }
+        isAlreadyChained = false; // 取消标记
+        
+    }
+
+    // explodeDamage: 爆炸伤害 explodeRadius: 爆炸半径
+    public void ReceiveExplodeDamage(float explodeDamage, float explodeRadius)
+    {
+        GameObject[] EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < EnemyArray.Length; i++)
+        {
+            if (EnemyArray[i] == null || EnemyArray[i].GetComponent<Enemy>() == this) continue;
+
+            float dis = (EnemyArray[i].transform.position - transform.position).magnitude;
+
+            // 在爆炸范围内的怪物都会受到伤害
+            if (dis <= explodeRadius)
+            {
+                Enemy enemy = EnemyArray[i].GetComponent<Enemy>();
+                enemy.SetEnemyHP(enemy.GetEnemyHP() - explodeDamage);
+
+            }
+        }
+
+    }
+
+
+
     public void EnemyReceiveDamage(Bullet bullet)
     {
         Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
@@ -75,7 +136,7 @@ public class Enemy : MonoBehaviour
 
         SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
 
-
+        
 
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
@@ -87,12 +148,17 @@ public class Enemy : MonoBehaviour
                 break;
             case E_PoolType.ThunderBullet: // 闪电子弹的额外伤害
 
+                ReceiveThunderChainDamage(3, bullet.extraDamage, bullet.thunderRadius);
+                //StartCoroutine(ReceiveExtraDamage(0, bullet.extraDamage, 1));
 
-                StartCoroutine(ReceiveExtraDamage(0, bullet.extraDamage, 1));
-
+                
 
                 break;
             case E_PoolType.ExplodeBullet:
+
+                // 爆炸子弹的AOE伤害，在爆炸范围内的怪物都会受到伤害
+                ReceiveExplodeDamage(bullet.playerDamage, bullet.explodeRadius);
+
                 break;
             case E_PoolType.BurnBullet:
 
@@ -129,27 +195,6 @@ public class Enemy : MonoBehaviour
 
     }
 
-    
-
-
-
-
-
-
-    public void ReceiveDamage(float damage)
-    {
-        if (Enemy_HP == null) return;
-
-
-        Debug.Log("InReceiveDamage");
-        HP -= damage;
-        Enemy_HP.value -= damage;
-        if (HP <= 0)
-        {
-            GameObject.Destroy(gameObject);
-            GameObject.Destroy(Enemy_HP.gameObject);
-        }
-    }
 
     public void EnemyFire()
     {
@@ -165,7 +210,7 @@ public class Enemy : MonoBehaviour
         fireDirection.y = 0;
 
         // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 10.0f;
 
         SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
         bullet.bulletType = EnemyBulletType;
