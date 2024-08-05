@@ -1,29 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI textMeshPro;
     private bool readyToInteract = false;
     private float detectDistance = 5f;
+    public ConversationHUD conversationHUD;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-
+        
     }
+
+    void OnEnable()
+    {
+        // load .txt file
+        conversationHUD.LoadConversation(E_ConversationClip.Passage1);
+    }
+
+    private void OnDisable()
+    {
+        // unload .txt file
+        conversationHUD.UnloadConversation();
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             readyToInteract = true;
             Debug.Log("NPC Status: " + readyToInteract);
-
             // main event
-            textMeshPro.gameObject.SetActive(true);
-            ConversationHUD.GetInstance().LoadConversation(E_ConversationClip.Passage1);
+            conversationHUD.gameObject.SetActive(true);
             EventCenter.GetInstance().AddEventListener(E_Event.Conversation, Conversation);
         }
         
@@ -35,18 +46,16 @@ public class NPC : MonoBehaviour
         {
             readyToInteract = false;
             Debug.Log("NPC Status: " + readyToInteract);
-
             // main event
-            textMeshPro.gameObject.SetActive(false);
-            ConversationHUD.GetInstance().UnloadConversation();
+            conversationHUD.gameObject.SetActive(false);
             EventCenter.GetInstance().RemoveEventListener(E_Event.Conversation, Conversation);
         }
     }
 
     public void Conversation()
     {
-        ConversationHUD.GetInstance().Speak();
-        ConversationHUD.GetInstance().NextLine();
+        conversationHUD.Speak();
+        conversationHUD.NextLine();
     }
 
 
@@ -55,15 +64,4 @@ public class NPC : MonoBehaviour
     {
     }
 
-    private bool CheckRange()
-    {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        if (player != null) return false;
-        
-        Vector3 playerPosition = player.transform.position;
-        float distance = (playerPosition - transform.position).magnitude;
-        
-        if (distance < detectDistance) return true;
-        else return false;
-    }
 }

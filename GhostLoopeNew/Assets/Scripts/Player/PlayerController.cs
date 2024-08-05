@@ -61,6 +61,9 @@ public class PlayerController : MonoBehaviour
             case E_InputStatus.dashing:
                 Dash();
                 break;
+            case E_InputStatus.die:
+                Die();
+                break;
         }
     }
 
@@ -110,7 +113,6 @@ public class PlayerController : MonoBehaviour
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }
 
-    
 
     private void Interact()
     {
@@ -136,30 +138,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-
-
-
-
-    // 进入玩家的碰撞范围, 玩家收到伤害
-    public void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
-
-
-
-        SpecialBullet bullet = other.GetComponent<SpecialBullet>();
-        if (bullet != null && bullet.isSwallowed == false)
-        {
-            swallowRange.RemoveBulleet(bullet);
-            Debug.Log("有子弹击中了你!!!");
-            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
-            PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
-        }
-
-    }
-
-    
+ 
     private void Dash()
     {
         
@@ -177,8 +156,28 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed * posionDirection);
     }
 
+    private void Die()
+    {
+        Destroy(gameObject);
+        // trigger other event
+    }
 
 
+    // 进入玩家的碰撞范围, 玩家收到伤害
+    public void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
+
+        SpecialBullet bullet = other.GetComponent<SpecialBullet>();
+        if (bullet != null && bullet.isSwallowed == false)
+        {
+            swallowRange.RemoveBulleet(bullet);
+            Debug.Log("有子弹击中了你!!!");
+            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
+            PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
+        }
+
+    }
     public void SetSlowSpeed()
     {
         speed = Player.GetInstance().GetProperty(E_Property.slowSpeed);
@@ -192,4 +191,5 @@ public class PlayerController : MonoBehaviour
     {
         isSpiritPosioned = _isSpiritPosioned;
     }
+
 }
