@@ -1,91 +1,145 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MusicManager : BaseSingleton<MusicManager>
 {
-    private AudioSource bkMusic = null; // ±≥æ∞“Ù¿÷◊Èº˛
-    private float bkValue = 1; // ±≥æ∞“Ù¿÷“Ù¡ø [0,1]
+    private AudioSource backgroundMusic = null; // ±≥æ∞“Ù¿÷◊Èº˛
 
-    private float soundValue = 1; // “Ù–ß“Ù¡ø [0,1]
+    //private AudioSource environmnentMusic = null; // ª∑æ≥“Ù¿÷
 
-    private GameObject soundObj = null;
+    //private AudioSource fireMusic = null; // …‰ª˜“Ù¿÷
+
+
+
+    private float backgroundValue = 0.5f; // ±≥æ∞“Ù¿÷“Ù¡ø [0,1]
+
+    private float environmentValue = 0.5f; // “Ù–ß“Ù¡ø [0,1]
+
+
+    private float fireValue = 0.5f; // ±≥æ∞“Ù¿÷“Ù¡ø [0,1]
+
+
+    private GameObject soundObj = new GameObject("Sound");
     private List<AudioSource> soundList = new List<AudioSource>(); // “Ù–ß¡–±Ì
 
     // ≤•∑≈±≥æ∞“Ù¿÷
-    public void PlayBkMusic(string name)
+    public void PlayBackgroundMusic(string name)
     {
-        if (bkMusic == null)
+        if (backgroundMusic == null)
         {
             GameObject obj = new GameObject();
             obj.name = "BKMusic";
-            bkMusic = obj.AddComponent<AudioSource>();
+            backgroundMusic = obj.AddComponent<AudioSource>();
 
             //bkMusic = GameObject.FindGameObjectWithTag("MusicBK").GetComponent<AudioSource>();
             
         }
 
-        ResourcesManager.GetInstance().LoadResourceAsync("Music/BK/" + name, (clip) =>
+        ResourcesManager.GetInstance().LoadResourceAsync("Music/Background/" + name, (clip) =>
         {
-            bkMusic.clip = clip as AudioClip;
-            bkMusic.loop = true;
-            bkMusic.volume = bkValue;
-            bkMusic.Play();
+            backgroundMusic.clip = clip as AudioClip;
+            backgroundMusic.loop = true;
+            backgroundMusic.volume = backgroundValue;
+            backgroundMusic.Play();
         });
 
     }
     // Õ£÷π≤•∑≈±≥æ∞“Ù¿÷
-    public void StopBKMusic()
+    public void StopBackgroundMusic()
     {
-        if (bkMusic == null) return;
-        bkMusic.Stop();
+        if (backgroundMusic == null) return;
+        backgroundMusic.Stop();
     }
-    
-    // ø™ º≤•∑≈∂‘”¶√˚◊÷µƒ“Ù–ß
-    public void PlaySound(string name)
-    {
-        if (soundObj == null)
-        {
-            soundObj = new GameObject();
-            soundObj.name = "Sound";
-        }
 
-        ResourcesManager.GetInstance().LoadResourceAsync("Music/BK/" + name, (clip) =>
+
+
+    
+
+    public void PlayEnvironmentSound(string name)
+    {
+        ResourcesManager.GetInstance().LoadResourceAsync("Music/Environment/" + name, (clip) =>
         {
             AudioSource source = soundObj.AddComponent<AudioSource>();
 
             source.clip = clip as AudioClip;
-            source.volume = soundValue;
+            source.volume = environmentValue;
             source.Play();
 
             soundList.Add(source);
         });
+    }
 
-    }
-    public void StopSound(AudioSource source)
+
+
+
+
+    // ø™ º≤•∑≈…‰ª˜µƒ“Ù–ß
+    public void PlayFireSound(string name)
     {
-        if (soundList.Contains(source))
+
+        ResourcesManager.GetInstance().LoadResourceAsync("Music/Fire/" + name, (clip) =>
         {
-            soundList.Remove(source);
-            source.Stop();
-            GameObject.Destroy(source);
-        }
+            AudioSource source = soundObj.AddComponent<AudioSource>();
+
+            source.clip = clip as AudioClip;
+            source.volume = fireValue;
+            source.Play();
+
+            soundList.Add(source);
+        });
     }
-    public void update()
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //public void StopSound(AudioSource source)
+    //{
+    //    if (soundList.Contains(source))
+    //    {
+    //        soundList.Remove(source);
+    //        source.Stop();
+    //        GameObject.Destroy(source);
+    //    }
+    //}
+    //public void update()
+    //{
+    //    //Debug.Log("Music Update");
+    //    for (int i = soundList.Count - 1; i >= 0; i--)
+    //    {
+    //        if (!soundList[i].isPlaying)
+    //        {
+    //            GameObject.Destroy(soundList[i]);
+    //            soundList.RemoveAt(i);
+    //        }
+    //    }
+    //}
+    public void ChangeBackgroundValue(float value)
     {
-        //Debug.Log("Music Update");
-        for (int i = soundList.Count - 1; i >= 0; i--)
-        {
-            if (!soundList[i].isPlaying)
-            {
-                GameObject.Destroy(soundList[i]);
-                soundList.RemoveAt(i);
-            }
-        }
+        if(backgroundMusic == null) return;
+        backgroundValue = value;
+        backgroundMusic.volume = value;
     }
-    public void ChangeBKValue(float value)
+    public void ChangeEnvironmentValue(float value)
     {
-        if(bkMusic == null) return;
-        bkMusic.volume = value;
+        
+        environmentValue = value;
+        //environmnentMusic.volume = value;
     }
+    public void ChangeFireValue(float value)
+    {
+        fireValue = value;
+        //fireMusic.volume = value;
+    }
+
 }

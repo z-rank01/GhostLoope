@@ -36,4 +36,6 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public float resilience;
     public float playerSpeed;
     public float playerDashSpeed;
+
+    public float playerSlowSpeed; // 玩家受到减速效果的移动速度
 }

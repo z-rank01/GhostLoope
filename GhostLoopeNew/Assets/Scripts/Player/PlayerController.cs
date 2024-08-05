@@ -14,10 +14,14 @@ public class PlayerController : MonoBehaviour
     // temporary variable
     float speed;
     float dashSpeed;
+
+    float slowSpeed;
+
     Vector3 fireDirection;
 
+    bool isSpiritPosioned = false; // 玩家是否受到精神毒素伤害
 
-    //SpecialBullet swallowBullet; // 所吞噬的特殊子弹
+
     SwallowRange swallowRange;
 
     public void Start()
@@ -32,17 +36,10 @@ public class PlayerController : MonoBehaviour
 
         speed = Player.GetInstance().GetProperty(E_Property.speed);
         dashSpeed = Player.GetInstance().GetProperty(E_Property.dashSpeed);
-        //swallowBullet = Player.GetInstance().AddComponent<SpecialBullet>();
+
+        slowSpeed = Player.GetInstance().GetProperty(E_Property.slowSpeed);
     }
 
-    public void Update()
-    {
-        float SAN = Player.GetInstance().GetProperty(E_Property.san);
-        if (SAN <= 0)
-        {
-            Destroy(Player.GetInstance().gameObject);
-        }
-    }
 
     // interface
     public void Act(E_InputStatus inputStatus)
@@ -72,7 +69,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Move, " + speed);
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
         //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * speed;
-        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * speed);
+        float posionDirection = isSpiritPosioned ? -1 : 1; 
+
+        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * speed * posionDirection);
     }
 
     private void Fire()
@@ -104,6 +103,11 @@ public class PlayerController : MonoBehaviour
         bullet.FireOut(fireOrigin, 
                        fireDirection,
                        GlobalSetting.GetInstance().bulletSpeed);
+
+
+        MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
+
+        MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }
 
     
@@ -137,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    // 进入玩家的碰撞范围, 玩家收到傷害
+    // 进入玩家的碰撞范围, 玩家收到伤害
     public void OnTriggerEnter(Collider other)
     {
         //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
@@ -165,8 +169,27 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("MoveDirection: " +  moveDirection);
         //Debug.Log("dashSpeed: " + dashSpeed);
         //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed;
-        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed);
+
+
+        float posionDirection = isSpiritPosioned ? -1 : 1;
+
+
+        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed * posionDirection);
     }
 
-    
+
+
+    public void SetSlowSpeed()
+    {
+        speed = Player.GetInstance().GetProperty(E_Property.slowSpeed);
+    }
+    public void SetNormalSpeed()
+    {
+        speed = Player.GetInstance().GetProperty(E_Property.speed);
+    }
+
+    public void SetIsSpiritPosioned(bool _isSpiritPosioned)
+    {
+        isSpiritPosioned = _isSpiritPosioned;
+    }
 }

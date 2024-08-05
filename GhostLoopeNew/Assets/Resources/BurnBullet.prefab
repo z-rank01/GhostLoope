@@ -119,12 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a6db376faa7064599aa629a513c66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 0
+  bulletType: 4
   damage: 10
   extraDamage: 3
+  extraDamageTime: 3
   playerDamage: 10
   isSwallowed: 0
-  bulletSpeed: 0
   BulletParticleSystem: {fileID: 0}
 --- !u!54 &3978962745837736531
 Rigidbody:

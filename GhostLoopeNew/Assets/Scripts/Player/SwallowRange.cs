@@ -42,8 +42,14 @@ public class SwallowRange : MonoBehaviour
 
     public void SwallowBullet()
     {
+        MusicManager.GetInstance().PlayFireSound("洛普-吸收"); 
+
+
+
+
         if (specialBullets.Count > 0)
         {
+            MusicManager.GetInstance().PlayFireSound("洛普-吸收成功提示"); 
 
             // 吞噬成功减去SAN值
             float SAN = Player.GetInstance().GetProperty(E_Property.san);
@@ -112,6 +118,11 @@ public class SwallowRange : MonoBehaviour
 
         swallowedBullet = null;
         readyToFire = false;
+
+
+
+        MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
+        MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }
 
     public bool ReadyToFire()
