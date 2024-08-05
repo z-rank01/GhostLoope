@@ -337,7 +337,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &401835468
 CapsuleCollider:
@@ -901,7 +901,7 @@ MonoBehaviour:
   playerObject: {fileID: 401835462}
   san: 100
   resilience: 100
-  playerSpeed: 100
+  playerSpeed: 50
   playerDashSpeed: 1000
 --- !u!4 &1782383027
 Transform:
