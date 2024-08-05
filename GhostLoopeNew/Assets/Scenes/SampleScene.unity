@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1257,7 +1257,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleBullet: {fileID: 4334884947890925409, guid: 121ea0888c3fb1a4ea6be7a66bd0507d,
     type: 3}
+  FireBullet: {fileID: 0}
+  ThunderBullet: {fileID: 0}
+  ExplodeBullet: {fileID: 0}
+  BurnBullet: {fileID: 0}
+  IceBullet: {fileID: 0}
+  PoisonBullet: {fileID: 0}
+  SpiritPoisonBullet: {fileID: 0}
   bulletSpeed: 0.1
+  specialBulletSpeed: 0
+  enemyBulletSpeed: 0
   playerObject: {fileID: 1204933552673436504}
   san: 100
   resilience: 100
@@ -1455,7 +1464,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:

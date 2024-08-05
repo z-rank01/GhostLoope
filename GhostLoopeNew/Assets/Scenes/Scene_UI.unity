@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1069,6 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunHeat: 1
   dashTime: 1
+  interactTime: 0
 --- !u!114 &298042777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2393,6 +2394,8 @@ MonoBehaviour:
   ExitImage: {fileID: 1293337429}
   ExitGameYes: {fileID: 1933213519}
   ExitGameNo: {fileID: 356717465}
+  SAN: {fileID: 0}
+  Resilience: {fileID: 0}
 --- !u!1 &653598623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,6 +2594,7 @@ MonoBehaviour:
   damage: 5
   extraDamage: 0
   playerDamage: 50
+  isSwallowed: 0
   BulletParticleSystem: {fileID: 0}
 --- !u!1 &744435265
 GameObject:
@@ -3121,7 +3125,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3764,7 +3769,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3900,7 +3906,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
