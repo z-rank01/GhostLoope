@@ -14,30 +14,32 @@ public class PlayerController : MonoBehaviour
     // temporary variable
     float speed;
     float dashSpeed;
+
+    float slowSpeed;
+
     Vector3 fireDirection;
 
+    bool isSpiritPosioned = false; // 玩家是否受到精神毒素伤害
 
-    SpecialBullet swallowBullet; // 所吞噬的特殊子弹
-    List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
+
+    SwallowRange swallowRange;
 
     public void Start()
     {
         playerInputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody>();
 
+        if (GameObject.Find("SwallowRange") != null)
+        {
+            swallowRange = GameObject.Find("SwallowRange").GetComponent<SwallowRange>();
+        }
+
         speed = Player.GetInstance().GetProperty(E_Property.speed);
         dashSpeed = Player.GetInstance().GetProperty(E_Property.dashSpeed);
-        //swallowBullet = Player.GetInstance().AddComponent<SpecialBullet>();
+
+        slowSpeed = Player.GetInstance().GetProperty(E_Property.slowSpeed);
     }
 
-    public void Update()
-    {
-        float SAN = Player.GetInstance().GetProperty(E_Property.san);
-        if (SAN <= 0)
-        {
-            Destroy(Player.GetInstance().gameObject);
-        }
-    }
 
     // interface
     public void Act(E_InputStatus inputStatus)
@@ -67,7 +69,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Move, " + speed);
         Vector2 moveDirection = ActInfo.GetInstance().moveDirection;
         //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * speed;
-        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * speed);
+        float posionDirection = isSpiritPosioned ? -1 : 1; 
+
+        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * speed * posionDirection);
     }
 
     private void Fire()
@@ -96,54 +100,17 @@ public class PlayerController : MonoBehaviour
 
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
         
-
         bullet.FireOut(fireOrigin, 
                        fireDirection,
                        GlobalSetting.GetInstance().bulletSpeed);
+
+
+        MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
+
+        MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }
 
-    // 发射已经吞噬的特殊子弹
-    private void FireSpecial(SpecialBullet bullet)
-    {
-        //Debug.Log("FireSpecial Before");
-        if(bullet == null) return;
-
-
-        //Debug.Log("FireSpecial End");
-
-        // Get mouse world direction
-        Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
-        Vector3 mouseScreenPostion = Mouse.current.position.ReadValue();
-        mouseScreenPostion.z = screenWorldPos.z;
-        Vector3 mouseWorldPostion = Camera.main.ScreenToWorldPoint(mouseScreenPostion);
-
-        // Set fire direction
-        fireDirection = mouseWorldPostion - transform.position;
-        fireDirection = Vector3.Normalize(fireDirection);
-        fireDirection.y = 0;
-
-        // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
-
-
-
-        fireOrigin += new Vector3(0.0f, 5.0f, 0.0f);
-
-
-        //SpecialBullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.FireBullet).GetComponent<SpecialBullet>();
-
-
-        //Debug.Log("Bullet: !!!!!!!!!!!!!!" + bullet);
-        // Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
-
-        // 直接将传入的子弹发射出去
-        bullet.FireOut(fireOrigin,
-                       fireDirection,
-                       GlobalSetting.GetInstance().specialBulletSpeed);
-
-
-        
-    }
+    
 
     private void Interact()
     {
@@ -157,100 +124,42 @@ public class PlayerController : MonoBehaviour
 
 
         // 如果已经吞噬了特殊子弹，则射击
-        if (swallowBullet != null)
+        if (swallowRange.ReadyToFire())
         {
-            
             //Debug.Log("射击已经吞噬的特殊子弹");
-            //Debug.Log("swallowBullet.bulletType: " + swallowBullet.bulletType);
-            FireSpecial(swallowBullet);
-
-
-            swallowBullet = null;
+            swallowRange.FireSpecial();
         }
         // 否则，进入吞噬判定
         else
         {
-            // 选择第一个进入吞噬范围内的特殊子弹进行吞噬
-            if (specialBullets.Count > 0)
-            {
-                
-                // 吞噬成功减去SAN值
-                float SAN = Player.GetInstance().GetProperty(E_Property.san);
-                float RES = Player.GetInstance().GetProperty(E_Property.resilience);
-
-                Player.GetInstance().SetProperty(E_Property.san, SAN - 10);
-                Player.GetInstance().SetProperty(E_Property.resilience, RES + 10);
-
-
-
-                E_PoolType swallowBulletType = specialBullets[0].bulletType;
-
-
-                
-                swallowBullet = PoolManager.GetInstance().GetObj(swallowBulletType).GetComponent<SpecialBullet>();
-
-                swallowBullet.bulletType = swallowBulletType;
-                //Debug.Log("swallowBulletType: " + swallowBulletType);
-                //Debug.Log("选择第一个进入吞噬范围内的特殊子弹进行吞噬");
-
-
-                PoolManager.GetInstance().ReturnObj(specialBullets[0].bulletType, specialBullets[0].gameObject);
-
-                specialBullets.RemoveAt(0);
-
-            }
+            swallowRange.SwallowBullet();
         }
 
     }
 
 
-    
-    // 进入玩家本身碰撞体的范围
-    public void OnCollisionEnter(Collision collision) 
-    { 
-        
-        Debug.Log("In Player OnCollisionEnter: " + collision.collider.name);
-        SpecialBullet bullet = collision.collider.gameObject.GetComponent<SpecialBullet>();
-        if (bullet != null)
-        {
-            if (specialBullets.Contains(bullet))
-            {
-                specialBullets.Remove(bullet);
-            }
-            //Debug.Log("有子弹击中了你!!!");
-            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
 
 
-            PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
 
-
-        }
-
-    }
-    // 进入吞噬范围, 将进入吞噬范围内的子弹放入列表d
+    // 进入玩家的碰撞范围, 玩家收到伤害
     public void OnTriggerEnter(Collider other)
     {
-        SpecialBullet currentBullet = other.GetComponent<SpecialBullet>();
-        if (currentBullet != null)
+        //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
+
+
+
+        SpecialBullet bullet = other.GetComponent<SpecialBullet>();
+        if (bullet != null && bullet.isSwallowed == false)
         {
-            //Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!In Player OnTriggerEnter: " + other.name);
-
-
-            //Debug.Log(other.gameObject.GetComponent<SpecialBullet>().bulletType);
-            specialBullets.Add(other.GetComponent<SpecialBullet>());
+            swallowRange.RemoveBulleet(bullet);
+            Debug.Log("有子弹击中了你!!!");
+            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
+            PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
         }
+
     }
 
-    // 退出吞噬范围，将退出吞噬范围内的子弹移除列表
-    public void OnTriggerExit(Collider other)
-    {
-        SpecialBullet currentBullet = other.GetComponent<SpecialBullet>();
-        if (currentBullet != null && specialBullets.Contains(currentBullet))
-        {
-            specialBullets.Remove(currentBullet);
-        }
-       // Debug.Log("In Player OnTriggerExit: " + other.name);
-    }
+    
     private void Dash()
     {
         
@@ -260,8 +169,27 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("MoveDirection: " +  moveDirection);
         //Debug.Log("dashSpeed: " + dashSpeed);
         //transform.position += new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed;
-        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed);
+
+
+        float posionDirection = isSpiritPosioned ? -1 : 1;
+
+
+        rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed * posionDirection);
     }
 
-    
+
+
+    public void SetSlowSpeed()
+    {
+        speed = Player.GetInstance().GetProperty(E_Property.slowSpeed);
+    }
+    public void SetNormalSpeed()
+    {
+        speed = Player.GetInstance().GetProperty(E_Property.speed);
+    }
+
+    public void SetIsSpiritPosioned(bool _isSpiritPosioned)
+    {
+        isSpiritPosioned = _isSpiritPosioned;
+    }
 }

@@ -20,6 +20,9 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
     void Awake()
     {
+        //Time.timeScale = 0.0f; //默认停止游戏，点击新游戏后开始游戏
+
+
         // global initialization
         Init();
         globalSetting.Init();
@@ -56,6 +59,9 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
     private void Start()
     {
+        //Time.timeScale = 0; // 默认暂停游戏，按新游戏后设置为1正常继续游戏
+
+
         inputController.Start();
 
         // Set up property
@@ -64,6 +70,8 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         SetProperty(E_Property.resilience, GlobalSetting.GetInstance().resilience);
         SetProperty(E_Property.speed, GlobalSetting.GetInstance().playerSpeed);
         SetProperty(E_Property.dashSpeed, GlobalSetting.GetInstance().playerDashSpeed);
+
+        SetProperty(E_Property.slowSpeed, GlobalSetting.GetInstance().playerSlowSpeed);
     }
 
     void Update()

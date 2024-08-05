@@ -18,7 +18,7 @@ public class SpecialBullet : Bullet
 
 
     
-
+    
 
     //public BulletType type = BulletType.Fire;
     public void PlayParticleSystem()

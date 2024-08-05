@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5950016474528028316}
   - component: {fileID: 2343840555587383846}
   - component: {fileID: 6687750725964819661}
-  - component: {fileID: 2769422392308124926}
   - component: {fileID: 7417412006054554474}
+  - component: {fileID: 3978962745837736531}
   m_Layer: 0
   m_Name: BurnBullet
   m_TagString: Untagged
@@ -107,7 +107,26 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2769422392308124926
+--- !u!114 &7417412006054554474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334884947890925409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a6db376faa7064599aa629a513c66d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletType: 4
+  damage: 10
+  extraDamage: 3
+  extraDamageTime: 3
+  playerDamage: 10
+  isSwallowed: 0
+  BulletParticleSystem: {fileID: 0}
+--- !u!54 &3978962745837736531
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,20 +153,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7417412006054554474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4334884947890925409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a6db376faa7064599aa629a513c66d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletType: 0
-  damage: 10
-  extraDamage: 3
-  playerDamage: 10
-  BulletParticleSystem: {fileID: 0}

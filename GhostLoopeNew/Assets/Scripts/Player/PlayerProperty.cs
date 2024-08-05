@@ -7,7 +7,8 @@ public enum E_Property
     san, 
     resilience, 
     speed,
-    dashSpeed
+    dashSpeed,
+    slowSpeed,
 }
 
 public class PlayerProperty : MonoBehaviour
@@ -21,6 +22,9 @@ public class PlayerProperty : MonoBehaviour
 
     [SerializeField]
     private float dashSpeed;
+
+    [SerializeField]
+    private float slowSpeed;
 
 
     private void Update()
@@ -40,6 +44,8 @@ public class PlayerProperty : MonoBehaviour
                 speed = (float)property;break;
             case E_Property.dashSpeed:
                 dashSpeed = (float)property; break;
+            case E_Property.slowSpeed:
+                slowSpeed = (float)property; break;
         }
     }
 
@@ -55,6 +61,8 @@ public class PlayerProperty : MonoBehaviour
                 return speed;
             case E_Property.dashSpeed:
                 return dashSpeed;
+            case E_Property.slowSpeed:
+                return slowSpeed;
             default:
                 Debug.Log("Fail to get property.");
                 return default(float);
