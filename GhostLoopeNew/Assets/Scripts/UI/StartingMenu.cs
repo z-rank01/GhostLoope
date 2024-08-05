@@ -20,8 +20,6 @@ public class StartingMenu : MonoBehaviour
 
     public Button ExitGame;
     public Image ExitImage;
-    public Button ExitGameYes;
-    public Button ExitGameNo;
 
 
     public Slider SAN;
@@ -38,6 +36,12 @@ public class StartingMenu : MonoBehaviour
     public Button ReturnMainMenu;
 
 
+    // 按下操作指南按钮后出现的两个控件
+    public Image GuideImage;
+    public Button GuideReturn;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,11 +56,6 @@ public class StartingMenu : MonoBehaviour
         ExitSetting.onClick.AddListener(this.ExitSettingClicked);
 
 
-        //ExitGameYes.onClick.AddListener(this.ExitButtonYesClicked);
-        //ExitGameNo.onClick.AddListener(this.ExitButtonNoClicked);
-
-
-
         PauseGame.onClick.AddListener(this.PauseGameClicked);
         ContinueGame.onClick.AddListener(this.ContinueGameClicked);
         OperationGuide.onClick.AddListener(this.OperationGuideClicked);
@@ -64,7 +63,7 @@ public class StartingMenu : MonoBehaviour
         ReturnMainMenu.onClick.AddListener(this.ReturnMainMenuClicked);
 
 
-
+        GuideReturn.onClick.AddListener(this.GuideReturnClicked);
 
         BackMusicSlider.value = 0.5f;
         EnviromentSlider.value = 0.5f;
@@ -104,6 +103,8 @@ public class StartingMenu : MonoBehaviour
     public void NewGameButtonClicked()
     {
         Time.timeScale = 1.0f; // 正常继续游戏
+        Player.GetInstance().enabled = true;
+
 
 
         PlayButtonClickedSound();
@@ -124,6 +125,15 @@ public class StartingMenu : MonoBehaviour
     {
         PlayButtonClickedSound();
         SettingImage.gameObject.SetActive(true);
+
+
+        ContinueGame.gameObject.SetActive(false);
+        OperationGuide.gameObject.SetActive(false);
+        MusicSetting.gameObject.SetActive(false);
+        ReturnMainMenu.gameObject.SetActive(false);
+
+
+
     }
     public void ExitButtonClicked()
     {
@@ -141,7 +151,7 @@ public class StartingMenu : MonoBehaviour
     }
     public void PauseGameClicked()
     {
-        Time.timeScale = 0.0f; // 暂停游戏
+        Time.timeScale = 0.0f; // 暂停游戏，timescale只影响fixupdate，而不影响update和lateupdate
 
         Player.GetInstance().enabled = false;
 
@@ -175,19 +185,43 @@ public class StartingMenu : MonoBehaviour
         MusicSetting.gameObject.SetActive(false);
         ReturnMainMenu.gameObject.SetActive(false);
     }
+
+    //
     public void OperationGuideClicked()
     {
         PlayButtonClickedSound();
-    }
-    //public void PauseGameClicked()
-    //{
 
-    //}
+
+        ContinueGame.gameObject.SetActive(false);
+        OperationGuide.gameObject.SetActive(false);
+        MusicSetting.gameObject.SetActive(false);
+        ReturnMainMenu.gameObject.SetActive(false);
+
+        GuideImage.gameObject.SetActive(true);
+        GuideReturn.gameObject.SetActive(true);
+
+
+    }
+
+
+    public void GuideReturnClicked()
+    {
+        PlayButtonClickedSound();
+
+        ContinueGame.gameObject.SetActive(true);
+        OperationGuide.gameObject.SetActive(true);
+        MusicSetting.gameObject.SetActive(true);
+        ReturnMainMenu.gameObject.SetActive(true);
+
+
+        GuideImage.gameObject.SetActive(false);
+        GuideReturn.gameObject.SetActive(false);
+    }
     public void ReturnMainMenuClicked()
     {
         PlayButtonClickedSound();
 
-
+        PauseGame.gameObject.SetActive(false);
         ContinueGame.gameObject.SetActive(false);
         OperationGuide.gameObject.SetActive(false);
         MusicSetting.gameObject.SetActive(false);
@@ -207,33 +241,14 @@ public class StartingMenu : MonoBehaviour
 
         MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
         SettingImage.gameObject.SetActive(false);
+        
+        if (PauseGame.IsActive())
+        {
+            ContinueGame.gameObject.SetActive(true);
+            OperationGuide.gameObject.SetActive(true);
+            MusicSetting.gameObject.SetActive(true);
+            ReturnMainMenu.gameObject.SetActive(true);
+        }
     }
-    //public void ExitButtonYesClicked()
-    //{
-    //    MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
-
-    //    #if UNITY_EDITOR
-    //    UnityEditor.EditorApplication.isPlaying = false;
-    //    #else
-    //        Application.Quit();
-    //    #endif
-
-    //}
-    //public void ExitButtonNoClicked()
-    //{
-    //    MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
-    //    ExitImage.gameObject.SetActive(false);
-    //}
-
-
-
-
-
-
-
-    //public void Show()
-    //{
-    //    gameObject.SetActive(true);
-    //}
-
+    
 }

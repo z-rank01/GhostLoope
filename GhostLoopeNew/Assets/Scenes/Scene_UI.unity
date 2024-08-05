@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1069,6 +1069,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunHeat: 1
   dashTime: 1
+  swallowTime: 1
+  interactTime: 0
 --- !u!114 &298042777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2388,11 +2390,20 @@ MonoBehaviour:
   Setting: {fileID: 502198512}
   SettingImage: {fileID: 1305342031}
   ExitSetting: {fileID: 1636876794}
-  MusicSetting: {fileID: 807001543}
+  BackMusicSlider: {fileID: 0}
+  EnviromentSlider: {fileID: 0}
+  FireSlider: {fileID: 0}
   ExitGame: {fileID: 173266009}
   ExitImage: {fileID: 1293337429}
-  ExitGameYes: {fileID: 1933213519}
-  ExitGameNo: {fileID: 356717465}
+  SAN: {fileID: 0}
+  Resilience: {fileID: 0}
+  PauseGame: {fileID: 0}
+  ContinueGame: {fileID: 0}
+  OperationGuide: {fileID: 0}
+  MusicSetting: {fileID: 0}
+  ReturnMainMenu: {fileID: 0}
+  GuideImage: {fileID: 0}
+  GuideReturn: {fileID: 0}
 --- !u!1 &653598623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,7 +2601,11 @@ MonoBehaviour:
   bulletType: 0
   damage: 5
   extraDamage: 0
+  extraDamageTime: 0
   playerDamage: 50
+  thunderRadius: 100
+  explodeRadius: 100
+  isSwallowed: 0
   BulletParticleSystem: {fileID: 0}
 --- !u!1 &744435265
 GameObject:
@@ -3121,7 +3136,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3764,7 +3780,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3900,7 +3917,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_sharedMaterial: {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6635423847742661848, guid: ba6cd35daf075784ca2c6436fbcd87aa, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -5028,6 +5046,7 @@ MonoBehaviour:
   resilience: 40
   playerSpeed: 0.07
   playerDashSpeed: 0.7
+  playerSlowSpeed: 0
 --- !u!4 &1504040242
 Transform:
   m_ObjectHideFlags: 0
