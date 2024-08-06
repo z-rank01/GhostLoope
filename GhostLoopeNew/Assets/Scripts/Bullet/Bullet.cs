@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour
                 //enemyChasing.ReceiveDamage(playerDamage);
 
                 enemy.EnemyReceiveDamage(this);
-                PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
+                PoolManager.GetInstance().ReturnObj(bulletType, this.gameObject);
 
                 //EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, playerDamage);
             }

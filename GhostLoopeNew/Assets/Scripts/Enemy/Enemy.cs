@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public float hp = 100f;
     public float fireDelay = 1.0f; // 怪物发射子弹的间隔
     public E_PoolType enemyBulletType; // 怪物发出的子弹类型
+    protected bool receiveDamage = false;
 
     // Animator
     protected Animator animator;
@@ -28,12 +29,12 @@ public class Enemy : MonoBehaviour
     public Slider enemyHp;
 
     // damage receiver
-    ThunderChainDamageReceiver thunderChainDamageReceiver;
-    ExplodeDamageReceiver explodeDamageReceiver;
-    ContinuousDamageReceiver continuousDamageReceiver;
+    protected ThunderChainDamageReceiver thunderChainDamageReceiver;
+    protected ExplodeDamageReceiver explodeDamageReceiver;
+    protected ContinuousDamageReceiver continuousDamageReceiver;
 
 
-    public void Start()
+    protected void Start()
     {
         //Debug.Log("In Enemy Start");
         //Enemy_HP = gameObject.AddComponent<Slider>();
@@ -77,24 +78,11 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void CheckHP()
-    {
-        // 判断怪物是否死亡
-        if (hp <= 0)
-        {
-            MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
-            animator.SetTrigger("Die");
-            gameObject.SetActive(false);
-            enemyHp.gameObject.SetActive(false);
-        }
-    }
-
-
     // interface
     public void SetEnemyHP(float hp)
     {
         this.hp = hp;
-        enemyHp.value = hp;
+        //enemyHp.value = hp;
     }
 
     public float GetEnemyHP()
@@ -105,8 +93,7 @@ public class Enemy : MonoBehaviour
     public void EnemyReceiveDamage(Bullet bullet)
     {
         Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
-        animator.SetBool("TakeDamage", true);
-        
+        receiveDamage = true;        
 
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
@@ -143,8 +130,6 @@ public class Enemy : MonoBehaviour
                 //StartCoroutine(ReceiveSpiritPosionEffect(3.0f));
                 break;
         }
-
-        CheckHP();
     }
 
 
