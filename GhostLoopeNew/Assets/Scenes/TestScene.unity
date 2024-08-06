@@ -13322,8 +13322,6 @@ MonoBehaviour:
   FireSlider: {fileID: 1692602246}
   ExitGame: {fileID: 658595883}
   ExitImage: {fileID: 851109092}
-  ExitGameYes: {fileID: 5686486}
-  ExitGameNo: {fileID: 449118491}
   SAN: {fileID: 1537116004}
   Resilience: {fileID: 829744467}
   PauseGame: {fileID: 1053992064}
@@ -13331,6 +13329,8 @@ MonoBehaviour:
   OperationGuide: {fileID: 1385431049}
   MusicSetting: {fileID: 1529772340}
   ReturnMainMenu: {fileID: 2017319198}
+  GuideImage: {fileID: 0}
+  GuideReturn: {fileID: 0}
 --- !u!1 &1062416041
 GameObject:
   m_ObjectHideFlags: 0
