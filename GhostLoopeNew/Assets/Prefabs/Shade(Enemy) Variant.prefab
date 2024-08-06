@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7849703685797645532, guid: 7266125077e4fc14a9c93c699998d182,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2b7721cdfcc37694a9525183cb8e4664, type: 2}
     - target: {fileID: 7849703685807046328, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
       propertyPath: m_Name
@@ -21,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 7849703685807268696, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7849703685807268696, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
@@ -41,7 +46,7 @@ PrefabInstance:
     - target: {fileID: 7849703685807268696, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 281.3
+      value: 283.8
       objectReference: {fileID: 0}
     - target: {fileID: 7849703685807268696, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
@@ -51,7 +56,7 @@ PrefabInstance:
     - target: {fileID: 7849703685807268696, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 259
+      value: 160.3
       objectReference: {fileID: 0}
     - target: {fileID: 7849703685807268696, guid: 7266125077e4fc14a9c93c699998d182,
         type: 3}
@@ -173,12 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0c2760f422f0d44970d93eb921f25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AlertDistance: 50
-  AttackDistance: 30
-  HP: 100
-  IsFollowPlayer: 0
-  player: {fileID: 0}
-  Enemy_HP: {fileID: 0}
-  FireDelay: 1
-  EnemyBulletType: 1
+  alertDistance: 50
+  attackDistance: 50
+  bulletSpawnDistance: 10
+  hp: 100
+  fireDelay: 1
+  enemyBulletType: 1
+  enemyHp: {fileID: 0}
+  enemyType: 0
+  enemySpeed: 10
   enemyAgent: {fileID: 0}

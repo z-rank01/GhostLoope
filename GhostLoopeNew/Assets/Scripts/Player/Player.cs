@@ -28,11 +28,6 @@ public class Player : BaseSingletonMono<Player>
     private float interactTime;  // 普通射击冷却时间
     private float currinteractTime = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以dash
 
-
-
-
-    
-
     
 
     public void Awake()
@@ -292,5 +287,11 @@ public class Player : BaseSingletonMono<Player>
     public void ClearStatus(E_InputStatus inputStatus)
     {
         playerStatus.ClearStatus(inputStatus);
+    }
+
+    // player info
+    public Transform GetPlayerTransform()
+    {
+        return this.transform;
     }
 }

@@ -57,27 +57,14 @@ public class Bullet : MonoBehaviour
         // 玩家的子弹击中了敌人
         if (other.gameObject.CompareTag("Enemy") && isSwallowed == false)
         {
-            Enemy_Staying enemyStaying = other.gameObject.GetComponent<Enemy_Staying>();
-            Enemy_Chasing enemyChasing = other.gameObject.GetComponent<Enemy_Chasing>();
-            if (enemyStaying != null)
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
             {
-                // 怪物收到玩家造成的该子弹的伤害
-                //Debug.Log("playerDamage: " + playerDamage);
-                //enemyStaying.ReceiveDamage(playerDamage);
-
-                enemyStaying.EnemyReceiveDamage(this);
-                PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
-
-                //EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, playerDamage);
-            }
-            if (enemyChasing != null)
-            {
-
                 // 怪物收到玩家造成的该子弹的伤害
                 Debug.Log("怪物收到玩家造成的该子弹的伤害: " + playerDamage + " Bullet.IsSwallowed: " + isSwallowed);
                 //enemyChasing.ReceiveDamage(playerDamage);
 
-                enemyChasing.EnemyReceiveDamage(this);
+                enemy.EnemyReceiveDamage(this);
                 PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
 
                 //EventCenter.GetInstance().EventTrigger<float>(E_Event.ReceiveDamage, playerDamage);
@@ -96,7 +83,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Boundary"))
         {
-            Debug.Log("OUT OF BOUNDARY");
+            //Debug.Log("OUT OF BOUNDARY");
             PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
         }
     }

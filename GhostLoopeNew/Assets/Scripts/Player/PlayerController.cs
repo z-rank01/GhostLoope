@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         // trigger other event
     }
 
