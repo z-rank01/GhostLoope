@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: 7037138832937195801, guid: ee962d11fdfd95a47840ec0e79ba2482,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7037138832937195801, guid: ee962d11fdfd95a47840ec0e79ba2482,
         type: 3}
@@ -108,7 +108,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7037138832937157945, guid: ee962d11fdfd95a47840ec0e79ba2482,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6696328547134693762}
+      addedObject: {fileID: -3364111005417251243}
   m_SourcePrefab: {fileID: 100100000, guid: ee962d11fdfd95a47840ec0e79ba2482, type: 3}
 --- !u!1 &5668525975817099668 stripped
 GameObject:
@@ -166,7 +166,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.87, z: 0}
---- !u!114 &6696328547134693762
+--- !u!114 &-3364111005417251243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 50
   attackDistance: 50
-  bulletSpawnDistance: 8
+  bulletSpawnDistance: 20
   hp: 100
   fireDelay: 1
   enemyBulletType: 1

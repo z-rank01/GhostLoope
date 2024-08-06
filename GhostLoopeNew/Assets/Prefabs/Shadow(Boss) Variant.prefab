@@ -16,17 +16,17 @@ PrefabInstance:
     - target: {fileID: 1967139626046476692, guid: 78117c38d8820864abd6cb609554aea0,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1967139626046476692, guid: 78117c38d8820864abd6cb609554aea0,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1967139626046476692, guid: 78117c38d8820864abd6cb609554aea0,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1967139626046476692, guid: 78117c38d8820864abd6cb609554aea0,
         type: 3}
@@ -128,14 +128,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0c2760f422f0d44970d93eb921f25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AlertDistance: 200
-  AttackDistance: 100
-  HP: 100
-  IsFollowPlayer: 0
-  player: {fileID: 0}
-  Enemy_HP: {fileID: 0}
-  FireDelay: 3
-  EnemyBulletType: 1
+  alertDistance: 5
+  attackDistance: 3
+  bulletSpawnDistance: 20
+  hp: 100
+  fireDelay: 1
+  enemyBulletType: 0
+  enemyHp: {fileID: 0}
+  enemyType: 0
+  enemySpeed: 10
   enemyAgent: {fileID: 0}
 --- !u!136 &6083410661553806557
 CapsuleCollider:
