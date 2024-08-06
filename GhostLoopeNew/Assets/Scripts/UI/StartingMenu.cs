@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +43,10 @@ public class StartingMenu : MonoBehaviour
 
 
 
+    public Image BlurImage; // 暂停键按下后的模糊图片
+    public Image UpperImage; // 主界面的上半部分
+    public Image LowerImage; // 主界面的下半部分
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,10 +75,23 @@ public class StartingMenu : MonoBehaviour
         FireSlider.value = 0.5f;
     }
 
+    int frame_count = 0;
     // Update is called once per frame
     void Update()
     {
+        
+        // 修改position可以实现图片移动的效果
+        // UpperImage.rectTransform.anchoredPosition += new Vector2(0, 10); 
 
+
+        // 修改rotation实现打开信封的效果
+        if (frame_count >= 0 && frame_count < 90)
+        {
+            frame_count++;
+            UpperImage.rectTransform.localRotation = Quaternion.Euler(frame_count, 0, 0);
+            LowerImage.rectTransform.localRotation = Quaternion.Euler(frame_count * -1, 0, 0);
+        }
+        
 
         SAN.value = Player.GetInstance().GetProperty(E_Property.san);
         Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
@@ -167,6 +185,9 @@ public class StartingMenu : MonoBehaviour
         OperationGuide.gameObject.SetActive(true);
         MusicSetting.gameObject.SetActive(true);
         ReturnMainMenu.gameObject.SetActive(true);
+
+
+        BlurImage.gameObject.SetActive(true);
     }
     public void ContinueGameClicked()
     {
@@ -184,6 +205,9 @@ public class StartingMenu : MonoBehaviour
         OperationGuide.gameObject.SetActive(false);
         MusicSetting.gameObject.SetActive(false);
         ReturnMainMenu.gameObject.SetActive(false);
+
+
+        BlurImage.gameObject.SetActive(false);
     }
 
     //
@@ -227,10 +251,17 @@ public class StartingMenu : MonoBehaviour
         MusicSetting.gameObject.SetActive(false);
         ReturnMainMenu.gameObject.SetActive(false);
 
+        BlurImage.gameObject.SetActive(false);
+
+
 
         NewGame.gameObject.SetActive(true);
         Setting.gameObject.SetActive(true);
         ExitGame.gameObject.SetActive(true);
+
+
+
+
     }
 
 

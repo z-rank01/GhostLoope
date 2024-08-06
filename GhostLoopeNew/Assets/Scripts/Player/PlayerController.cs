@@ -56,10 +56,13 @@ public class PlayerController : MonoBehaviour
                 Interact();
                 break;
             case E_InputStatus.swallowingAndFiring:
-                SwallowAndFire();
+                Swallow();
                 break;
             case E_InputStatus.dashing:
                 Dash();
+                break;
+            case E_InputStatus.die:
+                Die();
                 break;
         }
     }
@@ -76,7 +79,21 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
+        
+
+        if (swallowRange.ReadyToFire())
+        {
+            Debug.Log("发射特殊子弹");
+            swallowRange.FireSpecial();
+            return;
+        }
+
         Debug.Log("Fire");
+
+        Debug.Log("发射普通子弹");
+
+
+
 
         // Get mouse world direction
         Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -98,11 +115,19 @@ public class PlayerController : MonoBehaviour
 
         fireOrigin += new Vector3(0.0f, 5.0f, 0.0f);
 
+
+
+
+       
+        Debug.Log("发射普通子弹");
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
         
         bullet.FireOut(fireOrigin, 
-                       fireDirection,
-                       GlobalSetting.GetInstance().bulletSpeed);
+                        fireDirection,
+                        GlobalSetting.GetInstance().bulletSpeed);
+
+
+
 
 
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
@@ -110,7 +135,6 @@ public class PlayerController : MonoBehaviour
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }
 
-    
 
     private void Interact()
     {
@@ -118,48 +142,35 @@ public class PlayerController : MonoBehaviour
         EventCenter.GetInstance().EventTrigger(E_Event.Conversation);
     }
 
-    private void SwallowAndFire()
+
+    // 右键吞噬
+    private void Swallow()
     {
         Debug.Log("SwallowAndFire");
 
-
-        // 如果已经吞噬了特殊子弹，则射击
-        if (swallowRange.ReadyToFire())
-        {
-            //Debug.Log("射击已经吞噬的特殊子弹");
-            swallowRange.FireSpecial();
-        }
-        // 否则，进入吞噬判定
-        else
+        // 如果没有吞噬子弹，则进行吞噬
+        if (!swallowRange.ReadyToFire())
         {
             swallowRange.SwallowBullet();
         }
 
-    }
 
 
 
-
-
-    // 进入玩家的碰撞范围, 玩家收到伤害
-    public void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
-
-
-
-        SpecialBullet bullet = other.GetComponent<SpecialBullet>();
-        if (bullet != null && bullet.isSwallowed == false)
-        {
-            swallowRange.RemoveBulleet(bullet);
-            Debug.Log("有子弹击中了你!!!");
-            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
-            PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
-        }
+        //// 如果已经吞噬了特殊子弹，则射击
+        //if (swallowRange.ReadyToFire())
+        //{
+        //    //Debug.Log("射击已经吞噬的特殊子弹");
+        //    swallowRange.FireSpecial();
+        //}
+        //// 否则，进入吞噬判定
+        //else
+        //{
+            
+        //}
 
     }
-
-    
+ 
     private void Dash()
     {
         
@@ -177,8 +188,28 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * dashSpeed * posionDirection);
     }
 
+    private void Die()
+    {
+        gameObject.SetActive(false);
+        // trigger other event
+    }
 
 
+    // 进入玩家的碰撞范围, 玩家收到伤害
+    public void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
+
+        SpecialBullet bullet = other.GetComponent<SpecialBullet>();
+        if (bullet != null && bullet.isSwallowed == false)
+        {
+            swallowRange.RemoveBulleet(bullet);
+            Debug.Log("有子弹击中了你!!!");
+            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
+            PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
+        }
+
+    }
     public void SetSlowSpeed()
     {
         speed = Player.GetInstance().GetProperty(E_Property.slowSpeed);
@@ -192,4 +223,5 @@ public class PlayerController : MonoBehaviour
     {
         isSpiritPosioned = _isSpiritPosioned;
     }
+
 }

@@ -12,7 +12,7 @@ public enum E_ConversationClip
     Passage3
 }
 
-public class ConversationHUD : BaseSingletonMono<ConversationHUD>
+public class ConversationHUD : MonoBehaviour
 {
     [SerializeField]
     private TextAsset  currTextAsset;
@@ -25,14 +25,12 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
     string speaker;
     string sentence;
 
-    // Start is called before the first frame update
-    void Awake()
+    void OnEnable()
     {
-        base.Init();
-        gameObject.SetActive(false);
         textParser = new TextParser();
         textMeshPro = GetComponent<TextMeshProUGUI>();
         originParent = this.transform.parent;
+        gameObject.SetActive(false);
     }
 
     // interface
@@ -47,7 +45,7 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
             transform.localPosition = Vector3.zero;
             transform.LookAt(Camera.main.transform);
             //transform.position = Camera.main.WorldToScreenPoint(speakerObj.transform.position);
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
         }
         else
             Debug.LogError("Fail to find speaker! Please Check the text");
@@ -91,11 +89,5 @@ public class ConversationHUD : BaseSingletonMono<ConversationHUD>
     private void GetTextResource(object textAsset)
     {
         currTextAsset = textAsset as TextAsset;
-    }
-
-    private bool CheckLoadingStatus()
-    {
-        if (currTextAsset == null) return false;
-        else return true;
     }
 }

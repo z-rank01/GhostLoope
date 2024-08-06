@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpecialBullet : Bullet
 {
-    public ParticleSystem BulletParticleSystem; // ×Óµ¯ÌØÐ§
+    
 
 
     

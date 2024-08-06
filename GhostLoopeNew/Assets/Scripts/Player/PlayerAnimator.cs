@@ -2,39 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour
+
+public class PlayerAnimator : AnimatorContorller
 {
-    protected Animator animator;
+    private float moveFrame = 0;
 
-    // Start is called before the first frame update
-    void OnEnable()
+    public void Move()
     {
-        animator = GetComponent<Animator>();
+        moveFrame += Time.deltaTime;// * GlobalSetting.GetInstance().playerSpeed / 10;
+        if (moveFrame > 1) moveFrame = 1;
+        SetFloat("Move", moveFrame);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Attack()
     {
-        
+        SetBool("Attack", true);
     }
 
-    public void SetBool(string animationName, bool animatorState)
+    public void Dash()
     {
-        animator.SetBool(animationName, animatorState);
+        SetBool("Dash", true);
     }
 
-    public void SetFloat(string animationName, float animatorValue)
+    public void TakeDamage()
     {
-        animator.SetFloat(animationName, animatorValue);
+        SetBool("TakeDamage", true);
     }
 
-    public void SetInt(string animationName, int animatorValue)
+    public void Die()
     {
-        animator.SetInteger(animationName, animatorValue);
+        SetTrigger("Die");
     }
 
-    public void SetTrigger(string animatioName)
+
+    public void Idle()
     {
-        animator.SetTrigger(animatioName);
+        moveFrame -= Time.deltaTime;// * GlobalSetting.GetInstance().playerSpeed / 10;
+        if (moveFrame < 0) moveFrame = 0;
+        SetFloat("Move", moveFrame);
     }
+
+    public void ClearAttack()
+    {
+        SetBool("Attack", false);
+    }
+
+    public void ClearDash()
+    {
+        SetBool("Dash", false);
+    }
+
+    public void ClearTakeDamage()
+    {
+        SetBool("TakeDamage", false);
+    }
+
 }

@@ -10,7 +10,7 @@ public class Player : BaseSingletonMono<Player>
     PlayerProperty playerProperty;
     PlayerStatus playerStatus;
     PlayerController playerController;
-    PlayerAnimator_GhostLoope playerAnimator;
+    PlayerAnimator playerAnimator;
 
     [SerializeField]
     private float gunHeat;  // 普通射击冷却时间
@@ -28,11 +28,6 @@ public class Player : BaseSingletonMono<Player>
     private float interactTime;  // 普通射击冷却时间
     private float currinteractTime = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以dash
 
-
-
-
-    
-
     
 
     public void Awake()
@@ -43,7 +38,7 @@ public class Player : BaseSingletonMono<Player>
         // Mono
         playerProperty = gameObject.AddComponent<PlayerProperty>();
         playerController = gameObject.AddComponent<PlayerController>();
-        playerAnimator = gameObject.AddComponent<PlayerAnimator_GhostLoope>();
+        playerAnimator = gameObject.AddComponent<PlayerAnimator>();
 
         // not Mono
         playerStatus = new PlayerStatus();
@@ -58,17 +53,9 @@ public class Player : BaseSingletonMono<Player>
 
     public void Update()
     {
-
-
-        // 玩家死亡
-        float SAN = GetProperty(E_Property.san);
-        if (SAN <= 0)
-        {
-            Destroy(gameObject);
-        }
-
-
-
+        // per frame updating
+        TowardMouseDirection();
+        CheckPlayerSan();
 
         // Update coldDown counter
         if (currDashTime > 0) currDashTime -= Time.deltaTime;
@@ -76,15 +63,7 @@ public class Player : BaseSingletonMono<Player>
         if(curSwallowTime > 0)curSwallowTime -= Time.deltaTime;
         if (currinteractTime > 0) currinteractTime -= Time.deltaTime;
 
-
-       
-
-
-
-
-
-
-        // Check action
+        // Check move action
         if (ContainStatus(E_InputStatus.moving))
         {
             playerController.Act(E_InputStatus.moving);
@@ -92,6 +71,7 @@ public class Player : BaseSingletonMono<Player>
         }
         else playerAnimator.Idle();
 
+        // Check fire action
         if (ContainStatus(E_InputStatus.firing))
         {
 
@@ -116,6 +96,7 @@ public class Player : BaseSingletonMono<Player>
         }
         else playerAnimator.ClearAttack();
 
+        // Check interact action
         if (ContainStatus(E_InputStatus.interacting))
         {
             if (CheckInteract())
@@ -127,6 +108,7 @@ public class Player : BaseSingletonMono<Player>
         }
         else playerAnimator.ClearTakeDamage();
 
+        // Check special action
         if (ContainStatus(E_InputStatus.swallowingAndFiring))
         {
             if (CheckSwallowAndFire())
@@ -138,6 +120,7 @@ public class Player : BaseSingletonMono<Player>
         }
         else playerAnimator.ClearTakeDamage();
 
+        // Check dash action
         if (ContainStatus(E_InputStatus.dashing))
         {
             if (CheckDash())
@@ -154,26 +137,17 @@ public class Player : BaseSingletonMono<Player>
         }
         else playerAnimator.ClearDash();
 
-        TowardMouseDirection();
-        //SetForwardDirection();
+        // Check dead action
+        if (ContainStatus(E_InputStatus.die))
+        {
+            playerAnimator.Die();
+            playerController.Act(E_InputStatus.die);
+        }
     }
 
-    private void SetForwardDirection()
-    {
-        // Get mouse world direction
-        Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
-        Vector3 mouseScreenPostion = Mouse.current.position.ReadValue();
-        mouseScreenPostion.z = screenWorldPos.z;
-        Vector3 mouseWorldPostion = Camera.main.ScreenToWorldPoint(mouseScreenPostion);
-        mouseWorldPostion.y = 0;
+    // per frame update function
 
-        // Set mouse direction
-        Vector3 mouseDirection = mouseWorldPostion - transform.position;
-        //mouseDirection = Vector3.Normalize(mouseDirection);
-        //mouseDirection.y = 0;
-        transform.forward = mouseWorldPostion.normalized;
-    }
-
+    // update player's forward direction
     private void TowardMouseDirection()
     {
         // Get mouse world direction
@@ -185,10 +159,15 @@ public class Player : BaseSingletonMono<Player>
         // Set mouse direction
         Vector3 mouseDirection = mouseWorldPostion - transform.position;
         mouseDirection = Vector3.Normalize(mouseDirection);
-        
+
         transform.LookAt(mouseWorldPostion);
-        Debug.Log("Transform looking at: " + mouseWorldPostion);
-        //transform.Rotate(new Vector3(0, -90, 0));
+    }
+
+    // check player's property and colddown counter
+    private void CheckPlayerSan()
+    {
+        if (playerProperty.GetProperty(E_Property.san) <= 0)
+            AddStatus(E_InputStatus.die);
     }
 
     
@@ -197,7 +176,6 @@ public class Player : BaseSingletonMono<Player>
         if (currGunHeat <= 0) return true;
         return false;
     }
-
 
     private bool CheckDash()
     {
@@ -216,6 +194,7 @@ public class Player : BaseSingletonMono<Player>
         return false;
     }
 
+    // Damage Receiver
 
     // 每deltaTime受到一次伤害，每次伤害为extraDamage，共受到count次伤害
     IEnumerator ReceiveExtraDamage(float deltaTime, float extraDamage, int count)
@@ -229,8 +208,6 @@ public class Player : BaseSingletonMono<Player>
             yield return new WaitForSeconds(deltaTime);
         }
     }
-
-
 
     // 玩家受到时长为deltaTime的减速效果
     IEnumerator ReceiveIceEffect(float deltaTime)
@@ -247,53 +224,42 @@ public class Player : BaseSingletonMono<Player>
         playerController.SetIsSpiritPosioned(false);
     }
 
+    IEnumerator ReceiveExplodeEffect(float damage)
+    {
+        float san = playerProperty.GetProperty(E_Property.san);
+        playerProperty.SetProperty(E_Property.san, san - damage);
+        yield return null;
+    }
 
     public void PlayerReceiveDamage(SpecialBullet bullet)
     {
         Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.bulletType + bullet.damage);
 
         playerProperty.SetProperty(E_Property.san, playerProperty.GetProperty(E_Property.san) - bullet.damage);
-
-
-
         switch (bullet.bulletType)
         {
             case E_PoolType.FireBullet:
                 break;
             case E_PoolType.ThunderBullet:
-
-
                 StartCoroutine(ReceiveExtraDamage(0, bullet.extraDamage, 1));
-
-
                 break;
             case E_PoolType.ExplodeBullet:
+                StartCoroutine(ReceiveExplodeEffect(bullet.extraDamage));
                 break;
             case E_PoolType.BurnBullet:
-
                 StartCoroutine(ReceiveExtraDamage(0.5f, 5.0f, 6));
-
                 break;
             case E_PoolType.IceBullet: // 冰弹的减速效果，3秒后消失
                 StartCoroutine(ReceiveIceEffect(3.0f));
                 break;
-
             case E_PoolType.PoisonBullet:
-
-                
                 StartCoroutine(ReceiveExtraDamage(1.0f, 3.0f, 10));
-
-
                 break;
             case E_PoolType.SpiritPoisonBullet:
-
                 StartCoroutine(ReceiveSpiritPosionEffect(3.0f));
                 break;
         }
     }
-
-
-
 
 
 
@@ -329,5 +295,11 @@ public class Player : BaseSingletonMono<Player>
     public void ClearStatus(E_InputStatus inputStatus)
     {
         playerStatus.ClearStatus(inputStatus);
+    }
+
+    // player info
+    public Transform GetPlayerTransform()
+    {
+        return this.transform;
     }
 }

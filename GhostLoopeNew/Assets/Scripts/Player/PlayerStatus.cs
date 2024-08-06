@@ -8,7 +8,8 @@ public enum E_InputStatus
     firing,
     interacting,
     dashing,
-    swallowingAndFiring
+    swallowingAndFiring, 
+    die
 }
 
 public class PlayerStatus
