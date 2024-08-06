@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
-
+        
 
         if (swallowRange.ReadyToFire())
         {

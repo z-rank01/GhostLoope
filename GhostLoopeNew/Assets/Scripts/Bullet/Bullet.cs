@@ -22,18 +22,33 @@ public class Bullet : MonoBehaviour
 
     public bool isSwallowed = false; // 该子弹是否被吞噬
 
+
+    public ParticleSystem BulletParticleSystem; // 子弹特效
+
+    public ParticleSystem[] testParticles = new ParticleSystem[5];
+
     private bool activated = true;
     private float bulletSpeed;
     private Vector3 fireDirection;
 
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        BulletParticleSystem.Play();
+
+
+        //for (int i = 0; i < testParticles.Length; i++)
+        //{
+        //    testParticles[i].Play();
+        //}
+
+
         if (Time.timeScale == 0.0f) return; //暂停子弹的运动
 
 

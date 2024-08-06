@@ -212,7 +212,7 @@ public class Enemy : MonoBehaviour
         // Set fire origin
         Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
 
-        SpecialBullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<SpecialBullet>();
+        Bullet bullet = PoolManager.GetInstance().GetObj(EnemyBulletType).GetComponent<Bullet>();
         bullet.bulletType = EnemyBulletType;
 
 

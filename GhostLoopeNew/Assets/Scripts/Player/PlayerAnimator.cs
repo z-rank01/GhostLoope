@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAnimator : AnimatorContorller
 {
     private float moveFrame = 0;
-    
+
     public void Move()
     {
         moveFrame += Time.deltaTime;// * GlobalSetting.GetInstance().playerSpeed / 10;
