@@ -21905,37 +21905,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 805114008744386906, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
-        type: 3}
-      propertyPath: egglet
-      value: 
-      objectReference: {fileID: 4197403079796030405, guid: 600d53082dcd3f544ae5affcfacbadad,
-        type: 3}
-    - target: {fileID: 805114008744386906, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
-        type: 3}
-      propertyPath: spawnCounter
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 805114008744386906, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
-        type: 3}
-      propertyPath: alertDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 805114008744386906, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
-        type: 3}
-      propertyPath: attackDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 805114008744386906, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
-        type: 3}
-      propertyPath: enemyBulletType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 805114008744386906, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
-        type: 3}
-      propertyPath: bulletSpawnDistance
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7908943668755299464, guid: 5e292eb35232bf747a9e75ccfed8bfbd,
         type: 3}
       propertyPath: m_RootOrder

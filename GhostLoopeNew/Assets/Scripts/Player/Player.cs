@@ -224,6 +224,13 @@ public class Player : BaseSingletonMono<Player>
         playerController.SetIsSpiritPosioned(false);
     }
 
+    IEnumerator ReceiveExplodeEffect(float damage)
+    {
+        float san = playerProperty.GetProperty(E_Property.san);
+        playerProperty.SetProperty(E_Property.san, san - damage);
+        yield return null;
+    }
+
     public void PlayerReceiveDamage(SpecialBullet bullet)
     {
         Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.bulletType + bullet.damage);
@@ -237,6 +244,7 @@ public class Player : BaseSingletonMono<Player>
                 StartCoroutine(ReceiveExtraDamage(0, bullet.extraDamage, 1));
                 break;
             case E_PoolType.ExplodeBullet:
+                StartCoroutine(ReceiveExplodeEffect(bullet.extraDamage));
                 break;
             case E_PoolType.BurnBullet:
                 StartCoroutine(ReceiveExtraDamage(0.5f, 5.0f, 6));

@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
                 break;
 
             case E_PoolType.ExplodeBullet:
-                explodeDamageReceiver.ReceiveDamage(bullet.playerDamage, bullet.explodeRadius);
+                explodeDamageReceiver.ReceiveDamage(bullet);
                 break;
 
             case E_PoolType.BurnBullet:
