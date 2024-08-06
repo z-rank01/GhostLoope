@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
                 Interact();
                 break;
             case E_InputStatus.swallowingAndFiring:
-                SwallowAndFire();
+                Swallow();
                 break;
             case E_InputStatus.dashing:
                 Dash();
@@ -79,7 +79,21 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
+
+
+        if (swallowRange.ReadyToFire())
+        {
+            Debug.Log("发射特殊子弹");
+            swallowRange.FireSpecial();
+            return;
+        }
+
         Debug.Log("Fire");
+
+        Debug.Log("发射普通子弹");
+
+
+
 
         // Get mouse world direction
         Vector3 screenWorldPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -101,11 +115,19 @@ public class PlayerController : MonoBehaviour
 
         fireOrigin += new Vector3(0.0f, 5.0f, 0.0f);
 
+
+
+
+       
+        Debug.Log("发射普通子弹");
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
         
         bullet.FireOut(fireOrigin, 
-                       fireDirection,
-                       GlobalSetting.GetInstance().bulletSpeed);
+                        fireDirection,
+                        GlobalSetting.GetInstance().bulletSpeed);
+
+
+
 
 
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
@@ -120,22 +142,32 @@ public class PlayerController : MonoBehaviour
         EventCenter.GetInstance().EventTrigger(E_Event.Conversation);
     }
 
-    private void SwallowAndFire()
+
+    // 右键吞噬
+    private void Swallow()
     {
         Debug.Log("SwallowAndFire");
 
-
-        // 如果已经吞噬了特殊子弹，则射击
-        if (swallowRange.ReadyToFire())
-        {
-            //Debug.Log("射击已经吞噬的特殊子弹");
-            swallowRange.FireSpecial();
-        }
-        // 否则，进入吞噬判定
-        else
+        // 如果没有吞噬子弹，则进行吞噬
+        if (!swallowRange.ReadyToFire())
         {
             swallowRange.SwallowBullet();
         }
+
+
+
+
+        //// 如果已经吞噬了特殊子弹，则射击
+        //if (swallowRange.ReadyToFire())
+        //{
+        //    //Debug.Log("射击已经吞噬的特殊子弹");
+        //    swallowRange.FireSpecial();
+        //}
+        //// 否则，进入吞噬判定
+        //else
+        //{
+            
+        //}
 
     }
  

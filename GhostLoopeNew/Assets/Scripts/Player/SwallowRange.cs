@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class SwallowRange : MonoBehaviour
 {
-    private Bullet swallowedBullet;
+    public Bullet swallowedBullet;
     private List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
     private bool readyToFire = false;
 
