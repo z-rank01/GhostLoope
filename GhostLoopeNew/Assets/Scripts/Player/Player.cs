@@ -28,11 +28,6 @@ public class Player : BaseSingletonMono<Player>
     private float interactTime;  // 普通射击冷却时间
     private float currinteractTime = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以dash
 
-
-
-
-    
-
     
 
     public void Awake()
@@ -229,6 +224,13 @@ public class Player : BaseSingletonMono<Player>
         playerController.SetIsSpiritPosioned(false);
     }
 
+    IEnumerator ReceiveExplodeEffect(float damage)
+    {
+        float san = playerProperty.GetProperty(E_Property.san);
+        playerProperty.SetProperty(E_Property.san, san - damage);
+        yield return null;
+    }
+
     public void PlayerReceiveDamage(SpecialBullet bullet)
     {
         Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.bulletType + bullet.damage);
@@ -242,6 +244,7 @@ public class Player : BaseSingletonMono<Player>
                 StartCoroutine(ReceiveExtraDamage(0, bullet.extraDamage, 1));
                 break;
             case E_PoolType.ExplodeBullet:
+                StartCoroutine(ReceiveExplodeEffect(bullet.extraDamage));
                 break;
             case E_PoolType.BurnBullet:
                 StartCoroutine(ReceiveExtraDamage(0.5f, 5.0f, 6));
@@ -292,5 +295,11 @@ public class Player : BaseSingletonMono<Player>
     public void ClearStatus(E_InputStatus inputStatus)
     {
         playerStatus.ClearStatus(inputStatus);
+    }
+
+    // player info
+    public Transform GetPlayerTransform()
+    {
+        return this.transform;
     }
 }

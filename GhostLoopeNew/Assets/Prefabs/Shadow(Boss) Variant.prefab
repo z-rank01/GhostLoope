@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1967139626046476692, guid: 78117c38d8820864abd6cb609554aea0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1967139626046476692, guid: 78117c38d8820864abd6cb609554aea0,
         type: 3}
@@ -88,6 +88,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1967139626054237812, guid: 78117c38d8820864abd6cb609554aea0,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 530ef3724ed2ac4458835ad415edf362, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
