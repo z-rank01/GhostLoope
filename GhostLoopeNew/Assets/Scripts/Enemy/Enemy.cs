@@ -12,17 +12,20 @@ public enum E_EnemyType
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Default Setting")]
     // enemy property
     public float alertDistance = 5.0f;
     public float attackDistance = 3.0f;
-    public float bulletSpawnDistance = 20.0f;
+    public float bulletSpawnDistance = 5.0f;
     public float hp = 100f;
     public float fireDelay = 1.0f; // 怪物发射子弹的间隔
     public E_PoolType enemyBulletType; // 怪物发出的子弹类型
+
+    protected float currFireCoolDown = 0.0f;
     protected bool receiveDamage = false;
 
     // Animator
-    protected Animator animator;
+    protected AnimatorController animator;
     protected float moveFrame;
 
     // UI
@@ -43,7 +46,7 @@ public class Enemy : MonoBehaviour
         if(enemyHp != null ) enemyHp.value = enemyHp.maxValue = 100;
         
         // Animator
-        animator = gameObject.GetComponent<Animator>();
+        animator = gameObject.AddComponent<AnimatorController>();
 
         // damage receiver
         thunderChainDamageReceiver = gameObject.AddComponent<ThunderChainDamageReceiver>();

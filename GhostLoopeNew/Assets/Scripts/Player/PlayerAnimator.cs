@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerAnimator : AnimatorContorller
+public class PlayerAnimator : AnimatorController
 {
     private float moveFrame = 0;
 
