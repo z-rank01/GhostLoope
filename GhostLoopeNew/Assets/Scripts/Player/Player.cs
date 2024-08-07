@@ -261,6 +261,11 @@ public class Player : BaseSingletonMono<Player>
         }
     }
 
+    public void PlayerReceiveDamage(float damage)
+    {
+        float san = playerProperty.GetProperty(E_Property.san);
+        playerProperty.SetProperty(E_Property.san, san - damage);
+    }
 
 
     // interface
