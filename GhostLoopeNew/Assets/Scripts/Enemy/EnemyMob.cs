@@ -124,7 +124,6 @@ public class EnemyMob : Enemy
             MusicManager.GetInstance().PlayFireSound("òùòğ¹Ö±¬Õ¨ÒôĞ§");
             animator.SetTrigger("Die");
             gameObject.SetActive(false);
-            //enemyHp.gameObject.SetActive(false);
         }
     }
 }

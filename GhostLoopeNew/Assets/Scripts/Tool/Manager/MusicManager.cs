@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MusicManager : BaseSingleton<MusicManager>
+public class MusicManager : BaseSingletonMono<MusicManager>
 {
     private AudioSource backgroundMusic = null; // 背景音乐组件
 
@@ -21,7 +21,7 @@ public class MusicManager : BaseSingleton<MusicManager>
     private float fireValue = 0.5f; // 背景音乐音量 [0,1]
 
 
-    private GameObject soundObj = new GameObject("Sound");
+    private GameObject soundObj;
     private List<AudioSource> soundList = new List<AudioSource>(); // 音效列表
 
     // 播放背景音乐
@@ -59,6 +59,10 @@ public class MusicManager : BaseSingleton<MusicManager>
 
     public void PlayEnvironmentSound(string name)
     {
+        if (soundObj == null)
+        {
+            soundObj = new GameObject("Sound");
+        }
         ResourcesManager.GetInstance().LoadResourceAsync("Music/Environment/" + name, (clip) =>
         {
             AudioSource source = soundObj.AddComponent<AudioSource>();
@@ -78,6 +82,11 @@ public class MusicManager : BaseSingleton<MusicManager>
     // 开始播放射击的音效
     public void PlayFireSound(string name)
     {
+        if (soundObj == null)
+        {
+            soundObj = new GameObject("Sound");
+        }
+
 
         ResourcesManager.GetInstance().LoadResourceAsync("Music/Fire/" + name, (clip) =>
         {

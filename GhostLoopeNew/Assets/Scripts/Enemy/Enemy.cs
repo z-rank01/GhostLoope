@@ -77,12 +77,20 @@ public class Enemy : MonoBehaviour
                        GlobalSetting.GetInstance().enemyBulletSpeed);
     }
 
-
+    public void SetEnemyHPSlider(bool active)
+    {
+        enemyHp.gameObject.SetActive(active);
+    }
     // interface
     public void SetEnemyHP(float hp)
     {
         this.hp = hp;
-        //enemyHp.value = hp;
+        enemyHp.value = hp;
+
+        if (hp <= 0)
+        {
+            enemyHp.gameObject.SetActive(false);
+        }
     }
 
     public float GetEnemyHP()
@@ -95,11 +103,13 @@ public class Enemy : MonoBehaviour
         Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
         receiveDamage = true;        
 
+        SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
+
+
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
         {
             case E_PoolType.SimpleBullet:
-                SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
                 break;
 
             case E_PoolType.FireBullet:

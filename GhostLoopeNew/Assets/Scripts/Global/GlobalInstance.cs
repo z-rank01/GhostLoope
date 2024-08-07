@@ -30,10 +30,14 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
         // mono
         player = globalSetting.playerObject.GetComponent<Player>();
-        resourcesManager = globalInstance.AddComponent<ResourcesManager>();
-        scenesManager = globalInstance.AddComponent<ScenesManager>();
-        resourcesManager.Init();
-        scenesManager.Init();
+
+
+        // 需要用到场景切换时，自动创建单例对象就可以，会将其加入到donotDestroyOnLoad中
+        
+        //resourcesManager = globalInstance.AddComponent<ResourcesManager>();
+        //scenesManager = globalInstance.AddComponent<ScenesManager>();
+        //resourcesManager.Init();
+        //scenesManager.Init();
 
         // not mono
         inputController = new InputController();
@@ -42,6 +46,8 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         inputController.Init();
         eventCenter.Init();
         poolManager.Init();
+
+        
         poolManager.AddPool(E_PoolType.SimpleBullet, globalSetting.simpleBullet);
 
 

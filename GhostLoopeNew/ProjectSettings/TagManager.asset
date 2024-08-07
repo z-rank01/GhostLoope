@@ -9,6 +9,7 @@ TagManager:
   - EnvironmentObject
   - NPC
   - Enemy
+  - HP
   layers:
   - Default
   - TransparentFX
