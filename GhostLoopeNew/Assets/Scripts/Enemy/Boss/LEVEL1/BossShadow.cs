@@ -84,7 +84,7 @@ public class BossShadow : Enemy
             RestSkill2Status();
 
             // chasing
-            if (currDistance > normalAgent.stoppingDistance)
+            if (normalAgent.enabled != false && currDistance > normalAgent.stoppingDistance)
             {
                 normalAgent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 normalAgent.speed = enemyWalkSpeed;

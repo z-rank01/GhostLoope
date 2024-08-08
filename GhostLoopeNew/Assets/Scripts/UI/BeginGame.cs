@@ -92,9 +92,9 @@ public class BeginGame : MonoBehaviour
             {
                 isReadyToOpenLower = false;
 
-                SceneManager.LoadScene("TestScene");
+                SceneManager.LoadScene("Level1");
 
-                Debug.Log("LoadTestScene End!");
+                Debug.Log("Load Level1 End!");
 
                 //SceneManager.UnloadSceneAsync("BeginGame");
             }

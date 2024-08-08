@@ -20,7 +20,13 @@ public class StartingMenu : MonoBehaviour
     public Slider FireSlider;
 
 
-    public Slider SAN;
+    public Slider San;
+
+    //// 使用两个Slider实现两头变化的血条
+    //public Slider San_left;
+    //public Slider San_Right;
+
+
     public Slider Resilience;
 
 
@@ -69,8 +75,9 @@ public class StartingMenu : MonoBehaviour
         EnemyHpArray = GameObject.FindGameObjectsWithTag("HP");
 
 
+        //San_left.maxValue = GlobalSetting.GetInstance().san / 2;
+        //San_Right.maxValue = GlobalSetting.GetInstance().san / 2;
 
-        SAN.maxValue = GlobalSetting.GetInstance().san;
 
         Resilience.maxValue = 40;
 
@@ -139,7 +146,7 @@ public class StartingMenu : MonoBehaviour
         }
 
         // 将save对象写入json文件
-        string filePath = Application.dataPath + "/StreamingFile" + "/byJson.json";
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
 
         Debug.Log("filePath: " + filePath);
 
@@ -150,11 +157,15 @@ public class StartingMenu : MonoBehaviour
         sw.Write(saveJsonStr);
         sw.Close();
         Debug.Log("End Save!");
+
+
+
+        Debug.Log("StreamingAssetPath: " + Application.streamingAssetsPath);
     }
     
     public void LoadGame()
     {
-        string filePath = Application.dataPath + "/StreamingFile" + "/byJson.json";
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
         if (File.Exists(filePath))
         {
             // 读取json文件
@@ -190,13 +201,16 @@ public class StartingMenu : MonoBehaviour
     }
 
 
-    int FadeAlpha = 255;
+    int FadeAlpha = 10;
     // Update is called once per frame
     void Update()
     {
-        
+        San.value = Player.GetInstance().GetProperty(E_Property.san);
+        //San_left.value = Player.GetInstance().GetProperty(E_Property.san) / 2;
+        //San_Right.value = Player.GetInstance().GetProperty(E_Property.san) / 2;
 
-        SAN.value = Player.GetInstance().GetProperty(E_Property.san);
+        Debug.Log("Resilience.fillRect: " + Resilience.fillRect.transform.position);
+        
         Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
 
 
@@ -208,7 +222,7 @@ public class StartingMenu : MonoBehaviour
         if (FadeAlpha > 0)
         {
             FadeAlpha--;
-            FadeImage.GetComponent<Image>().color = new Color(0, 0, 0, (FadeAlpha * 1.0f /255));
+            FadeImage.GetComponent<Image>().color = new Color(0, 0, 0, (FadeAlpha * 1.0f / 10));
             if (FadeAlpha == 0)
             {
                 GameObject.Destroy(FadeImage);
