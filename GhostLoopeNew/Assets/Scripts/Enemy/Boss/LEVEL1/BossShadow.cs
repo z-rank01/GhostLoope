@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.Rendering;
 
 
 public enum E_ShadowStatus
 {
     skill2,
     skill3, 
-    normal
+    normal, 
+    broken
 }
 
 public class BossShadow : Enemy
@@ -20,15 +22,14 @@ public class BossShadow : Enemy
     public float enemyRunSpeed = 8.0f;
     public NavMeshAgent normalAgent;
     public float skillCoolDown = 5.0f;
-    public E_ShadowStatus shadowStatus;
-
+    
+    private E_ShadowStatus shadowStatus;
     private float currSkillTime;
 
     [Header("Skill 2 Setting")]
     public GameObject leftHandObject;
     public GameObject rightHandObject;
     public GameObject skill2DestinationObject;
-    public Vector3 castDirection;
     public float castRadius = 3.0f;
     public int castTimes = 4;
     public float slashAttackDamage = 10.0f;
@@ -48,6 +49,10 @@ public class BossShadow : Enemy
 
     private GameObject hintRangeObject;
 
+    [Header("Tenacity")]
+    public GameObject tenacityObj;
+    private Tenacity tenacity;
+
     protected new void Start()
     {
         //Debug.Log("In ChasingStart");
@@ -55,7 +60,7 @@ public class BossShadow : Enemy
 
         // ai
         normalAgent = gameObject.AddComponent<NavMeshAgent>();
-        normalAgent.stoppingDistance = 2.0f;
+        normalAgent.stoppingDistance = 3.0f;
         normalAgent.speed = enemyWalkSpeed;
 
         // animation event
@@ -67,7 +72,13 @@ public class BossShadow : Enemy
 
         // status
         shadowStatus = E_ShadowStatus.normal;
-        
+
+        // tenacity
+        tenacity = tenacityObj.GetComponent<Tenacity>();
+        tenacity.Init();
+        tenacity.SetTenacityParent(this.gameObject);
+        tenacityObj.SetActive(false);
+        EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
     }
 
     protected void Update()
@@ -122,6 +133,7 @@ public class BossShadow : Enemy
             if (receiveDamage)
             {
                 animator.SetBool("TakeDamage", true);
+                tenacity.DecreaseTenacity(currReceivedDamage);
                 receiveDamage = false;
             }
             else
@@ -146,6 +158,7 @@ public class BossShadow : Enemy
             }
         }
 
+        // skill3
         if (shadowStatus == E_ShadowStatus.skill3)
         {
             normalAgent.enabled = false;
@@ -153,7 +166,17 @@ public class BossShadow : Enemy
         }
 
 
+        // tenacity
+        if (shadowStatus == E_ShadowStatus.broken)
+        {
+            tenacityObj.SetActive(true);
+            normalAgent.enabled = false;
+            if (!tenacity.CheckBulletOnScene())
+                shadowStatus = E_ShadowStatus.normal;
+        }
+
         SwitchToSkill(currDistance);
+        SwitchToBroken();
         CheckHP();
     }
 
@@ -177,6 +200,12 @@ public class BossShadow : Enemy
 
             currSkillTime = skillCoolDown;
         }
+    }
+
+    private void SwitchToBroken()
+    {
+        if (tenacity.CheckTenacityEqualZero())
+            shadowStatus = E_ShadowStatus.broken;
     }
 
 
@@ -349,6 +378,19 @@ public class BossShadow : Enemy
         reachTarget = false;
     }
 
+    private void OnDrawGizmos()
+    {
+        // for debugging 
+        Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(leftHandObject.transform.position,
+                          //castRadius);
+        //Gizmos.DrawLine(leftHandObject.transform.position, transform.forward);
+
+        //Gizmos.DrawWireSphere(rightHandObject.transform.position,
+                          //castRadius);
+        //Gizmos.DrawLine(rightHandObject.transform.position, transform.forward);
+    }
+
 
     // interface
 
@@ -360,18 +402,18 @@ public class BossShadow : Enemy
     public void LeftSlashAttack(GameObject targetObj)
     {
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
-
+        
         RaycastHit leftHandHitInfo;
         if (Physics.SphereCast(bossShadow.leftHandObject.transform.position, 
                                bossShadow.castRadius,
-                               bossShadow.castDirection, 
+                               targetObj.transform.forward, 
                                out leftHandHitInfo))
         {
-            Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
+            //Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
             GameObject hitObj = leftHandHitInfo.collider.gameObject;
             if (hitObj.tag == "Player")
             {
-                Debug.LogWarning("Hit player!");
+                //Debug.LogWarning("Hit player!");
                 hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
@@ -383,12 +425,13 @@ public class BossShadow : Enemy
         RaycastHit rightHandHitInfo;
         if (Physics.SphereCast(bossShadow.rightHandObject.transform.position, 
                                bossShadow.castRadius,
-                               bossShadow.castDirection, 
+                               targetObj.transform.forward, 
                                out rightHandHitInfo))
         {
             GameObject hitObj = rightHandHitInfo.collider.gameObject;
             if (hitObj.tag == "Player")
             {
+                //Debug.LogWarning("Hit player!");
                 hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
@@ -397,6 +440,21 @@ public class BossShadow : Enemy
     public void SwitchToNormal(GameObject targetObj)
     {
         BossShadow bossShadow = targetObj?.GetComponent<BossShadow>();
-        bossShadow.shadowStatus = E_ShadowStatus.normal;
+        bossShadow.SetNormalStatus();
+    }
+
+    public void SetNormalStatus()
+    {
+        shadowStatus = E_ShadowStatus.normal;
+    }
+
+    public void SetSkill2Status()
+    {
+        shadowStatus = E_ShadowStatus.skill2;
+    }
+
+    public void SetSkill3Status()
+    {
+        shadowStatus = E_ShadowStatus.skill3;
     }
 }

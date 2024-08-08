@@ -1969,7 +1969,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &3620273717240555238
 MonoBehaviour:
@@ -1983,30 +1983,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1346282bd1fe2488f80325ec9fe6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertDistance: 5
-  attackDistance: 3
-  bulletSpawnDistance: 5
+  alertDistance: 10
+  attackDistance: 10
+  bulletSpawnDistance: 4
   hp: 100
-  fireDelay: 3
+  fireDelay: 1
   enemyBulletType: 1
   enemyHp: {fileID: 0}
-  enemyWalkSpeed: 4
-  enemyRunSpeed: 8
+  enemyWalkSpeed: 1
+  enemyRunSpeed: 4
   normalAgent: {fileID: 0}
   skillCoolDown: 5
-  shadowStatus: 0
   leftHandObject: {fileID: 2298220938637750897}
   rightHandObject: {fileID: 205362065136406046}
-  skill2DestinationObject: {fileID: 0}
-  castDirection: {x: 0, y: 0, z: 0}
-  castRadius: 3
+  skill2DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
+    type: 3}
+  castRadius: 2
   castTimes: 4
-  slashAttackDamage: 10
+  slashAttackDamage: 50
   skill2DashingTime: 5
-  hintRangeObject: {fileID: 0}
-  rangeAttackRadius: 5
-  rangeAttackDamage: 40
-  preAttackSeconds: 3
+  hintRangePrefab: {fileID: 8179034662160209601, guid: de7529b0945e01e44958dcba7f6838f1,
+    type: 3}
+  rangeAttackRadius: 7
+  rangeAttackDamage: 100
+  preAttackSeconds: 2
 --- !u!1 &6947269388667330067
 GameObject:
   m_ObjectHideFlags: 0

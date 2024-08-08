@@ -69,7 +69,7 @@ public class Bullet : MonoBehaviour
             PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
         }
 
-        // 玩家的子弹击中了敌人
+        // if hit enemy
         if (other.gameObject.CompareTag("Enemy") && isSwallowed == false)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -87,6 +87,14 @@ public class Bullet : MonoBehaviour
 
         }
 
+        // if hit tenacity
+        if (other.gameObject.CompareTag("Tenacirt"))
+        {
+            Tenacity tenacityShield = other.gameObject.GetComponent<Tenacity>();
+            tenacityShield.ReceiveDamage(this);
+            PoolManager.GetInstance().ReturnObj(bulletType, this.gameObject);
+        }
+
         ////// 怪物的子弹击中玩家
         //if (other.gameObject.CompareTag("Player"))
         //{
@@ -95,7 +103,7 @@ public class Bullet : MonoBehaviour
         //}
 
 
-
+        // if hit wall
         if (other.gameObject.CompareTag("Boundary"))
         {
             //Debug.Log("OUT OF BOUNDARY");

@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     protected float currFireCoolDown = 0.0f;
     protected bool receiveDamage = false;
+    protected float currReceivedDamage;
 
     // Animator
     protected AnimatorController animator;
@@ -103,11 +104,12 @@ public class Enemy : MonoBehaviour
 
     public void EnemyReceiveDamage(Bullet bullet)
     {
-        Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
-        receiveDamage = true;        
+        //Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
 
+        // update property
+        receiveDamage = true;
         SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
-
+        currReceivedDamage = bullet.playerDamage;
 
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
@@ -145,6 +147,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void EnemyReceiveDamage(float damage)
+    {
+        SetEnemyHP(GetEnemyHP() - damage);
+    }
 
-    
 }
