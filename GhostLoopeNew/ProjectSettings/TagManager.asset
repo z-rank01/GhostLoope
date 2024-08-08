@@ -9,6 +9,7 @@ TagManager:
   - EnvironmentObject
   - NPC
   - Enemy
+  - Destination
   layers:
   - Default
   - TransparentFX

@@ -12,17 +12,21 @@ public enum E_EnemyType
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Default Setting")]
     // enemy property
     public float alertDistance = 5.0f;
     public float attackDistance = 3.0f;
-    public float bulletSpawnDistance = 20.0f;
+    public float bulletSpawnDistance = 5.0f;
     public float hp = 100f;
     public float fireDelay = 1.0f; // 怪物发射子弹的间隔
     public E_PoolType enemyBulletType; // 怪物发出的子弹类型
+
+    protected float currFireCoolDown = 0.0f;
     protected bool receiveDamage = false;
+    protected float currReceivedDamage;
 
     // Animator
-    protected Animator animator;
+    protected AnimatorController animator;
     protected float moveFrame;
 
     // UI
@@ -43,7 +47,7 @@ public class Enemy : MonoBehaviour
         if(enemyHp != null ) enemyHp.value = enemyHp.maxValue = 100;
         
         // Animator
-        animator = gameObject.GetComponent<Animator>();
+        animator = gameObject.AddComponent<AnimatorController>();
 
         // damage receiver
         thunderChainDamageReceiver = gameObject.AddComponent<ThunderChainDamageReceiver>();
@@ -77,12 +81,20 @@ public class Enemy : MonoBehaviour
                        GlobalSetting.GetInstance().enemyBulletSpeed);
     }
 
-
+    public void SetEnemyHPSlider(bool active)
+    {
+        enemyHp.gameObject.SetActive(active);
+    }
     // interface
     public void SetEnemyHP(float hp)
     {
         this.hp = hp;
-        //enemyHp.value = hp;
+        enemyHp.value = hp;
+
+        if (hp <= 0)
+        {
+            enemyHp.gameObject.SetActive(false);
+        }
     }
 
     public float GetEnemyHP()
@@ -92,14 +104,17 @@ public class Enemy : MonoBehaviour
 
     public void EnemyReceiveDamage(Bullet bullet)
     {
-        Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
-        receiveDamage = true;        
+        //Debug.Log("In EnemyReceiveDamage + bullet.type: " + bullet.bulletType + bullet.playerDamage);
+
+        // update property
+        receiveDamage = true;
+        SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
+        currReceivedDamage = bullet.playerDamage;
 
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
         {
             case E_PoolType.SimpleBullet:
-                SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
                 break;
 
             case E_PoolType.FireBullet:
@@ -132,6 +147,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void EnemyReceiveDamage(float damage)
+    {
+        SetEnemyHP(GetEnemyHP() - damage);
+    }
 
-    
 }
