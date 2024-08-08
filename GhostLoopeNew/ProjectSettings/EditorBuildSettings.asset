@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/BeginGame.unity
     guid: e3ee5cabc23c43642a3747eba98af1fd
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 08bfb247437a0e540b6df4c781ef7a20
+    path: Assets/Scenes/Level/Level1.unity
+    guid: e8a02036564e33a418a179c51932c308
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d5775e632bc5d5747a53fa713e276b1d,
       type: 2}
