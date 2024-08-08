@@ -1,12 +1,14 @@
+using LitJson;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartingMenu : MonoBehaviour
 {
-    public Button NewGame;
 
 
     public Button Setting;
@@ -16,11 +18,6 @@ public class StartingMenu : MonoBehaviour
     public Slider BackMusicSlider;
     public Slider EnviromentSlider;
     public Slider FireSlider;
-
-
-
-    public Button ExitGame;
-    public Image ExitImage;
 
 
     public Slider SAN;
@@ -44,20 +41,40 @@ public class StartingMenu : MonoBehaviour
 
 
     public Image BlurImage; // 暂停键按下后的模糊图片
-    public Image UpperImage; // 主界面的上半部分
-    public Image LowerImage; // 主界面的下半部分
+
+    public Image FadeImage; // 开始游戏后由黑色逐渐变为透明，显露出场景
+    //public Image UpperImage; // 主界面的上半部分
+    //public Image LowerImage; // 主界面的下半部分
+
+
+
+
+
+    public Button Save;
+    public Button Load;
+
+
+
+
+    GameObject[] EnemyArray;
+
+    GameObject[] EnemyHpArray;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+
+        EnemyHpArray = GameObject.FindGameObjectsWithTag("HP");
+
+
 
         SAN.maxValue = GlobalSetting.GetInstance().san;
 
         Resilience.maxValue = 40;
 
-        NewGame.onClick.AddListener(this.NewGameButtonClicked);
         Setting.onClick.AddListener(this.SettingButtonClicked);
-        ExitGame.onClick.AddListener(this.ExitButtonClicked);
         ExitSetting.onClick.AddListener(this.ExitSettingClicked);
 
 
@@ -70,27 +87,113 @@ public class StartingMenu : MonoBehaviour
 
         GuideReturn.onClick.AddListener(this.GuideReturnClicked);
 
-        BackMusicSlider.value = 0.5f;
-        EnviromentSlider.value = 0.5f;
-        FireSlider.value = 0.5f;
+
+        Save.onClick.AddListener(this.SaveButtonClicked);
+        Load.onClick.AddListener(this.LoadButtonClicked);
+
+
+
+        // 
+        if (BeginGame.isLoadGameClicked)
+        {
+            LoadGame();
+        }
+        if (BeginGame.isNewGameClicked || BeginGame.isLoadGameClicked)
+        {
+            MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
+
+            BeginGame.isNewGameClicked = false;
+            BeginGame.isLoadGameClicked = false;
+
+        }
+
+
+        FadeImage.gameObject.SetActive(true);
     }
 
-    int frame_count = 0;
+
+    public void SaveGame()
+    {
+        // 创建save对象，记录当前场景中要保存的信息
+        Save save = new Save();
+
+        Player player = Player.GetInstance();
+
+
+        save.x = player.transform.position.x;
+        save.y = player.transform.position.y;
+        save.z = player.transform.position.z;
+
+
+        for (int i = 0; i < EnemyArray.Length; i++)
+        {
+            save.EnemyActive.Add(EnemyArray[i].GetComponent<Enemy>().isActiveAndEnabled);
+            Debug.Log("EnemyArray[i]: " + EnemyArray[i].GetComponent<Enemy>().isActiveAndEnabled);
+        }
+
+
+        for (int i = 0; i < EnemyHpArray.Length; i++)
+        {
+            save.EnemyHpActive.Add(EnemyHpArray[i].GetComponent<Slider>().isActiveAndEnabled);
+            Debug.Log("EnemyHpArray[i]: " + EnemyHpArray[i].GetComponent<Slider>().isActiveAndEnabled);
+        }
+
+        // 将save对象写入json文件
+        string filePath = Application.dataPath + "/StreamingFile" + "/byJson.json";
+
+        Debug.Log("filePath: " + filePath);
+
+
+        string saveJsonStr = JsonMapper.ToJson(save);
+
+        StreamWriter sw = new StreamWriter(filePath);
+        sw.Write(saveJsonStr);
+        sw.Close();
+        Debug.Log("End Save!");
+    }
+    
+    public void LoadGame()
+    {
+        string filePath = Application.dataPath + "/StreamingFile" + "/byJson.json";
+        if (File.Exists(filePath))
+        {
+            // 读取json文件
+            StreamReader sr = new StreamReader(filePath);
+
+            string jsonStr = sr.ReadToEnd();
+
+            sr.Close();
+
+            Save save = JsonMapper.ToObject<Save>(jsonStr);
+
+
+            Player player = Player.GetInstance();
+            player.SetTransformPosition(new Vector3((float)save.x, (float)save.y, (float)save.z));
+
+
+            for (int i = 0; i < EnemyArray.Length; i++)
+            {
+                EnemyArray[i].gameObject.SetActive(save.EnemyActive[i]);
+            }
+
+
+            for (int i = 0; i < EnemyArray.Length; i++)
+            {
+                EnemyHpArray[i].gameObject.SetActive(save.EnemyHpActive[i]);
+
+            }
+        }
+        else
+        {
+            Debug.Log("存档文件不存在");
+        }
+    }
+
+
+    int FadeAlpha = 255;
     // Update is called once per frame
     void Update()
     {
-        
-        // 修改position可以实现图片移动的效果
-        // UpperImage.rectTransform.anchoredPosition += new Vector2(0, 10); 
-
-
-        // 修改rotation实现打开信封的效果
-        if (frame_count >= 0 && frame_count < 90)
-        {
-            frame_count++;
-            UpperImage.rectTransform.localRotation = Quaternion.Euler(frame_count, 0, 0);
-            LowerImage.rectTransform.localRotation = Quaternion.Euler(frame_count * -1, 0, 0);
-        }
         
 
         SAN.value = Player.GetInstance().GetProperty(E_Property.san);
@@ -101,14 +204,37 @@ public class StartingMenu : MonoBehaviour
         MusicManager.GetInstance().ChangeEnvironmentValue(EnviromentSlider.value);
         MusicManager.GetInstance().ChangeFireValue(FireSlider.value);
 
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    NewGame.gameObject.SetActive(true);
-        //    Setting.gameObject.SetActive(true);
-        //    ExitGame.gameObject.SetActive(true);
-        //}
-       
+
+        if (FadeAlpha > 0)
+        {
+            FadeAlpha--;
+            FadeImage.GetComponent<Image>().color = new Color(0, 0, 0, (FadeAlpha * 1.0f /255));
+            if (FadeAlpha == 0)
+            {
+                GameObject.Destroy(FadeImage);
+            }
+        }
+
+
     }
+
+
+    public void SaveButtonClicked()
+    {
+        Debug.Log("SaveButtonClicked");
+
+
+        SaveGame();
+
+    }
+    public void LoadButtonClicked()
+    {
+        Debug.Log("In StartingMenu Load Button Clicked");
+
+        LoadGame();
+    }
+
+
 
 
 
@@ -117,9 +243,11 @@ public class StartingMenu : MonoBehaviour
     {
         MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
     }
-
+    
     public void NewGameButtonClicked()
     {
+        SceneManager.LoadScene("TestScene");
+
         Time.timeScale = 1.0f; // 正常继续游戏
         Player.GetInstance().enabled = true;
 
@@ -132,9 +260,7 @@ public class StartingMenu : MonoBehaviour
         Debug.Log("new GameButtonClicked");
         MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
 
-        NewGame.gameObject.SetActive(false);
         Setting.gameObject.SetActive(false);
-        ExitGame.gameObject.SetActive(false);
 
         PauseGame.gameObject.SetActive(true);
     }
@@ -245,22 +371,9 @@ public class StartingMenu : MonoBehaviour
     {
         PlayButtonClickedSound();
 
-        PauseGame.gameObject.SetActive(false);
-        ContinueGame.gameObject.SetActive(false);
-        OperationGuide.gameObject.SetActive(false);
-        MusicSetting.gameObject.SetActive(false);
-        ReturnMainMenu.gameObject.SetActive(false);
-
-        BlurImage.gameObject.SetActive(false);
-
-
-
-        NewGame.gameObject.SetActive(true);
-        Setting.gameObject.SetActive(true);
-        ExitGame.gameObject.SetActive(true);
-
-
-
+        // 回到主界面的场景
+        SceneManager.LoadScene("BeginGame");
+        //SceneManager.UnloadSceneAsync("TestScene");
 
     }
 

@@ -29,7 +29,10 @@ public class Player : BaseSingletonMono<Player>
     private float currinteractTime = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以dash
 
     
-
+    public void SetTransformPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
     public void Awake()
     {
         
