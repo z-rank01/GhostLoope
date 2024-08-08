@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
@@ -111,22 +112,23 @@ public class PlayerController : MonoBehaviour
 
 
         // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 1.0f;
 
-        fireOrigin += new Vector3(0.0f, 5.0f, 0.0f);
+        fireOrigin += new Vector3(0.0f, 1.0f, 0.0f);
 
 
-
+        //Debug.Log("FireOrigin: " + fireOrigin);
 
        
         Debug.Log("∑¢…‰∆’Õ®◊”µØ");
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
+
+
         
+
         bullet.FireOut(fireOrigin, 
                         fireDirection,
                         GlobalSetting.GetInstance().bulletSpeed);
-
-
 
 
 

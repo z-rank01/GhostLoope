@@ -100,11 +100,11 @@ public class SwallowRange : MonoBehaviour
         fireDirection.y = 0;
 
         // Set fire origin
-        Vector3 fireOrigin = transform.position + fireDirection * 20.0f;
+        Vector3 fireOrigin = transform.position + fireDirection * 1.0f;
 
 
 
-        fireOrigin += new Vector3(0.0f, 5.0f, 0.0f);
+        fireOrigin += new Vector3(0.0f, 1.0f, 0.0f);
 
 
         swallowedBullet.Activate();
