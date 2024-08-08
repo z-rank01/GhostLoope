@@ -13,6 +13,7 @@ public enum E_Event
 
     BossShadeStatus2Skill, 
     TenacityReceiveDamage, 
+    TenacityBulletReturn
 }
 
 // 里氏转换原则，基类装子类
