@@ -349,6 +349,19 @@ public class BossShadow : Enemy
         reachTarget = false;
     }
 
+    private void OnDrawGizmos()
+    {
+        // for debugging 
+        Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(leftHandObject.transform.position,
+                          //castRadius);
+        //Gizmos.DrawLine(leftHandObject.transform.position, transform.forward);
+
+        //Gizmos.DrawWireSphere(rightHandObject.transform.position,
+                          //castRadius);
+        //Gizmos.DrawLine(rightHandObject.transform.position, transform.forward);
+    }
+
 
     // interface
 
@@ -360,18 +373,18 @@ public class BossShadow : Enemy
     public void LeftSlashAttack(GameObject targetObj)
     {
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
-
+        
         RaycastHit leftHandHitInfo;
         if (Physics.SphereCast(bossShadow.leftHandObject.transform.position, 
                                bossShadow.castRadius,
-                               bossShadow.castDirection, 
+                               targetObj.transform.forward, 
                                out leftHandHitInfo))
         {
-            Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
+            //Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
             GameObject hitObj = leftHandHitInfo.collider.gameObject;
             if (hitObj.tag == "Player")
             {
-                Debug.LogWarning("Hit player!");
+                //Debug.LogWarning("Hit player!");
                 hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
@@ -383,12 +396,13 @@ public class BossShadow : Enemy
         RaycastHit rightHandHitInfo;
         if (Physics.SphereCast(bossShadow.rightHandObject.transform.position, 
                                bossShadow.castRadius,
-                               bossShadow.castDirection, 
+                               targetObj.transform.forward, 
                                out rightHandHitInfo))
         {
             GameObject hitObj = rightHandHitInfo.collider.gameObject;
             if (hitObj.tag == "Player")
             {
+                //Debug.LogWarning("Hit player!");
                 hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
