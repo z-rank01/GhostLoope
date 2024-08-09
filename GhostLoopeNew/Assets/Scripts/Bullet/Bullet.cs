@@ -88,7 +88,7 @@ public class Bullet : MonoBehaviour
         }
 
         // if hit tenacity
-        if (other.gameObject.CompareTag("Tenacirt"))
+        if (other.gameObject.CompareTag("Tenacity"))
         {
             Tenacity tenacityShield = other.gameObject.GetComponent<Tenacity>();
             tenacityShield.ReceiveDamage(this);

@@ -18,10 +18,10 @@ public class Enemy : MonoBehaviour
     public float attackDistance = 3.0f;
     public float bulletSpawnDistance = 5.0f;
     public float hp = 100f;
-    public float fireDelay = 1.0f; // 怪物发射子弹的间隔
+    public float fireCooldown = 1.0f; // 怪物发射子弹的间隔
     public E_PoolType enemyBulletType; // 怪物发出的子弹类型
 
-    protected float currFireCoolDown = 0.0f;
+    protected float currFireCoolDown;
     protected bool receiveDamage = false;
     protected float currReceivedDamage;
 
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     protected ContinuousDamageReceiver continuousDamageReceiver;
 
 
-    protected void Start()
+    protected void OnEnable()
     {
         //Debug.Log("In Enemy Start");
         //Enemy_HP = gameObject.AddComponent<Slider>();

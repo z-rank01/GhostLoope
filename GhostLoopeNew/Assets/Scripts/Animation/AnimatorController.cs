@@ -71,4 +71,12 @@ public class AnimatorController : MonoBehaviour
         }
         return 0;
     }
+
+    public bool CheckCurrentAnimatorState(string clipName)
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(clipName))
+            return true;
+        else 
+            return false;
+    }
 }

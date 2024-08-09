@@ -5,6 +5,7 @@ public class Tenacity : MonoBehaviour
 {
     [Header("Tenacity Setting")]
     public float tenacity = 100.0f;
+    public float rotateSpeed = 5.0f;
     private float currTenacity;
 
     [Header("Spawn Bullet Setting")]
@@ -16,6 +17,7 @@ public class Tenacity : MonoBehaviour
     private GameObject parentObj;
     private List<Vector3> spawnPosition;
     private int bulletOnScene;
+    private bool hasSpawnedBullet = false;
 
 
     protected void Update()
@@ -25,7 +27,7 @@ public class Tenacity : MonoBehaviour
 
     protected void Rotating()
     {
-        transform.RotateAround(parentObj.transform.position, Vector3.up, Time.time);
+        transform.RotateAround(parentObj.transform.position, Vector3.up, rotateSpeed);
     }
 
     
@@ -38,6 +40,7 @@ public class Tenacity : MonoBehaviour
 
     public void ReceiveDamage(Bullet bullet)
     {
+        //Debug.Log("ReceiveDamage");
         EventCenter.GetInstance().EventTrigger<float>(E_Event.TenacityReceiveDamage, bullet.damage);
     }
 
@@ -54,7 +57,7 @@ public class Tenacity : MonoBehaviour
 
     public void DecreaseTenacity(float damage)
     {
-        currTenacity -= currTenacity > 0 ? damage : 0;
+        currTenacity -= currTenacity - damage >= 0 ? damage : currTenacity;
     }
 
     public bool CheckBulletOnScene()
@@ -67,9 +70,11 @@ public class Tenacity : MonoBehaviour
         return currTenacity <= 0 ? true : false;
     }
 
-    public void RefreshTenacityValue()
+    public void ResetTanacity()
     {
         currTenacity = tenacity;
+        bulletOnScene = 0;
+        hasSpawnedBullet = false;
     }
 
     public void SetTenacityParent(GameObject parentObject)
@@ -88,13 +93,17 @@ public class Tenacity : MonoBehaviour
 
     public void SpawnBullet()
     {
-        bulletOnScene = bulletNumber;
-        for (int i = 0; i < bulletNumber; i++)
+        if (!hasSpawnedBullet)
         {
-            GameObject bulletObj = PoolManager.GetInstance().GetObj(spawnBulletType);
-            bulletObj.AddComponent<BulletCounter>();
-            Bullet bullet = bulletObj.GetComponent<Bullet>();
-            bullet.FireOut(spawnPosition[i], Vector3.zero, 0);
+            bulletOnScene = bulletNumber;
+            for (int i = 0; i < bulletNumber; i++)
+            {
+                GameObject bulletObj = PoolManager.GetInstance().GetObj(spawnBulletType);
+                bulletObj.AddComponent<BulletCounter>();
+                Bullet bullet = bulletObj.GetComponent<Bullet>();
+                bullet.FireOut(spawnPosition[i], Vector3.zero, 0);
+            }
+            hasSpawnedBullet = true;
         }
     }
 }
