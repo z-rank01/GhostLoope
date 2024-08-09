@@ -7181,6 +7181,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boardgame
       objectReference: {fileID: 0}
+    - target: {fileID: 3477205238939057985, guid: 571e6848bb493df4a907b36d631446ea,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.143
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477205238939057985, guid: 571e6848bb493df4a907b36d631446ea,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477205238939057985, guid: 571e6848bb493df4a907b36d631446ea,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.519
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
