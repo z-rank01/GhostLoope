@@ -121,11 +121,10 @@ public class EnemyMob : Enemy
         if (hp <= 0)
         {
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
-            enemyAgent.enabled = false;
 
             // animation
             AddDieAnimationEvent();
-            animator.SetTrigger("GoingToExplode");
+            animator.SetTrigger("Die");
         }
     }
 
@@ -145,6 +144,7 @@ public class EnemyMob : Enemy
     // interface
     public void DisableAfterDie(GameObject targetObj)
     {
+        targetObj.GetComponent<EnemyMob>().enemyAgent.enabled = false;
         targetObj.SetActive(false);
     }
 }

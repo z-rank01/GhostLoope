@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     protected float moveFrame;
 
     // UI
+    public string hpSliderName;
     public Slider enemyHp;
     public Slider enemyRes;
 
@@ -49,16 +50,39 @@ public class Enemy : MonoBehaviour
         //Enemy_HP = gameObject.AddComponent<Slider>();
 
         // UI
-        if (enemyHp != null)
+        GameObject hpSlider = GameObject.Find(hpSliderName);
+        if (hpSlider != null)
         {
-            enemyHp.maxValue = 100; // 先设置max，再设置当前值
-            enemyHp.value = 100;
+            hpSlider.SetActive(true);
+            enemyHp = hpSlider.GetComponent<Slider>();
+            if (enemyHp != null)
+            {
+                enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                enemyHp.value = enemyHp.maxValue;
+            }
+            if (enemyRes != null)
+            {
+                enemyRes.maxValue = 40;
+                enemyRes.value = 40;
+            }
+            HintUI hintUI = hpSlider.GetComponent<HintUI>();
+            if (hintUI != null)
+                hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
         }
-        if (enemyRes != null) 
+        else
         {
-            enemyRes.maxValue = 40;
-            enemyRes.value = 40;
+            if (enemyHp != null)
+            {
+                enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                enemyHp.value = enemyHp.maxValue;
+            }
+            if (enemyRes != null)
+            {
+                enemyRes.maxValue = 40;
+                enemyRes.value = 40;
+            }
         }
+        
 
 
         // Animator
@@ -100,6 +124,8 @@ public class Enemy : MonoBehaviour
     {
         enemyHp.gameObject.SetActive(active);
     }
+
+
     // interface
     public void SetEnemyHP(float hp)
     {
@@ -109,7 +135,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             enemyHp.gameObject.SetActive(false);
-            enemyRes.gameObject.SetActive(false);
+            if(enemyRes != null) enemyRes.gameObject.SetActive(false);
         }
     }
 
@@ -192,4 +218,26 @@ public class Enemy : MonoBehaviour
         SetEnemyHP(GetEnemyHP() - damage);
     }
 
+    public void SetSlider(Slider sanSlider, Slider resilianceSlider)
+    {
+        sanSlider.gameObject.SetActive(true);
+        resilianceSlider.gameObject.SetActive(true);
+
+        enemyHp = sanSlider;
+        enemyRes = resilianceSlider;
+
+        if (enemyHp != null)
+        {
+            enemyHp.maxValue = hp; // 先设置max，再设置当前值
+            enemyHp.value = enemyHp.maxValue;
+        }
+        if (enemyRes != null)
+        {
+            enemyRes.maxValue = 40;
+            enemyRes.value = 40;
+        }
+        HintUI hintUI = enemyHp.GetComponent<HintUI>();
+        if (hintUI != null)
+            hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+    }
 }
