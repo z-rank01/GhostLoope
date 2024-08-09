@@ -35,8 +35,6 @@ public class Player : BaseSingletonMono<Player>
     }
     public void Awake()
     {
-        
-
         Init();
         // Mono
         playerProperty = gameObject.AddComponent<PlayerProperty>();

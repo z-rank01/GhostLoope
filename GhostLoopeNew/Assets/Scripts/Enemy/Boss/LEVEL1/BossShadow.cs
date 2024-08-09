@@ -21,7 +21,6 @@ public class BossShadow : Enemy
     [Header("Boss Shadow Setting")]
     public float enemyWalkSpeed = 4.0f;
     public float enemyRunSpeed = 8.0f;
-    public NavMeshAgent agent;
     public float skillCoolDown = 5.0f;
     public int fireTimes = 3;
 
@@ -57,10 +56,12 @@ public class BossShadow : Enemy
     public GameObject tenacityObj;
     private Tenacity tenacity;
 
-    protected new void Start()
+    private NavMeshAgent agent;
+
+    new protected void OnEnable()
     {
         //Debug.Log("In ChasingStart");
-        base.Start();
+        base.OnEnable();
 
         // ai
         agent = gameObject.AddComponent<NavMeshAgent>();
@@ -68,6 +69,7 @@ public class BossShadow : Enemy
         agent.speed = enemyWalkSpeed;
 
         // animation event
+        AddDieAnimationEvent();
         AddSlashAttackEvent();
 
         // cooldown
@@ -90,7 +92,10 @@ public class BossShadow : Enemy
     protected void Update()
     {
         // cooldown
-        if (currFireCoolDown > 0) currFireCoolDown -= Time.deltaTime;
+        if (!shadowsStatusContainer.Contains(E_ShadowStatus.LOCK))
+        {
+            if (currFireCoolDown > 0) currFireCoolDown -= Time.deltaTime;
+        }
         if (currSkillTime > 0) currSkillTime -= Time.deltaTime;
 
         float currDistance = GetPlayerDistance();
@@ -99,7 +104,7 @@ public class BossShadow : Enemy
         if (shadowsStatusContainer.Contains(E_ShadowStatus.normal) &&
             !shadowsStatusContainer.Contains(E_ShadowStatus.LOCK))
         {
-            ResetSkill2Status();
+            ResetStatus(E_ShadowStatus.skill2);
             // chasing
             if (currDistance > agent.stoppingDistance)
             {
@@ -127,7 +132,7 @@ public class BossShadow : Enemy
                     //animator.SetBool("Attack", true);
                     SimpleFire();
                     currfireTimes++;
-                    currFireCoolDown = fireDelay;
+                    currFireCoolDown = fireCooldown;
                 }
                 else animator.SetBool("Attack", false);
             }
@@ -176,42 +181,118 @@ public class BossShadow : Enemy
         // tenacity
         if (shadowsStatusContainer.Contains(E_ShadowStatus.broken))
         {
-            tenacityObj.SetActive(true);
             agent.enabled = false;
+
+            tenacityObj.SetActive(true);
+            tenacity.SpawnBullet();
+            
             if (!tenacity.CheckBulletOnScene())
             {
+                ResetStatus(E_ShadowStatus.broken);
+                ResetStatus(E_ShadowStatus.normal);
+                tenacityObj.SetActive(false);
                 RemoveBrokenStatus();
             }
         }
 
-        AddSkillStatus(currDistance);
-        AddBrokenStatus();
+
+        // check status
+        if (CheckIfSkill2Status(currDistance))
+        {
+            currSkillTime = skillCoolDown;
+            currfireTimes = 0;
+            AddStatus(E_ShadowStatus.skill2, true);
+        }
+        if (CheckIfSkill3Status(currDistance))
+        {
+            currSkillTime = skillCoolDown;
+            currfireTimes = 0;
+            AddStatus(E_ShadowStatus.skill3, true);
+        }
+        if (CheckIfBrokenStatus())
+        {
+            currfireTimes = 0;
+            AddStatus(E_ShadowStatus.broken, true);
+        }
         CheckHP();
     }
 
-    private void AddSkillStatus(float currDistance)
-    {
-        // skill
-        if (currSkillTime <= 0 && currfireTimes >= fireTimes)
-        {
-            if (currDistance <= rangeAttackRadius)
-            {
-                ResetNormalStatus();
-                // skill3
-                shadowsStatusContainer.Add(E_ShadowStatus.skill3);
-                shadowsStatusContainer.Add(E_ShadowStatus.LOCK);
-            }
-            else
-            {
-                ResetNormalStatus();
-                // skill2
-                shadowsStatusContainer.Add(E_ShadowStatus.skill2);
-                shadowsStatusContainer.Add(E_ShadowStatus.LOCK);
-            }
 
-            currSkillTime = skillCoolDown;
-            fireTimes = 0;
+    // status control
+    private void AddStatus(E_ShadowStatus targetStatus, bool needLock)
+    {
+        switch (targetStatus)
+        {
+            case E_ShadowStatus.normal:
+                shadowsStatusContainer.Add(E_ShadowStatus.normal);
+                break;
+            case E_ShadowStatus.broken:
+                ResetStatus(E_ShadowStatus.normal);
+                ResetStatus(E_ShadowStatus.skill2);
+                shadowsStatusContainer.Add(E_ShadowStatus.broken);
+                break;
+            case E_ShadowStatus.skill2:
+                ResetStatus(E_ShadowStatus.normal);
+                shadowsStatusContainer.Add(E_ShadowStatus.skill2);
+                break;
+            case E_ShadowStatus.skill3:
+                ResetStatus(E_ShadowStatus.normal);
+                shadowsStatusContainer.Add(E_ShadowStatus.skill3);
+                break;
         }
+
+        if (needLock) shadowsStatusContainer.Add(E_ShadowStatus.LOCK);
+    }
+
+    private void ResetStatus(E_ShadowStatus resetStatus)
+    {
+        switch (resetStatus)
+        {
+            case E_ShadowStatus.normal:
+                moveFrame = 0;
+
+                animator.SetBool("Attack", false);
+                animator.SetBool("TakeDamage", false);
+                animator.SetFloat("Move", moveFrame);
+
+                agent.enabled = true;
+                receiveDamage = false;
+                currfireTimes = 0;
+                break;
+            case E_ShadowStatus.skill2:
+                animator.SetBool("SlashAttack", false);
+
+                hasSetTargetPosition = false;
+                reachTarget = false;
+                break;
+            case E_ShadowStatus.skill3:
+                break;
+            case E_ShadowStatus.broken:
+                tenacity.ResetTanacity();
+                break;
+        }
+    }
+
+    private bool CheckIfSkill2Status(float currDistance)
+    {
+        return !shadowsStatusContainer.Contains(E_ShadowStatus.LOCK) &&
+               currSkillTime <= 0 &&
+               currfireTimes >= fireTimes &&
+               currDistance > rangeAttackRadius;
+    }
+
+    private bool CheckIfSkill3Status(float currDistance)
+    {
+        return !shadowsStatusContainer.Contains(E_ShadowStatus.LOCK) &&
+               currSkillTime <= 0 &&
+               currfireTimes >= fireTimes &&
+               currDistance <= rangeAttackRadius;
+    }
+
+    private bool CheckIfBrokenStatus()
+    {
+        return tenacity.CheckTenacityEqualZero() &&
+               !shadowsStatusContainer.Contains(E_ShadowStatus.LOCK);
     }
 
     public void RemoveSkill2Status()
@@ -224,16 +305,6 @@ public class BossShadow : Enemy
     {
         shadowsStatusContainer.Remove(E_ShadowStatus.skill3);
         shadowsStatusContainer.Remove(E_ShadowStatus.LOCK);
-    }
-
-    private void AddBrokenStatus()
-    {
-        if (tenacity.CheckTenacityEqualZero())
-        {
-            ResetNormalStatus();
-            shadowsStatusContainer.Add(E_ShadowStatus.broken);
-            shadowsStatusContainer.Add(E_ShadowStatus.LOCK);
-        }
     }
 
     private void RemoveBrokenStatus()
@@ -287,16 +358,13 @@ public class BossShadow : Enemy
         }
     }
 
-    private void ResetSkill2Status()
-    {
-        animator.SetBool("SlashAttack", false);
-
-        hasSetTargetPosition = false;
-        reachTarget = false;
-    }
-
 
     // skill 3
+    private void RangeAttack()
+    {
+        StartCoroutine(PreAttack());
+    }
+
     IEnumerator PreAttack()
     {
         // start animation
@@ -335,10 +403,6 @@ public class BossShadow : Enemy
             Player.GetInstance().PlayerReceiveDamage(rangeAttackDamage);
     }
 
-    private void RangeAttack()
-    {
-        StartCoroutine(PreAttack());
-    }
 
 
     // general function
@@ -351,7 +415,6 @@ public class BossShadow : Enemy
             agent.enabled = false;
 
             // animation
-            AddDieAnimationEvent();
             animator.SetTrigger("Die");
         }
     }
@@ -405,32 +468,6 @@ public class BossShadow : Enemy
         return distance;
     }
 
-    private void ResetNormalStatus()
-    {
-        moveFrame = 0;
-
-        animator.SetBool("Attack", false);
-        animator.SetBool("TakeDamage", false);
-        animator.SetFloat("Move", moveFrame);
-
-        receiveDamage = false;
-    }
-
-    
-
-    //private void OnDrawGizmos()
-    //{
-    //    // for debugging 
-    //    Gizmos.color = Color.red;
-    //    //Gizmos.DrawWireSphere(leftHandObject.transform.position,
-    //                      //castRadius);
-    //    //Gizmos.DrawLine(leftHandObject.transform.position, transform.forward);
-
-    //    //Gizmos.DrawWireSphere(rightHandObject.transform.position,
-    //                      //castRadius);
-    //    //Gizmos.DrawLine(rightHandObject.transform.position, transform.forward);
-    //}
-
 
     // interface
 
@@ -481,5 +518,6 @@ public class BossShadow : Enemy
     {
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
         bossShadow.RemoveSkill2Status();
+        bossShadow.ResetStatus(E_ShadowStatus.skill2);
     }
 }

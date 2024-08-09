@@ -38,10 +38,10 @@ public class BossShade : Enemy
     private float currSkillTime;
     
 
-    new void Start()
+    new protected void OnEnable()
     {
         //Debug.Log("In ChasingStart");
-        base.Start();
+        base.OnEnable();
 
         // ai
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
@@ -218,7 +218,7 @@ public class BossShade : Enemy
             {
                 animator.SetBool("Attack", true);
                 SimpleFire();
-                currFireDelay = fireDelay;
+                currFireDelay = fireCooldown;
             }
             else animator.SetBool("Attack", false);
         }

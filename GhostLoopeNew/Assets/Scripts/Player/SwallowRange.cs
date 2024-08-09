@@ -21,7 +21,7 @@ public class SwallowRange : MonoBehaviour
         SpecialBullet currentBullet = other.GetComponent<SpecialBullet>();
         if (currentBullet != null)
         {
-            Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!In Player OnTriggerEnter: " + other.name);
+            //Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!In Player OnTriggerEnter: " + other.name);
 
 
             //Debug.Log(other.gameObject.GetComponent<SpecialBullet>().bulletType);
@@ -43,9 +43,6 @@ public class SwallowRange : MonoBehaviour
     public void SwallowBullet()
     {
         MusicManager.GetInstance().PlayFireSound("ÂåÆÕ-ÎüÊÕ"); 
-
-
-
 
         if (specialBullets.Count > 0)
         {

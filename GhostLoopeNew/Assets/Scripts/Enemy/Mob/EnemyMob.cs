@@ -12,10 +12,10 @@ public class EnemyMob : Enemy
     public NavMeshAgent enemyAgent;
 
 
-    protected new void Start()
+    protected new void OnEnable()
     {
         //Debug.Log("In ChasingStart");
-        base.Start();
+        base.OnEnable();
 
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
         enemyAgent.stoppingDistance = 2.0f;
@@ -68,7 +68,7 @@ public class EnemyMob : Enemy
             {
                 animator.SetBool("Attack", true);
                 SimpleFire();
-                currFireCoolDown = fireDelay;
+                currFireCoolDown = fireCooldown;
             }
             else animator.SetBool("Attack", false);
         }

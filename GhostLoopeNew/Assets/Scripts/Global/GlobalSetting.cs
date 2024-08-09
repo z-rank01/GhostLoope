@@ -17,13 +17,8 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public GameObject PoisonBullet;
     public GameObject SpiritPoisonBullet;
 
-
-
-
     public float bulletSpeed;
-
     public float specialBulletSpeed;
-
     public float enemyBulletSpeed;
 
     // public GameObject SpecialBullet;
@@ -38,4 +33,5 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public float playerDashSpeed;
 
     public float playerSlowSpeed; // 玩家受到减速效果的移动速度
+    
 }

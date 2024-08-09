@@ -74,7 +74,7 @@ public class StartingMenu : MonoBehaviour
 
         EnemyHpArray = GameObject.FindGameObjectsWithTag("HP");
 
-
+        San.maxValue = GlobalSetting.GetInstance().san;
         //San_left.maxValue = GlobalSetting.GetInstance().san / 2;
         //San_Right.maxValue = GlobalSetting.GetInstance().san / 2;
 

@@ -251,7 +251,7 @@ MonoBehaviour:
   attackDistance: 10
   bulletSpawnDistance: 3
   hp: 100
-  fireDelay: 1
+  fireCooldown: 1
   enemyBulletType: 1
   enemyHp: {fileID: 0}
   enemyWalkSpeed: 1
@@ -261,7 +261,8 @@ MonoBehaviour:
     type: 3}
   mobGameObject: {fileID: 6442559389854082114, guid: c09c81c140079db419a5f3be33290cab,
     type: 3}
-  nextStageBossObject: {fileID: 0}
+  nextStageBossObject: {fileID: 6741421059132544316, guid: a9a18a96bb6691946b7c14e7c1bd2a2e,
+    type: 3}
   mobNumber: 3
   directionNoise: 3
   forceMagnitude: 5
