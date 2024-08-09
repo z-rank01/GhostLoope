@@ -17,6 +17,6 @@ public class HintUI : MonoBehaviour
     void Update()
     {
         transform.position = cam.WorldToScreenPoint(followingTarget.position + offset);
-
+        Debug.Log("flolowingTarget: " + followingTarget.position);
     }
 }

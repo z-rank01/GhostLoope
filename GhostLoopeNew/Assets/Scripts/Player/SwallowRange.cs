@@ -39,7 +39,10 @@ public class SwallowRange : MonoBehaviour
             specialBullets.Remove(currentBullet);
         }
     }
-
+    public void Update()
+    {
+        
+    }
     public void SwallowBullet()
     {
         MusicManager.GetInstance().PlayFireSound("洛普-吸收"); 
@@ -58,6 +61,9 @@ public class SwallowRange : MonoBehaviour
             Player.GetInstance().SetProperty(E_Property.san, SAN - 10);
             Player.GetInstance().SetProperty(E_Property.resilience, RES + 10);
 
+            StartCoroutine(Player.GetInstance().GettingHurt()); // 受到伤害，开始计时
+
+
             Debug.Log("Swallowing");
             swallowedBullet = specialBullets[0];
             swallowedBullet.Deactivate();
@@ -66,6 +72,10 @@ public class SwallowRange : MonoBehaviour
 
             swallowedBullet.transform.SetParent(swallowedBulletPosition, true);
             swallowedBullet.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+
+            // 让吞噬的子弹的尾迹能向鼠标的相反方向发射
+            swallowedBullet.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
             swallowedBullet.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
@@ -113,7 +123,21 @@ public class SwallowRange : MonoBehaviour
                                 GlobalSetting.GetInstance().specialBulletSpeed);
 
 
-        
+        // 如果含有第二关Boss的灵魂，则可以发射三枚特殊子弹
+        if (Player.GetInstance().GetSoul_2())
+        {
+            Debug.Log("Fire Triple Bullet!");
+
+            Bullet bullet1 = PoolManager.GetInstance().GetObj(swallowedBullet.bulletType).GetComponent<Bullet>();
+            Bullet bullet2 = PoolManager.GetInstance().GetObj(swallowedBullet.bulletType).GetComponent<Bullet>();
+            bullet1.FireOut(fireOrigin + fireDirection * 1,
+                            fireDirection,
+                            GlobalSetting.GetInstance().specialBulletSpeed);
+
+            bullet2.FireOut(fireOrigin + fireDirection * 2,
+                            fireDirection,
+                            GlobalSetting.GetInstance().specialBulletSpeed);
+        }
 
 
         swallowedBullet = null;

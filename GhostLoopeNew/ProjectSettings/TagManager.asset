@@ -10,6 +10,9 @@ TagManager:
   - NPC
   - Enemy
   - Destination
+  - HP
+  - Tenacirt
+  - GraveStone
   layers:
   - Default
   - TransparentFX

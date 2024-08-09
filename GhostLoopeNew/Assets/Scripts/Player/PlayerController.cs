@@ -20,8 +20,11 @@ public class PlayerController : MonoBehaviour
 
     Vector3 fireDirection;
 
+
+
     bool isSpiritPosioned = false; // 玩家是否受到精神毒素伤害
 
+   
 
     SwallowRange swallowRange;
 
@@ -121,10 +124,11 @@ public class PlayerController : MonoBehaviour
 
        
         Debug.Log("发射普通子弹");
+
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
 
-
         
+
 
         bullet.FireOut(fireOrigin, 
                         fireDirection,
@@ -155,21 +159,6 @@ public class PlayerController : MonoBehaviour
         {
             swallowRange.SwallowBullet();
         }
-
-
-
-
-        //// 如果已经吞噬了特殊子弹，则射击
-        //if (swallowRange.ReadyToFire())
-        //{
-        //    //Debug.Log("射击已经吞噬的特殊子弹");
-        //    swallowRange.FireSpecial();
-        //}
-        //// 否则，进入吞噬判定
-        //else
-        //{
-            
-        //}
 
     }
  

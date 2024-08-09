@@ -25,12 +25,17 @@ public class Enemy : MonoBehaviour
     protected bool receiveDamage = false;
     protected float currReceivedDamage;
 
+
+
     // Animator
     protected AnimatorController animator;
     protected float moveFrame;
 
     // UI
     public Slider enemyHp;
+    public Slider enemyRes;
+
+
 
     // damage receiver
     protected ThunderChainDamageReceiver thunderChainDamageReceiver;
@@ -44,8 +49,18 @@ public class Enemy : MonoBehaviour
         //Enemy_HP = gameObject.AddComponent<Slider>();
 
         // UI
-        if(enemyHp != null ) enemyHp.value = enemyHp.maxValue = 100;
-        
+        if (enemyHp != null)
+        {
+            enemyHp.maxValue = 100; // 先设置max，再设置当前值
+            enemyHp.value = 100;
+        }
+        if (enemyRes != null) 
+        {
+            enemyRes.maxValue = 40;
+            enemyRes.value = 40;
+        }
+
+
         // Animator
         animator = gameObject.AddComponent<AnimatorController>();
 
@@ -94,6 +109,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             enemyHp.gameObject.SetActive(false);
+            enemyRes.gameObject.SetActive(false);
         }
     }
 
@@ -108,9 +124,33 @@ public class Enemy : MonoBehaviour
 
         // update property
         receiveDamage = true;
-        SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
-        currReceivedDamage = bullet.playerDamage;
 
+        // 特殊子弹
+        if (bullet.bulletType != E_PoolType.SimpleBullet)
+        {
+            // 造成不同倍率的伤害
+            if (Player.GetInstance().GetSoul_2())
+            {
+                SetEnemyHP(GetEnemyHP() - bullet.playerDamage * 3);
+            }
+            else if (Player.GetInstance().GetSoul_1())
+            {
+                SetEnemyHP(GetEnemyHP() - bullet.playerDamage * 2);
+            }
+            else
+            {
+                SetEnemyHP(GetEnemyHP() - bullet.playerDamage * 1);
+            }
+        }
+        // 普通子弹
+        else
+        {
+            Debug.Log(GetEnemyHP() - bullet.playerDamage);
+            SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
+        }
+
+
+        currReceivedDamage = bullet.playerDamage;
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
         {

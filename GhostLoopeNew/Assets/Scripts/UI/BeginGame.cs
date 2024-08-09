@@ -48,10 +48,6 @@ public class BeginGame : MonoBehaviour
         ExitGame.onClick.AddListener(this.ExitButtonClicked);
         ExitSetting.onClick.AddListener(this.ExitMusicClicked);
 
-
-
-
-
         BackMusicSlider.value = 0.5f;
         EnviromentSlider.value = 0.5f;
         FireSlider.value = 0.5f;

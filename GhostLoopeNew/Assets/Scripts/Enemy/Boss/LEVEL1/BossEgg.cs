@@ -8,6 +8,8 @@ public class BossEgg : Enemy
 
     private float timer;
 
+
+
     protected void Update()
     {
         CheckHP();
