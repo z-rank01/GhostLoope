@@ -38,7 +38,7 @@ public class Player : BaseSingletonMono<Player>
 
 
     private bool isGettingSoul_1 = false; // 是否得到了第一关Boss的灵魂
-    private bool isGettingSoul_2 = true; // 是否得到了第二关Boss的灵魂
+    private bool isGettingSoul_2 = false; // 是否得到了第二关Boss的灵魂
 
     public void SetSoul_1(bool value) { isGettingSoul_1 = value; }
     public void SetSoul_2(bool value) { isGettingSoul_2 = value; }
@@ -317,6 +317,7 @@ public class Player : BaseSingletonMono<Player>
 
     public void PlayerReceiveDamage(float damage)
     {
+        Debug.Log("In PlayerReceiveDamage receive damage: " + damage);
         float san = playerProperty.GetProperty(E_Property.san);
         playerProperty.SetProperty(E_Property.san, san - damage);
     }

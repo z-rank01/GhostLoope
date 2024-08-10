@@ -58,6 +58,10 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         PoolManager.GetInstance().AddPool(E_PoolType.IceBullet, globalSetting.IceBullet);
         PoolManager.GetInstance().AddPool(E_PoolType.PoisonBullet, globalSetting.PoisonBullet);
         PoolManager.GetInstance().AddPool(E_PoolType.SpiritPoisonBullet, globalSetting.SpiritPoisonBullet);
+
+
+        // π÷ŒÔ
+        PoolManager.GetInstance().AddPool(E_PoolType.spawnEnemy, globalSetting.spawnEnemy);
     }
 
     private void Start()
