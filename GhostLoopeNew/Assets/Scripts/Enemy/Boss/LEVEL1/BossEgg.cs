@@ -8,7 +8,11 @@ public class BossEgg : Enemy
 
     private float timer;
 
-
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+        AddSpawnEvent();
+    }
 
     protected void Update()
     {
@@ -23,7 +27,6 @@ public class BossEgg : Enemy
         }
         else
         {
-            AddSpawnEvent();
             animator.SetTrigger("Spawn");
         }
 

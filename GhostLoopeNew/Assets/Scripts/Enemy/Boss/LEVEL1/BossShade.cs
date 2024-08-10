@@ -16,7 +16,7 @@ public class BossShade : Enemy
     // general variable
     public float enemyWalkSpeed = 4.0f;
     public float enemyRunSpeed = 8.0f;
-    public NavMeshAgent enemyAgent;
+    public NavMeshAgent agent;
 
     private float currFireDelay = 0.0f;
     private E_BossShadeStatus enemyStatus = E_BossShadeStatus.Status1;
@@ -44,11 +44,11 @@ public class BossShade : Enemy
         base.OnEnable();
 
         // ai
-        enemyAgent = gameObject.AddComponent<NavMeshAgent>();
-        enemyAgent.stoppingDistance = 2.0f;
+        agent = gameObject.AddComponent<NavMeshAgent>();
+        agent.stoppingDistance = 2.0f;
         status1Destination = GameObject.FindGameObjectWithTag("Destination");
-        enemyAgent.SetDestination(status1Destination.transform.position);
-        enemyAgent.speed = enemyRunSpeed;
+        agent.SetDestination(status1Destination.transform.position);
+        agent.speed = enemyRunSpeed;
 
         // skill event
         EventCenter.GetInstance().AddEventListener(E_Event.BossShadeStatus2Skill, DecreaseMobOnScene);
@@ -77,15 +77,10 @@ public class BossShade : Enemy
     // private function
 
     // general function
-    private void SetMoveTo(GameObject destination, float speed)
-    {
-        enemyAgent.SetDestination(destination.transform.position);
-        enemyAgent.speed = speed;
-    }
 
     private void CheckReachDestination()
     {
-        if (Vector3.Distance(status1Destination.transform.position, transform.position) <= enemyAgent.stoppingDistance)
+        if (Vector3.Distance(status1Destination.transform.position, transform.position) <= agent.stoppingDistance)
         {
             // change enemy agent's status
             enemyStatus = E_BossShadeStatus.Status2;
@@ -107,7 +102,7 @@ public class BossShade : Enemy
 
     private float GetPlayerDistance()
     {
-        if (enemyAgent == null) Debug.LogError("Could not find AI agent!");
+        if (agent == null) Debug.LogError("Could not find AI agent!");
         Vector3 playerPosition = Player.GetInstance().GetPlayerTransform().position;
         float distance = (playerPosition - transform.position).magnitude;
         return distance;
@@ -192,10 +187,10 @@ public class BossShade : Enemy
         float currDistance = GetPlayerDistance();
 
         // chasing
-        if (currDistance > enemyAgent.stoppingDistance)
+        if (currDistance > agent.stoppingDistance)
         {
-            enemyAgent.SetDestination(Player.GetInstance().transform.position);
-            enemyAgent.speed = enemyWalkSpeed;
+            agent.SetDestination(Player.GetInstance().transform.position);
+            agent.speed = enemyWalkSpeed;
 
             // animate
             moveFrame += Time.deltaTime;
@@ -257,7 +252,7 @@ public class BossShade : Enemy
     public void DisableAfterDie(GameObject targetObj)
     {
         targetObj.SetActive(false);
-        enemyAgent.enabled = false;
+        agent.enabled = false;
     }
 
     public void SpawnNextStageBoss(GameObject targetObj)

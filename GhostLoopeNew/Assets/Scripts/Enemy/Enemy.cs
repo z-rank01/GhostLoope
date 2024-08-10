@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
 
     protected void SimpleFire()
     {
-        Debug.Log("Enemy: SimpleFire");
+        //Debug.Log("Enemy: SimpleFire");
         Vector3 playerPosition = Player.GetInstance().GetPlayerTransform().position;
 
 
@@ -157,26 +157,27 @@ public class Enemy : MonoBehaviour
             // 造成不同倍率的伤害
             if (Player.GetInstance().GetSoul_2())
             {
-                SetEnemyHP(GetEnemyHP() - bullet.playerDamage * 3);
+                currReceivedDamage = bullet.playerDamage * 3;
+                
             }
             else if (Player.GetInstance().GetSoul_1())
             {
-                SetEnemyHP(GetEnemyHP() - bullet.playerDamage * 2);
+                currReceivedDamage = bullet.playerDamage * 2;
             }
             else
             {
-                SetEnemyHP(GetEnemyHP() - bullet.playerDamage * 1);
+                currReceivedDamage = bullet.playerDamage * 1;
             }
         }
         // 普通子弹
         else
         {
-            Debug.Log(GetEnemyHP() - bullet.playerDamage);
-            SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
+            currReceivedDamage = bullet.playerDamage;
         }
 
-
+        SetEnemyHP(GetEnemyHP() - currReceivedDamage);
         currReceivedDamage = bullet.playerDamage;
+        
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
         {

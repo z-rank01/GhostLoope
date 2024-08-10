@@ -60,7 +60,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075610501108468058}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -1.2178285, y: 13.851555, z: -8.693352}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -155,12 +155,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertDistance: 5
-  attackDistance: 3
-  bulletSpawnDistance: 4
+  attackDistance: 5
+  bulletSpawnDistance: 1
   hp: 100
-  fireDelay: 1
+  fireCooldown: 1
   enemyBulletType: 1
+  hpSliderName: 
   enemyHp: {fileID: 0}
+  enemyRes: {fileID: 0}
   enemyType: 0
   enemySpeed: 0.5
   enemyAgent: {fileID: 0}

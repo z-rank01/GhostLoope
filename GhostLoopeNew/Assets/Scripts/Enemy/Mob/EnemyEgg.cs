@@ -9,6 +9,12 @@ public class EnemyEgg : Enemy
 
     private float timer;
 
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+        AddSpawnEvent();
+    }
+
     protected void Update()
     {
         CheckHP();
@@ -22,7 +28,6 @@ public class EnemyEgg : Enemy
         }
         else
         {
-            AddSpawnEvent();
             animator.SetTrigger("Spawn");
         }
 

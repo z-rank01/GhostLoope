@@ -20,6 +20,7 @@ public class EnemyMob : Enemy
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
         enemyAgent.stoppingDistance = 2.0f;
 
+        AddDieAnimationEvent();
         //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
         //ChasingHP = Instantiate();
     }
@@ -123,7 +124,7 @@ public class EnemyMob : Enemy
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
 
             // animation
-            AddDieAnimationEvent();
+            
             animator.SetTrigger("Die");
         }
     }
@@ -144,7 +145,6 @@ public class EnemyMob : Enemy
     // interface
     public void DisableAfterDie(GameObject targetObj)
     {
-        targetObj.GetComponent<EnemyMob>().enemyAgent.enabled = false;
         targetObj.SetActive(false);
     }
 }

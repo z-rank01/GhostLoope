@@ -82,8 +82,6 @@ public class BossEggletMob : EnemyMob
             // game object
             enemyAgent.enabled = false;
 
-            // animation
-            AddDieAnimationEvent();
             animator.SetTrigger("GoingToExplode");
         }
     }

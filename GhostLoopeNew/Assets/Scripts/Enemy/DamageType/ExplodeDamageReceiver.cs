@@ -22,16 +22,9 @@ public class ExplodeDamageReceiver : MonoBehaviour
         }
 
         // exert exploded damage to player
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
+        if (Vector3.Distance(Player.GetInstance().transform.position, gameObject.transform.position) <= explodeRadius)
         {
-            float dis = (playerObj.transform.position - transform.position).magnitude;
-            if (dis <= explodeRadius)
-            {
-                Player playerScript = playerObj.GetComponent<Player>();
-                playerScript.PlayerReceiveDamage(bullet as SpecialBullet);
-
-            }
+            Player.GetInstance().PlayerReceiveDamage(explodeDamage);
         }
     }
 }

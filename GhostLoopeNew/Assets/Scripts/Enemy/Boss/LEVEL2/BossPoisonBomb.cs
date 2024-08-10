@@ -211,12 +211,13 @@ public class BossPoisonBomb : Enemy
             tenacityObj.SetActive(true);
             tenacity.SpawnBullet();
 
-            Debug.Log("bullet on scene: " + tenacity.CheckBulletOnScene());
-            if (!tenacity.CheckBulletOnScene())
+            // Debug.Log("bullet on scene: " + tenacity.CheckBulletOnScene());
+            if (!tenacity.CheckBulletOnScene() || !tenacity.CheckCounterFinish())
             {
+                tenacity.DisableTenacity();
+
                 ResetStatus(E_PoisonBombStatus.normal);
                 ResetStatus(E_PoisonBombStatus.broken);
-                tenacityObj.SetActive(false);
 
                 RemoveBrokenStatus();
 
@@ -394,7 +395,7 @@ public class BossPoisonBomb : Enemy
         currSkill3Time += Time.deltaTime;
         if (currSkill3Time % (skill3Time / skill3Frequency) <= Time.deltaTime)
         {
-            for (int i = 0; i < skill3DirectionNumber; i++)
+            for (int i = 1; i <= skill3DirectionNumber; i++)
             {
                 float angle = Mathf.Lerp(0, 360.0f, i / skill3DirectionNumber);
                 Vector3 direction = Quaternion.AngleAxis(angle, transform.up) * transform.forward;

@@ -184,7 +184,7 @@ Transform:
   - {fileID: 8061708167690463651}
   - {fileID: 8061708167690463649}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8061708167699547719
 Animator:
@@ -280,4 +280,4 @@ MonoBehaviour:
   enemyRes: {fileID: 0}
   bossShade: {fileID: 9183668960363724834, guid: eda547b3526cead479e36050e0064799,
     type: 3}
-  spawnCounter: 5
+  spawnCounter: 9999999
