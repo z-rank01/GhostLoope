@@ -35,6 +35,9 @@ public class EnemyMob : Enemy
 
         enemyAgent.stoppingDistance = 2.0f;
 
+        // animation
+        AddDieAnimationEvent();
+
         //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
         //ChasingHP = Instantiate();
     }
@@ -140,8 +143,6 @@ public class EnemyMob : Enemy
         {
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
 
-            // animation
-            AddDieAnimationEvent();
             animator.SetTrigger("Die");
         }
     }
@@ -152,7 +153,6 @@ public class EnemyMob : Enemy
         AnimationEvent dieEvent = new AnimationEvent();
         dieEvent.functionName = "DisableAfterDie";
         dieEvent.time = animator.GetClipLength("Die");
-        dieEvent.objectReferenceParameter = this.gameObject;
 
         // add event
         animator.AddEvent("Die", dieEvent);
@@ -160,9 +160,9 @@ public class EnemyMob : Enemy
 
 
     // interface
-    public void DisableAfterDie(GameObject targetObj)
+    public void DisableAfterDie()
     {
-        targetObj.GetComponent<EnemyMob>().enemyAgent.enabled = false;
-        targetObj.SetActive(false);
+        //targetObj.GetComponent<EnemyMob>().enemyAgent.enabled = false;
+        gameObject.SetActive(false);
     }
 }

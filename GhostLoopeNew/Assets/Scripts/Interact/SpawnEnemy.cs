@@ -18,6 +18,8 @@ public class SpawnEnemy : MonoBehaviour
     public NavMeshSurface navMeshSurface; // 获取到场景中的导航网格，动态生成怪物后重新烘焙
 
 
+    public Transform spawnPoint;
+
     public float spawnRadius = 2.0f; // 生成怪物离生成点的半径
     public int spawnNum = 4; // 生成怪物的数量
 
@@ -59,9 +61,11 @@ public class SpawnEnemy : MonoBehaviour
             {
 
                 GameObject spawnEnemy = PoolManager.GetInstance().GetObj(E_PoolType.spawnEnemy);
+                Debug.Log("BeginSpawn: " + spawnEnemy.transform.localPosition);
                 spawnEnemy.name = "spawnEnemy1";
-                spawnEnemy.transform.SetParent(transform);
 
+                spawnEnemy.transform.SetParent(transform, true);
+                Debug.Log("After Set Parent : " + spawnEnemy.transform.localPosition);
                 // 单位圆上随机一点的角度
                 float theta = Random.Range(0.0f, Mathf.PI * 2);
                 // 单位圆上随机一点
@@ -70,14 +74,14 @@ public class SpawnEnemy : MonoBehaviour
                 spawnPosition *= spawnRadius;
 
                 spawnEnemy.transform.SetLocalPositionAndRotation(spawnPosition, Quaternion.identity);
-
-                Debug.Log("spawnEnemy: " + spawnEnemy.transform.position);
+                //Debug.Log("spawnPosition" + spawnPosition);
+                Debug.Log("spawnEnemy: " + spawnEnemy.transform.localPosition);
             }
 
+            // 好像又不需要重新烘焙，不然会出bug
             // 重新烘焙导航网格，使得怪物上的AI组件可以运行
-            navMeshSurface.BuildNavMesh();
 
-
+            //navMeshSurface.BuildNavMesh();
 
         }
 

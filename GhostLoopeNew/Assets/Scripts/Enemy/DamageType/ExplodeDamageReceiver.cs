@@ -10,7 +10,7 @@ public class ExplodeDamageReceiver : MonoBehaviour
         GameObject[] EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < EnemyArray.Length; i++)
         {
-            if (EnemyArray[i] == null || EnemyArray[i].GetComponent<Enemy>() == this) continue;
+            if (EnemyArray[i] == null || EnemyArray[i].GetComponent<ExplodeDamageReceiver>() == this) continue;
 
             float dis = (EnemyArray[i].transform.position - transform.position).magnitude;
             if (dis <= explodeRadius)
@@ -21,17 +21,12 @@ public class ExplodeDamageReceiver : MonoBehaviour
             }
         }
 
-        // exert exploded damage to player
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            float dis = (playerObj.transform.position - transform.position).magnitude;
-            if (dis <= explodeRadius)
-            {
-                Player playerScript = playerObj.GetComponent<Player>();
-                playerScript.PlayerReceiveDamage(bullet as SpecialBullet);
 
-            }
+        // exert exploded damage to player
+        if (Vector3.Distance(Player.GetInstance().GetPlayerTransform().position, gameObject.transform.position) <= bullet.explodeRadius)
+        {
+
+            Player.GetInstance().PlayerReceiveDamage(bullet.damage);
         }
     }
 }

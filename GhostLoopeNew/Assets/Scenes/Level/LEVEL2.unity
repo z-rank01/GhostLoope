@@ -12821,6 +12821,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664468688}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &667590783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 667590784}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &667590784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667590783}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.68, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1593063216}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &673465959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18936,7 +18967,7 @@ MonoBehaviour:
   GuideImage: {fileID: 1122557092}
   GuideReturn: {fileID: 952538088}
   BlurImage: {fileID: 873791950}
-  FadeImage: {fileID: 0}
+  FadeImage: {fileID: 975211542}
   Save: {fileID: 82119592}
   Load: {fileID: 871984258}
 --- !u!1 &1021327833
@@ -26801,7 +26832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401066737}
   m_LocalRotation: {x: -0, y: -0.40119627, z: -0, w: 0.91599214}
-  m_LocalPosition: {x: 12.67, y: -1.501457, z: -0.61}
+  m_LocalPosition: {x: 12.67, y: -1.416, z: -0.61}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30053,6 +30084,7 @@ GameObject:
   - component: {fileID: 1593063216}
   - component: {fileID: 1593063218}
   - component: {fileID: 1593063217}
+  - component: {fileID: 1593063221}
   m_Layer: 0
   m_Name: Prop_Christmas_Tree_01 (1)
   m_TagString: Untagged
@@ -30068,10 +30100,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593063215}
   m_LocalRotation: {x: -0, y: -0.5265984, z: -0, w: 0.8501142}
-  m_LocalPosition: {x: 12.692, y: -1.578, z: -0.569}
+  m_LocalPosition: {x: 12.692, y: -1.645, z: -0.569}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 667590784}
   m_Father: {fileID: 225458868}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -63.552, z: 0}
@@ -30127,6 +30160,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593063215}
   m_Mesh: {fileID: -2610232084544211233, guid: c14a0a40d2432cd4ebe9002753e842ba, type: 3}
+--- !u!114 &1593063221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593063215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb1dccef30cf0d4fbc94e7105abd968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawnType: 
+  navMeshSurface: {fileID: 134541880}
+  spawnPoint: {fileID: 667590784}
+  spawnRadius: 2
+  spawnNum: 4
 --- !u!1 &1593308337
 GameObject:
   m_ObjectHideFlags: 0
@@ -32356,6 +32406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668525975817099668, guid: a76e22a709c16744d8b3687558f0e13c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36858,6 +36913,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5668525975817099668, guid: a76e22a709c16744d8b3687558f0e13c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36991,11 +37051,13 @@ MonoBehaviour:
     type: 3}
   SpiritPoisonBullet: {fileID: 9101915335588238102, guid: 71ef98a3e9ab8c64195e86cc8c5c2915,
     type: 3}
+  spawnEnemy: {fileID: 5668525975817099668, guid: a76e22a709c16744d8b3687558f0e13c,
+    type: 3}
   bulletSpeed: 0.1
   specialBulletSpeed: 0.1
   enemyBulletSpeed: 0.05
   playerObject: {fileID: 1407144747}
-  san: 100
+  san: 10000
   resilience: 40
   playerSpeed: 50
   playerDashSpeed: 100

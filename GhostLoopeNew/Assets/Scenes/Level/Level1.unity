@@ -6922,6 +6922,7 @@ MonoBehaviour:
     type: 3}
   SpiritPoisonBullet: {fileID: 9101915335588238102, guid: 71ef98a3e9ab8c64195e86cc8c5c2915,
     type: 3}
+  spawnEnemy: {fileID: 0}
   bulletSpeed: 0.5
   specialBulletSpeed: 0.1
   enemyBulletSpeed: 0.05
