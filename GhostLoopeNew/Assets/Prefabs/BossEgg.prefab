@@ -184,7 +184,7 @@ Transform:
   - {fileID: 8061708167690463651}
   - {fileID: 8061708167690463649}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8061708167699547719
 Animator:
@@ -253,7 +253,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.68
+  m_Radius: 1
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.3, z: 0}
@@ -275,7 +275,9 @@ MonoBehaviour:
   hp: 100
   fireCooldown: 1
   enemyBulletType: 1
+  hpSliderName: 
   enemyHp: {fileID: 0}
+  enemyRes: {fileID: 0}
   bossShade: {fileID: 9183668960363724834, guid: eda547b3526cead479e36050e0064799,
     type: 3}
   spawnCounter: 5

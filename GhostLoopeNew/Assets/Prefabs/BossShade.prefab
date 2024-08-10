@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 3813853519047701814}
   m_Layer: 0
   m_Name: BossShade
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ Transform:
   - {fileID: 9183668960363896262}
   - {fileID: 9183668960363896256}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &9183668960373224006
 Animator:
@@ -231,10 +231,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.59, z: 0}
 --- !u!114 &3813853519047701814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +253,9 @@ MonoBehaviour:
   hp: 100
   fireCooldown: 1
   enemyBulletType: 1
+  hpSliderName: 
   enemyHp: {fileID: 0}
+  enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
   enemyRunSpeed: 2
   enemyAgent: {fileID: 0}

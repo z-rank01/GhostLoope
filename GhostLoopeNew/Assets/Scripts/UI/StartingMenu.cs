@@ -1,4 +1,5 @@
 using LitJson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class StartingMenu : MonoBehaviour
 {
@@ -19,18 +21,16 @@ public class StartingMenu : MonoBehaviour
     public Slider EnviromentSlider;
     public Slider FireSlider;
 
-
+    // 玩家的血条和韧性条
     public Slider San;
-
-    //// 使用两个Slider实现两头变化的血条
-    //public Slider San_left;
-    //public Slider San_Right;
-
-
     public Slider Resilience;
 
+    // Boss的血条和韧性条
+    public Slider Enemy_San;
+    public Slider Enemy_Res;
 
-
+    // 玩家状态是否处于Boss战，该变量可放到Player相关类中
+    bool isFightingBoss = true;
 
     // 暂停游戏的按钮，以及接下来出现的4个按钮
     public Button PauseGame;
@@ -48,14 +48,12 @@ public class StartingMenu : MonoBehaviour
 
     public Image BlurImage; // 暂停键按下后的模糊图片
 
+
+    int FadeAlpha = 10; // 显露出场景的速度，FadeAlpha 帧后FadeImage彻底消失
     public Image FadeImage; // 开始游戏后由黑色逐渐变为透明，显露出场景
-    //public Image UpperImage; // 主界面的上半部分
-    //public Image LowerImage; // 主界面的下半部分
 
 
-
-
-
+    // 存档功能的测试按钮
     public Button Save;
     public Button Load;
 
@@ -67,19 +65,17 @@ public class StartingMenu : MonoBehaviour
     GameObject[] EnemyHpArray;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-
         EnemyHpArray = GameObject.FindGameObjectsWithTag("HP");
 
         San.maxValue = GlobalSetting.GetInstance().san;
-        //San_left.maxValue = GlobalSetting.GetInstance().san / 2;
-        //San_Right.maxValue = GlobalSetting.GetInstance().san / 2;
+        Resilience.maxValue = GlobalSetting.GetInstance().resilience;
 
 
-        Resilience.maxValue = 40;
 
         Setting.onClick.AddListener(this.SettingButtonClicked);
         ExitSetting.onClick.AddListener(this.ExitSettingClicked);
@@ -117,6 +113,98 @@ public class StartingMenu : MonoBehaviour
 
         FadeImage.gameObject.SetActive(true);
     }
+
+    void UpdateSanAndRes(Slider san, Slider res, float maxSan, float maxRes)
+    {
+        
+
+
+
+        // 整个血条的长度
+        float width_San = san.GetComponent<RectTransform>().sizeDelta.x;
+
+        // 整个韧性条的长度
+        float width_Res = res.GetComponent<RectTransform>().sizeDelta.x;
+
+        // 血条削减长度
+        float left_San = width_San / 2 - san.value / maxSan * 0.5f * width_San;
+
+        // 韧性条削减长度
+        float left_Res = width_Res / 2 - res.value / maxRes * 0.5f * width_Res;
+
+        // 固定锚点
+        san.fillRect.anchorMin = new Vector2(0, 0);
+        san.fillRect.anchorMax = new Vector2(1, 1);
+        res.fillRect.anchorMin = new Vector2(0, 0);
+        res.fillRect.anchorMax = new Vector2(1, 1);
+
+        // 修改left, bottom
+        san.fillRect.offsetMin = new Vector2(left_San, 0);
+        res.fillRect.offsetMin = new Vector2(left_Res, 0);
+
+        // 修改right, top
+        san.fillRect.offsetMax = new Vector2(-left_San, 0);
+        res.fillRect.offsetMax = new Vector2(-left_Res, 0);
+    }
+
+
+
+
+    void UpdateMusicVolume()
+    {
+        MusicManager.GetInstance().ChangeBackgroundValue(BackMusicSlider.value);
+        MusicManager.GetInstance().ChangeEnvironmentValue(EnviromentSlider.value);
+        MusicManager.GetInstance().ChangeFireValue(FireSlider.value);
+    }
+
+
+    void UpdateFadeImage()
+    {
+        if (FadeAlpha > 0)
+        {
+            FadeAlpha--;
+            FadeImage.GetComponent<Image>().color = new Color(0, 0, 0, (FadeAlpha * 1.0f / 10));
+            if (FadeAlpha == 0)
+            {
+                GameObject.Destroy(FadeImage);
+            }
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        // 动态更新最大值
+        San.maxValue = GlobalSetting.GetInstance().san;
+        Resilience.maxValue = GlobalSetting.GetInstance().resilience;
+
+        float height = San.GetComponent<RectTransform>().sizeDelta.y;
+
+        // 长度根据玩家的属性按比例增加， 高度保持不变 (目前的比例为4、10，即100点生命值对应400个单位的生命条长度、40点韧性值对应400个单位的韧性条长度）
+        San.GetComponent<RectTransform>().sizeDelta = new Vector2(San.maxValue * 4, height);
+        Resilience.GetComponent<RectTransform>().sizeDelta = new Vector2(Resilience.maxValue * 10, height);
+
+
+
+        San.value = Player.GetInstance().GetProperty(E_Property.san);
+        Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
+
+        // 更新玩家的血条和韧性条
+        UpdateSanAndRes(San, Resilience, San.maxValue, Resilience.maxValue);
+
+        // 处于Boss战状态，显示和更新Boss的血条和韧性条
+        if (isFightingBoss)
+        {
+            //UpdateSanAndRes(Enemy_San, Enemy_Res, 100, 40);
+        }
+
+        // 动态修改音量大小
+        UpdateMusicVolume();
+
+        // 播放场景显现动画
+        UpdateFadeImage();
+    }
+
+
 
 
     public void SaveGame()
@@ -201,36 +289,6 @@ public class StartingMenu : MonoBehaviour
     }
 
 
-    int FadeAlpha = 10;
-    // Update is called once per frame
-    void Update()
-    {
-        San.value = Player.GetInstance().GetProperty(E_Property.san);
-        //San_left.value = Player.GetInstance().GetProperty(E_Property.san) / 2;
-        //San_Right.value = Player.GetInstance().GetProperty(E_Property.san) / 2;
-
-        Debug.Log("Resilience.fillRect: " + Resilience.fillRect.transform.position);
-        
-        Resilience.value = Player.GetInstance().GetProperty(E_Property.resilience);
-
-
-        MusicManager.GetInstance().ChangeBackgroundValue(BackMusicSlider.value);
-        MusicManager.GetInstance().ChangeEnvironmentValue(EnviromentSlider.value);
-        MusicManager.GetInstance().ChangeFireValue(FireSlider.value);
-
-
-        if (FadeAlpha > 0)
-        {
-            FadeAlpha--;
-            FadeImage.GetComponent<Image>().color = new Color(0, 0, 0, (FadeAlpha * 1.0f / 10));
-            if (FadeAlpha == 0)
-            {
-                GameObject.Destroy(FadeImage);
-            }
-        }
-
-
-    }
 
 
     public void SaveButtonClicked()

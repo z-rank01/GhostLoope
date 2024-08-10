@@ -11,9 +11,6 @@ public class EnemyBomb : EnemyMob
         {
             MusicManager.GetInstance().PlayFireSound("òùòğ¹Ö±¬Õ¨ÒôĞ§");
 
-            // stop AI agent
-            enemyAgent.enabled = false;
-
             // die animation event
             AddDieAnimationEvent();
 

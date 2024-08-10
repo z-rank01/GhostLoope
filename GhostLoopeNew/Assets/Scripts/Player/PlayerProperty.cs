@@ -17,6 +17,8 @@ public class PlayerProperty : MonoBehaviour
     private float san;
     [SerializeField]
     private float resilience;
+    
+
     [SerializeField]
     private float speed;
 
@@ -25,6 +27,7 @@ public class PlayerProperty : MonoBehaviour
 
     [SerializeField]
     private float slowSpeed;
+
 
 
     private void Update()
@@ -37,15 +40,18 @@ public class PlayerProperty : MonoBehaviour
         switch (eProperty)
         {
             case E_Property.san:
-                san = (float)property; break;
+                san = Mathf.Clamp((float)property, 0, GlobalSetting.GetInstance().san); // 防止越界
+                break;
             case E_Property.resilience:
-                resilience = (float)property;break;
+                resilience = Mathf.Clamp((float)property, 0, GlobalSetting.GetInstance().resilience); // 防止越界
+                break;
             case E_Property.speed:
                 speed = (float)property;break;
             case E_Property.dashSpeed:
                 dashSpeed = (float)property; break;
             case E_Property.slowSpeed:
                 slowSpeed = (float)property; break;
+
         }
     }
 

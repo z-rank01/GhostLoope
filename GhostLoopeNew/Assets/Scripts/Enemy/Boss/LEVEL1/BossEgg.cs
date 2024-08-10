@@ -8,6 +8,8 @@ public class BossEgg : Enemy
 
     private float timer;
 
+
+
     protected void Update()
     {
         CheckHP();
@@ -60,7 +62,8 @@ public class BossEgg : Enemy
     public void SpawnEgglet(GameObject egg)
     {
         BossEgg enemyEgg = egg.GetComponent<BossEgg>();
-        Instantiate(enemyEgg.bossShade, egg.transform.position, egg.transform.rotation);
+        Enemy bossShade = Instantiate(enemyEgg.bossShade, egg.transform.position, egg.transform.rotation).GetComponent<Enemy>();
+        bossShade.SetSlider(this.enemyHp, this.enemyRes);
         egg.SetActive(false);
     }
 }

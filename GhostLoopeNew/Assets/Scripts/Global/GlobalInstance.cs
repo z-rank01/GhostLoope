@@ -70,11 +70,13 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         // Set up property
         //Debug.Log("Set up Player Property");
         SetProperty(E_Property.san, GlobalSetting.GetInstance().san);
-        SetProperty(E_Property.resilience, GlobalSetting.GetInstance().resilience);
+        SetProperty(E_Property.resilience, 0.0f); // 玩家默认的韧性值为0
+
+
         SetProperty(E_Property.speed, GlobalSetting.GetInstance().playerSpeed);
         SetProperty(E_Property.dashSpeed, GlobalSetting.GetInstance().playerDashSpeed);
-
         SetProperty(E_Property.slowSpeed, GlobalSetting.GetInstance().playerSlowSpeed);
+
     }
 
     void Update()
