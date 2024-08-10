@@ -130,11 +130,11 @@ public class Enemy : MonoBehaviour
     public void SetEnemyHP(float hp)
     {
         this.hp = hp;
-        enemyHp.value = hp;
+        if(enemyHp != null) enemyHp.value = hp;
 
         if (hp <= 0)
         {
-            enemyHp.gameObject.SetActive(false);
+            if(enemyHp != null) enemyHp.gameObject.SetActive(false);
             if(enemyRes != null) enemyRes.gameObject.SetActive(false);
         }
     }

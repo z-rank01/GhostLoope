@@ -18,7 +18,7 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public GameObject SpiritPoisonBullet;
 
 
-
+    public GameObject spawnEnemy; // 动态生成怪物
 
     public float bulletSpeed;
 

@@ -17,6 +17,9 @@ public enum E_PoolType
     SpiritPoisonBullet,
 
     BossPoisonBomb, 
+
+
+    spawnEnemy,
 }
 
 public class PoolManager : BaseSingleton<PoolManager>

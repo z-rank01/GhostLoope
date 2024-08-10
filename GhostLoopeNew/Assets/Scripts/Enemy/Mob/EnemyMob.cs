@@ -17,7 +17,22 @@ public class EnemyMob : Enemy
         //Debug.Log("In ChasingStart");
         base.OnEnable();
 
+
+        Debug.Log("EnemyMob OnEnable!");
+
+        // 使用GameObject.Instantiate()后，组件也会克隆，直接GetComponent即可
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
+        Debug.Log("In Update isOnNavMesh : " + enemyAgent.isOnNavMesh);
+        Debug.Log("In UPdate OnEnabled: " + enemyAgent.enabled);
+        //if (enemyAgent == null)
+        //{
+        //}
+        //else
+        //{
+
+        //    enemyAgent = gameObject.AddComponent<NavMeshAgent>();
+        //}
+
         enemyAgent.stoppingDistance = 2.0f;
 
         //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
@@ -45,6 +60,9 @@ public class EnemyMob : Enemy
 
                 // event
                 enemyAgent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
+
+
+                Debug.Log("isOnNavMesh : " + enemyAgent.isOnNavMesh);
 
                 // animate
                 moveFrame += Time.deltaTime;
