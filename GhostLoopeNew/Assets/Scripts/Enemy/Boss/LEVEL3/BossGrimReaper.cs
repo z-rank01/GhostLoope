@@ -16,7 +16,6 @@ public class BossGrimReaper : Enemy
     [Header("Boss GrimReaper Setting")]
     public float enemyWalkSpeed = 1.0f;
     public float enemyDashSpeed = 4.0f;
-    public float skillCoolDown = 5.0f;
 
     private HashSet<E_GrimStatus> grimStatusContainer;
 
@@ -43,7 +42,7 @@ public class BossGrimReaper : Enemy
     private bool hasStartedSpinAttack = false;
     private int currSkill2FireTimes;
     private float currSpinTime;
-    private float spinAttackFloat;
+
 
     [Header("Tenacity")]
     public GameObject tenacityObj;
@@ -65,6 +64,7 @@ public class BossGrimReaper : Enemy
         // animation event
         AddDieAnimationEvent();
         AddSlashAttackEvent();
+        AddSpinAttackEvent();
 
         // cooldown
         currSkill1FireTimes = 0;
@@ -84,6 +84,13 @@ public class BossGrimReaper : Enemy
 
     protected void Update()
     {
+        //string currStatus = "Current Status: ";
+        //foreach (var status in grimStatusContainer)
+        //{
+        //    currStatus += status.ToString() + "  ";
+        //}
+        //Debug.LogWarning(currStatus);
+        
         // cooldown
         if (!grimStatusContainer.Contains(E_GrimStatus.LOCK))
         {
@@ -161,21 +168,22 @@ public class BossGrimReaper : Enemy
                 }
             }
         }
-
+        
 
         // skill2
-        if (grimStatusContainer.Contains(E_GrimStatus.skill1))
+        if (grimStatusContainer.Contains(E_GrimStatus.skill2))
         {
+            agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
+            agent.speed = enemyDashSpeed;
             if (!hasStartedSpinAttack) StartSpinAttack();
             else
             {
-                if (!SpinAttack()) EndSpinAttack();
+                if (!CheckSpinAttack()) EndSpinAttack();
             }
         }
 
-
-            // tenacity
-            if (grimStatusContainer.Contains(E_GrimStatus.broken))
+        // tenacity
+        if (grimStatusContainer.Contains(E_GrimStatus.broken))
         {
             agent.enabled = false;
 
@@ -223,9 +231,12 @@ public class BossGrimReaper : Enemy
                 grimStatusContainer.Add(E_GrimStatus.broken);
                 break;
             case E_GrimStatus.skill1:
+                ResetStatus(E_GrimStatus.normal);
+                ResetStatus(E_GrimStatus.skill2);
                 grimStatusContainer.Add(E_GrimStatus.skill1);
                 break;
             case E_GrimStatus.skill2:
+                ResetStatus(E_GrimStatus.normal);
                 grimStatusContainer.Add(E_GrimStatus.skill2);
                 break;
         }
@@ -246,6 +257,7 @@ public class BossGrimReaper : Enemy
 
                 agent.enabled = true;
                 receiveDamage = false;
+                currFireCoolDown = fireCooldown;
                 break;
             case E_GrimStatus.skill1:
                 currSkill1FireTimes = 0;
@@ -256,7 +268,6 @@ public class BossGrimReaper : Enemy
             case E_GrimStatus.skill2:
                 currSkill2FireTimes = 0;
                 hasStartedSpinAttack = false;
-                spinAttackFloat = 0.0f;
                 currSpinTime = 0.0f;
                 break;
             case E_GrimStatus.broken:
@@ -350,42 +361,24 @@ public class BossGrimReaper : Enemy
     // skill2
     private void StartSpinAttack()
     {
-        currSpinTime += Time.deltaTime;
-        spinAttackFloat += Time.deltaTime;
         animator.SetBool("StartSpinAttack", true);
-        if (spinAttackFloat <= 0.5f)
-        {
-            animator.SetFloat("SpinAtack", spinAttackFloat);
-        }
-        else
-        {
-            spinAttackFloat = 0.5f;
-            hasStartedSpinAttack = true;
-        }
+        hasStartedSpinAttack = true;
         
     }
 
-    private bool SpinAttack()
+    private bool CheckSpinAttack()
     {
         currSpinTime += Time.deltaTime;
-        if (currSpinTime <= skill2SpinTime - 0.5f) return true;
+        if (currSpinTime <= skill2SpinTime) return true;
         else return false;
     }
 
     private void EndSpinAttack()
     {
-        currSpinTime += Time.deltaTime;
-        spinAttackFloat += Time.deltaTime;
-        if (spinAttackFloat <= 1.0f)
-        {
-            animator.SetFloat("SpinAttack", spinAttackFloat);
-        }
-        else
-        {
-            animator.SetBool("StartSpinAttack", false);
-            RemoveSkill2Status();
-            ResetStatus(E_GrimStatus.skill2);
-        }
+        animator.SetBool("StartSpinAttack", false);
+        animator.SetBool("EndSpinAttack", true);
+        RemoveSkill2Status();
+        ResetStatus(E_GrimStatus.skill2);
     }
 
 
@@ -449,6 +442,16 @@ public class BossGrimReaper : Enemy
         animator.AddEvent("Slash Attack 02", attackFinishEvent);
     }
 
+    private void AddSpinAttackEvent()
+    {
+        // attack finish event
+        AnimationEvent spinAttackFinishEvent = new AnimationEvent();
+        spinAttackFinishEvent.functionName = "ResetSpinAttackAnimation";
+        spinAttackFinishEvent.time = animator.GetClipLength("Spin Attack To Idle");
+
+        animator.AddEvent("Spin Attack To Idle", spinAttackFinishEvent);
+    }
+
 
     // interface
     public void DisableAfterDie(GameObject targetObj)
@@ -457,12 +460,12 @@ public class BossGrimReaper : Enemy
         agent.enabled = false;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(leftHandObject.transform.position,
-                          castRadius);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(leftHandObject.transform.position,
+    //                      castRadius);
+    //}
 
 
     public void LeftSlashAttack()
@@ -504,5 +507,10 @@ public class BossGrimReaper : Enemy
     {
         RemoveSkill1Status();
         ResetStatus(E_GrimStatus.skill1);
+    }
+
+    public void ResetSpinAttackAnimation()
+    {
+        animator.SetBool("EndSpinAttack", false);
     }
 }

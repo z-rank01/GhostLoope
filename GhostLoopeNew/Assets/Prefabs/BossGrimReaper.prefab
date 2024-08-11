@@ -696,7 +696,7 @@ Transform:
   - {fileID: 238196108476476409}
   - {fileID: 3477097216639444475}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -186.711, z: 0}
 --- !u!95 &3681424067508788249
 Animator:
@@ -781,8 +781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b32c1100f5ccc4bb75ff6089c4be9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertDistance: 5
-  attackDistance: 5
+  alertDistance: 7
+  attackDistance: 7
   bulletSpawnDistance: 1
   hp: 500
   fireCooldown: 1
@@ -792,17 +792,17 @@ MonoBehaviour:
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
   enemyDashSpeed: 4
-  skillCoolDown: 5
   leftHandObject: {fileID: 3349494985385202357}
   rightHandObject: {fileID: 3349494985385202357}
   skill1DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
     type: 3}
   skill1DashingTime: 4
   castTimes: 4
-  castRadius: 3
+  castRadius: 1
   slashAttackDamage: 10
   skill1FireTimes: 6
   skill2FireTimes: 4
+  skill2SpinTime: 5
   tenacityObj: {fileID: 8767376839585538520}
 --- !u!1001 &5350375846925698844
 PrefabInstance:

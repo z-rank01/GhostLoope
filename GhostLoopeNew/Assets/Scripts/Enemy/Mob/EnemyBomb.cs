@@ -7,7 +7,11 @@ public class EnemyBomb : EnemyMob
     {
         base.OnEnable();
         // die animation event
-        AddExplodeAnimationEvent();
+    }
+
+    protected void Start()
+    {
+        //AddExplodeAnimationEvent();
     }
 
     protected override void CheckHP()
@@ -37,6 +41,7 @@ public class EnemyBomb : EnemyMob
     public void ExplodeAfterDie()
     {
         // explode effect
+        Debug.LogWarning("Bomb enemy exploding!");
         GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);
         EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
         PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);
