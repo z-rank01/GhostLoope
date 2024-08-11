@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossEgg : Enemy
 {
     [Header("Egg Spawn")]
-    public GameObject bossShade;
+    public GameObject bossShadeObject;
     public int spawnCounter = 30;
 
     private float timer;
@@ -54,18 +54,16 @@ public class BossEgg : Enemy
         AnimationEvent spawnEvent = new AnimationEvent();
         spawnEvent.functionName = "SpawnEgglet";
         spawnEvent.time = animator.GetClipLength("Spawn");
-        spawnEvent.objectReferenceParameter = this.gameObject;
 
         animator.AddEvent("Spawn", spawnEvent);
     }
 
 
     // interface
-    public void SpawnEgglet(GameObject egg)
+    public void SpawnEgglet()
     {
-        BossEgg enemyEgg = egg.GetComponent<BossEgg>();
-        Enemy bossShade = Instantiate(enemyEgg.bossShade, egg.transform.position, egg.transform.rotation).GetComponent<Enemy>();
+        Enemy bossShade = Instantiate(bossShadeObject, transform.position, transform.rotation).GetComponent<Enemy>();
         bossShade.SetSlider(this.enemyHp, this.enemyRes);
-        egg.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

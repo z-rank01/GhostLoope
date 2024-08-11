@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyEgg : Enemy
 {
     [Header("Egg Spawn")]
-    public GameObject egglet;
+    public GameObject eggletObject;
     public int spawnCounter = 30;
 
     private float timer;
@@ -54,17 +54,15 @@ public class EnemyEgg : Enemy
         AnimationEvent spawnEvent = new AnimationEvent();
         spawnEvent.functionName = "SpawnEgglet";
         spawnEvent.time = animator.GetClipLength("Spawn");
-        spawnEvent.objectReferenceParameter = this.gameObject;
         
         animator.AddEvent("Spawn", spawnEvent);
     }
 
 
     // interface
-    public void SpawnEgglet(GameObject egg)
+    public void SpawnEgglet()
     {
-        EnemyEgg enemyEgg = egg.GetComponent<EnemyEgg>();
-        Instantiate(enemyEgg.egglet, egg.transform.position, egg.transform.rotation);
-        egg.SetActive(false);
+        Instantiate(eggletObject, transform.position, transform.rotation);
+        gameObject.SetActive(false);
     }
 }
