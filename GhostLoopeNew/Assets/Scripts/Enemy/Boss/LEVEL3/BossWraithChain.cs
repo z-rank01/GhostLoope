@@ -20,7 +20,6 @@ public class BossWraithChain : MonoBehaviour
             EventCenter.GetInstance().EventTrigger(E_Event.BossWraithChainSuccess);
             chainedPlayer = true;
         }
-        
     }
 
     //private void OnTriggerExit(Collider other)

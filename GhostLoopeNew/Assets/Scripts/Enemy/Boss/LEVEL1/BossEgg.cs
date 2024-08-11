@@ -45,7 +45,6 @@ public class BossEgg : Enemy
         // spawn when dead
         if (hp <= 0)
         {
-            AddSpawnEvent();
             animator.SetTrigger("Spawn");
         }
     }

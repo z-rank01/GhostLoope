@@ -51,6 +51,10 @@ public class Enemy : MonoBehaviour
         //Debug.Log("In Enemy Start");
         //Enemy_HP = gameObject.AddComponent<Slider>();
 
+        // hp
+        hp = maxHp;
+
+
         // UI
         GameObject hpSlider = GameObject.Find(hpSliderName);
         if (hpSlider != null)
@@ -85,8 +89,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        // hp
-        hp = maxHp;
+        
 
         // Animator
         animator = gameObject.AddComponent<AnimatorController>();
