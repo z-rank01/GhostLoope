@@ -12,7 +12,6 @@ public class EnemyEgg : Enemy
     new protected void OnEnable()
     {
         base.OnEnable();
-        AddSpawnEvent();
     }
 
     protected void Update()

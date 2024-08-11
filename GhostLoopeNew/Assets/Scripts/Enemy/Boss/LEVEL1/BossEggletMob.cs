@@ -79,10 +79,7 @@ public class BossEggletMob : EnemyMob
             // boss event
             EventCenter.GetInstance().EventTrigger(E_Event.BossShadeStatus2Skill);
 
-            // game object
-            enemyAgent.enabled = false;
-
-            animator.SetTrigger("GoingToExplode");
+            animator.SetTrigger("Die");
         }
     }
 

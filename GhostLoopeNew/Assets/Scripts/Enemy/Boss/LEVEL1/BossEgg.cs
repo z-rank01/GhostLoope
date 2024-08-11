@@ -11,7 +11,6 @@ public class BossEgg : Enemy
     new protected void OnEnable()
     {
         base.OnEnable();
-        AddSpawnEvent();
     }
 
     protected void Update()
@@ -52,7 +51,7 @@ public class BossEgg : Enemy
     private void AddSpawnEvent()
     {
         AnimationEvent spawnEvent = new AnimationEvent();
-        spawnEvent.functionName = "SpawnEgglet";
+        spawnEvent.functionName = "SpawnShade";
         spawnEvent.time = animator.GetClipLength("Spawn");
 
         animator.AddEvent("Spawn", spawnEvent);
@@ -60,10 +59,10 @@ public class BossEgg : Enemy
 
 
     // interface
-    public void SpawnEgglet()
+    public void SpawnShade()
     {
         Enemy bossShade = Instantiate(bossShadeObject, transform.position, transform.rotation).GetComponent<Enemy>();
+        this.gameObject.SetActive(false);
         bossShade.SetSlider(this.enemyHp, this.enemyRes);
-        gameObject.SetActive(false);
     }
 }
