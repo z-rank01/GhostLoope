@@ -311,7 +311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5668525975817099668}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.76, y: 1.3407283, z: -42.24}
+  m_LocalPosition: {x: -2.76, y: 13, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -325,7 +325,7 @@ Transform:
   - {fileID: 5668525975816668588}
   - {fileID: 5668525975816668584}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &5668525975809714772
 Animator:
@@ -418,6 +418,7 @@ MonoBehaviour:
   enemyBulletType: 4
   hpSliderName: 
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyType: 0
   enemySpeed: 2

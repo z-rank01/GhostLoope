@@ -69,7 +69,7 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         PoolManager.GetInstance().AddPool(E_PoolType.SnowBomb, globalSetting.SnowBomb);
 
 
-        PoolManager.GetInstance().AddPool(E_PoolType.BossPoisonBomb1, globalSetting.BossPoisonBomb);
+        PoolManager.GetInstance().AddPool(E_PoolType.BossPoisonBomb1, globalSetting.BossPoisonBomb1);
 
         PoolManager.GetInstance().AddPool(E_PoolType.Egg, globalSetting.Egg);
 

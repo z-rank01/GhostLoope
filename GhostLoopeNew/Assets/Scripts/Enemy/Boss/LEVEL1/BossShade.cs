@@ -3,7 +3,7 @@ using System.Drawing.Text;
 using UnityEngine;
 using UnityEngine.AI;
 
-
+using UnityEngine.UI;
 public enum E_BossShadeStatus
 {
     Status1, 
@@ -110,6 +110,8 @@ public class BossShade : Enemy
 
     private void CheckHP()
     {
+        if (enemySan) enemySan.value = hp;
+
         // ≈–∂œπ÷ŒÔ «∑ÒÀ¿Õˆ
         if (hp <= 0)
         {
@@ -275,7 +277,10 @@ public class BossShade : Enemy
             BossShade bossShade = targetObj.GetComponent<BossShade>();
             targetObj.SetActive(false);
             Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
-            bossShadow.SetSlider(this.enemyHp, this.enemyRes);
+
+            bossShadow.enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+            bossShadow.enemySan.value = bossShadow.enemySan.maxValue = bossShadow.maxHp;
+            //bossShadow.SetSlider(bossShadow.enemySan, bossShadow.enemyRes);
         }
     }
 }

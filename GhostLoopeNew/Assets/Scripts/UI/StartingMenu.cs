@@ -212,7 +212,7 @@ public class StartingMenu : MonoBehaviour
         // 处于Boss战状态，显示和更新Boss的血条和韧性条
         if (Player.GetInstance().GetIsFightingBoss())
         {
-            Debug.Log("Enemy_San.transform.position: " + Enemy_San.GetComponent<RectTransform>());
+            //Debug.Log("Enemy_San.transform.position: " + Enemy_San.GetComponent<RectTransform>());
 
 
             Enemy_San.GetComponent<RectTransform>().anchoredPosition = OriginalPosSan;

@@ -408,6 +408,7 @@ public class BossShadow : Enemy
     // general function
     private void CheckHP()
     {
+        if(enemySan) enemySan.value = hp;
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {

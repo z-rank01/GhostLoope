@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 10¡¨∑¢£¨≤‚ ‘”√
-        //for (int i = 0; i < 10; i++)
+        //for (int i = 0; i < 2; i++)
         //{
         //    Bullet bullet1 = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class HintUI : MonoBehaviour
@@ -16,7 +17,10 @@ public class HintUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = cam.WorldToScreenPoint(followingTarget.position + offset);
+        if (followingTarget != null && cam != null)
+        {
+            transform.position = cam.WorldToScreenPoint(followingTarget.position + offset);
+        }
         //Debug.Log("flolowingTarget: " + followingTarget.position);
     }
 

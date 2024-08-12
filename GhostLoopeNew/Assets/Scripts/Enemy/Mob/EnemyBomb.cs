@@ -47,7 +47,7 @@ public class EnemyBomb : EnemyMob
     public void ExplodeAfterDie(GameObject targetObj)
     {
         // explode effect
-        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        if (targetObj != null && targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
         {
             Debug.LogWarning("Bomb enemy exploding!");
             GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);

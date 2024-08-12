@@ -106,14 +106,21 @@ public class SpawnEnemy : MonoBehaviour
             //Debug.Log("enemyDis: " + enemyDis);
 
             Enemy enemy = spawnEnemy.GetComponent<Enemy>();
+            if(GameObject.Find("SpawnEnemyHP" + i))
+            {
+                enemy.enemyHp = GameObject.Find("SpawnEnemyHP" + i).GetComponent<Slider>();
+                enemy.enemyHp.maxValue = 100;
+                enemy.enemyHp.value = 100;
+                if (enemy.enemyHp.GetComponent<HintUI>() == null)
+                {
+                    enemy.enemyHp.AddComponent<HintUI>();
+                }
 
-            enemy.enemyHp = GameObject.Find("Spawn_HP" + i).GetComponent<Slider>();
-            enemy.enemyHp.maxValue = 100;
-            enemy.enemyHp.value = 100;
-            enemy.enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, enemy.transform);
-            enemy.enemyHp.GetComponent<HintUI>().SetOffset(Vector3.zero);
+                enemy.enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, enemy.transform);
+                enemy.enemyHp.GetComponent<HintUI>().SetOffset(Vector3.zero);
 
-            EnemyList.Add(spawnEnemy);
+                EnemyList.Add(spawnEnemy);
+            }
 
         }
 
@@ -148,12 +155,12 @@ public class SpawnEnemy : MonoBehaviour
         {
             // 一坨
             spawnHp.gameObject.SetActive(false); // 消失怪物召唤点的血条
-            for (int i = 0; i < EnemyList.Count; i++)
-            {
-                // 消失各小怪的血条
-                EnemyList[i].GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().offset = new Vector3(0, 1000000000, 0);
-                EnemyList[i].GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().transform.position = new Vector3(0, 1000000000, 0); 
-            }
+            //for (int i = 0; i < EnemyList.Count; i++)
+            //{
+            //    // 消失各小怪的血条
+            //    //EnemyList[i].GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().offset = new Vector3(0, 1000000000, 0);
+            //    //EnemyList[i].GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().transform.position = new Vector3(0, 1000000000, 0); 
+            //}
             if (gameObject.tag == "computer")
             {
                 spawnBossPosionBomb();
