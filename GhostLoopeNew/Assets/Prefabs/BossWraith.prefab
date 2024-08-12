@@ -10658,7 +10658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6879666894852252898
 Transform:
   m_ObjectHideFlags: 0
@@ -10769,6 +10769,7 @@ MonoBehaviour:
   enemyBulletType: 4
   hpSliderName: 
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
   enemyDashSpeed: 4
