@@ -18,7 +18,8 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public GameObject SpiritPoisonBullet;
 
 
-    public GameObject spawnEnemy; // 动态生成怪物
+   
+
 
     public float bulletSpeed;
 
@@ -40,6 +41,21 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public float playerDashSpeed;
 
     public float playerSlowSpeed;   // 玩家受到减速效果的移动速度
+
+
+
+    [Header("Enemy Setting")]
+
+
+    public GameObject EyeBallBatRed; // 动态生成怪物
+    public GameObject EyeBallBatGreen; // 动态生成怪物
+    public GameObject EyeBallBatBlue; // 动态生成怪物
+    
+    public GameObject Bomb; // 动态生成怪物
+    public GameObject SnowBomb; // 动态生成怪物
+    public GameObject BossPoisonBomb; //第二关BOSS
+
+    public GameObject Egg; 
 
 
     [Header("Other Setting")]

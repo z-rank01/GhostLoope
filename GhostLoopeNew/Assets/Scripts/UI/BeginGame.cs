@@ -56,6 +56,7 @@ public class BeginGame : MonoBehaviour
 
     bool isReadyToOpenLower = false; // 是否准备好要开始翻开下半页
 
+    
     private void Update()
     {
         // 修改position可以实现图片移动的效果
@@ -74,7 +75,6 @@ public class BeginGame : MonoBehaviour
             {
                 isReadyToOpenLower = true;
                 frame_count = 0;
-
             }
         }
 
@@ -88,8 +88,13 @@ public class BeginGame : MonoBehaviour
             {
                 isReadyToOpenLower = false;
 
-                SceneManager.LoadScene("Level1");
-
+                // 新游戏，只加载场景即可，玩家在初始位置
+                if(isNewGameClicked) SceneManager.LoadScene("Level1");
+                // 继续游戏，加载场景后，加载已保存文件中玩家的位置和信息
+                else if (isLoadGameClicked)
+                {
+                    SaveManager.GetInstance().LoadGame();
+                }
                 Debug.Log("Load Level1 End!");
 
                 //SceneManager.UnloadSceneAsync("BeginGame");
@@ -107,20 +112,20 @@ public class BeginGame : MonoBehaviour
     public void NewButtonClicked()
     {
         MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
-        isNewGameClicked = true;
 
 
         SelectImage.gameObject.SetActive(false);
+        isNewGameClicked = true;
 
 
     }
     public void LoadButtonClicked()
     {
-        isLoadGameClicked = true;
         MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
 
         SelectImage.gameObject.SetActive(false);
 
+        isLoadGameClicked = true;
 
 
 

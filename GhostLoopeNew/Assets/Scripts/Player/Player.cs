@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,16 +18,29 @@ public class Player : BaseSingletonMono<Player>
     private float currGunHeat = 0;  //  触发下一次攻击的冷却时间，如果 <= 0则可以射击
 
     [SerializeField]
+    private float interactTime;  // 交互冷却时间
+    private float currinteractTime = 0;  //  触发下一次交互的冷却时间，如果 <= 0则可以交互
+
+    [SerializeField]
     private float dashTime = 1f; // 冲刺的冷却时间
     private float currDashTime = 0f; // 触发下一次冲刺的冷却时间，如果 <= 0则可以冲刺
+
+    [SerializeField]
+    private float dashDecreaseRes = 10.0f; // 冲刺需要消耗的Res值
 
     [SerializeField]
     private float swallowTime = 1.0f; //吞噬技能的冷却时间
     private float curSwallowTime = 0.0f; // 触发下一次吞噬的冷却时间，如果 <= 0则可以吞噬
 
     [SerializeField]
-    private float interactTime;  // 交互冷却时间
-    private float currinteractTime = 0;  //  触发下一次交互的冷却时间，如果 <= 0则可以交互
+    private float swallowRadius = 2.0f; // 玩家吞噬技能的半径
+
+    [SerializeField]
+    private float swallowDecreaseSan = 10.0f; // 吞噬成功消耗的San值
+
+    [SerializeField]
+    private float swallowIncreaseRes = 10.0f; // 吞噬成功增加的Res值
+
 
     [SerializeField]
     private float HealingTime; // 经过HealingTime时长没有收到伤害，主角便会回血
@@ -34,16 +48,30 @@ public class Player : BaseSingletonMono<Player>
     [SerializeField]
     private float RecoverRatio; // 玩家回血的速率，每秒恢复recoverRatio点生命值
 
-    private bool isGettingHurt = false; // 玩家是否正受到伤害
 
+    public float GetSwallowDecreaseSan() { return swallowDecreaseSan; }
+    public float GetSwallowIncreaseRes() { return swallowIncreaseRes; }
+
+    public float GetSwallowRadius() { return swallowRadius; }
+
+    private bool isGettingHurt = false; // 玩家是否正受到伤害
+    private bool isFightingBoss = false; // 玩家是否正在Boss战
 
     private bool isGettingSoul_1 = false; // 是否得到了第一关Boss的灵魂
     private bool isGettingSoul_2 = false; // 是否得到了第二关Boss的灵魂
 
+
+    private bool isGameEnd = false; // 游戏是否结束
+
+    public void SetIsGameEnd(bool value) { isGameEnd = value; }
+    public bool GetIsGameEnd() { return isGameEnd; }
     public void SetSoul_1(bool value) { isGettingSoul_1 = value; }
     public void SetSoul_2(bool value) { isGettingSoul_2 = value; }
     public bool GetSoul_1() { return isGettingSoul_1; }
     public bool GetSoul_2() { return isGettingSoul_2; }
+
+    public void SetIsFightingBoss(bool value) { isFightingBoss = value; }
+    public bool GetIsFightingBoss() { return isFightingBoss; }
     
     // 玩家只要受到伤害，就将isGettingHurt置为true，开启时长为HealingTime的定时器，定时器结束后将isGettingHurt置为false
     public IEnumerator GettingHurt()
@@ -78,11 +106,74 @@ public class Player : BaseSingletonMono<Player>
 
         // 击中玩家后的响应事件
         EventCenter.GetInstance().AddEventListener<SpecialBullet>(E_Event.PlayerReceiveDamage, PlayerReceiveDamage);
+
+
+
+        // 还原场景
+        if (SaveManager.GetInstance().loading)
+        {
+            LoadSceneInfo();
+            SaveManager.GetInstance().loading = false;
+        }
+
     }
 
+    public void LoadSceneInfo()
+    {
+        // position
+        transform.position = new Vector3(SaveManager.GetInstance().x, SaveManager.GetInstance().y, SaveManager.GetInstance().z);
+
+
+        Debug.Log("Player Loading");
+        Debug.Log(SaveManager.GetInstance().GraveStoneId.Count);
+        // gravestone
+        GameObject[] currentGraveStone = GameObject.FindGameObjectsWithTag("GraveStone");
+        for (int i = 0; i < currentGraveStone.Length; i++)
+        {
+            Debug.Log("StoneID: " + currentGraveStone[i].GetInstanceID());
+            if (!SaveManager.GetInstance().GraveStoneId.Contains(currentGraveStone[i].GetComponent<GraveStone>().id))
+            {
+                Destroy(currentGraveStone[i]);
+            }
+        }
+
+        // spawnEnemyPoint
+        GameObject[] currentSpawnEnemy = GameObject.FindGameObjectsWithTag("SpawnEnemy");
+        for (int i = 0; i < currentSpawnEnemy.Length; i++)
+        {
+            if (!SaveManager.GetInstance().SpawnEnemyId.Contains(currentSpawnEnemy[i].GetComponent<SpawnEnemy>().id))
+            {
+                Destroy(currentSpawnEnemy[i]);
+            }
+        }
+
+        // computer(the other spawnEnemyPoint)
+        GameObject[] Computer = GameObject.FindGameObjectsWithTag("computer");
+        bool flag = false; // 该怪物生成点在保存文件中是否还存在
+        for (int i = 0; i < Computer.Length; i++)
+        {
+            if (Computer[i].GetComponent<SpawnEnemy>() != null)
+            {
+                if (!SaveManager.GetInstance().ComputerId.Contains(Computer[i].GetComponent<SpawnEnemy>().id))
+                {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        // 要摧毁整个物体
+        if (flag)
+        {
+            for (int i = 0; i < Computer.Length; i++)
+            {
+                Destroy(Computer[i]);
+            }
+        }
+    }
 
     public void Update()
     {
+        //Debug.Log("Player.Transform: " + transform.position);
         // 回血
         float san = playerProperty.GetProperty(E_Property.san);
         float maxSan = GlobalSetting.GetInstance().san;
@@ -152,7 +243,7 @@ public class Player : BaseSingletonMono<Player>
         // Check special action
         if (ContainStatus(E_InputStatus.swallowingAndFiring))
         {
-            if (CheckSwallowAndFire())
+            if (CheckSwallow())
             {
                 curSwallowTime = swallowTime;
                 playerController.Act(E_InputStatus.swallowingAndFiring);
@@ -168,9 +259,8 @@ public class Player : BaseSingletonMono<Player>
             {
                 currDashTime = dashTime;
 
-
                 float res = playerProperty.GetProperty(E_Property.resilience);
-                playerProperty.SetProperty(E_Property.resilience, res - 10);
+                playerProperty.SetProperty(E_Property.resilience, res - dashDecreaseRes);
 
                 playerController.Act(E_InputStatus.dashing);
                 playerAnimator.Dash();
@@ -220,11 +310,11 @@ public class Player : BaseSingletonMono<Player>
 
     private bool CheckDash()
     {
-        if (currDashTime <= 0 && playerProperty.GetProperty(E_Property.resilience) >= 10) return true;
+        if (currDashTime <= 0 && playerProperty.GetProperty(E_Property.resilience) >= dashDecreaseRes) return true;
         return false;
     }
 
-    private bool CheckSwallowAndFire()
+    private bool CheckSwallow()
     {
         return curSwallowTime <= 0;
     }

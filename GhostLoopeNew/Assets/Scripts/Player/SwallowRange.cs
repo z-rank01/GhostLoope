@@ -41,7 +41,7 @@ public class SwallowRange : MonoBehaviour
     }
     public void Update()
     {
-        
+        GetComponent<SphereCollider>().radius = Player.GetInstance().GetSwallowRadius();
     }
     public void SwallowBullet()
     {
@@ -55,8 +55,11 @@ public class SwallowRange : MonoBehaviour
             float SAN = Player.GetInstance().GetProperty(E_Property.san);
             float RES = Player.GetInstance().GetProperty(E_Property.resilience);
 
-            Player.GetInstance().SetProperty(E_Property.san, SAN - 10);
-            Player.GetInstance().SetProperty(E_Property.resilience, RES + 10);
+            float DecreaseSan = Player.GetInstance().GetSwallowDecreaseSan();
+            float IncreaseRes = Player.GetInstance().GetSwallowIncreaseRes();
+
+            Player.GetInstance().SetProperty(E_Property.san, SAN - DecreaseSan);
+            Player.GetInstance().SetProperty(E_Property.resilience, RES + IncreaseRes);
 
             StartCoroutine(Player.GetInstance().GettingHurt()); // 受到伤害，开始计时
 
@@ -115,6 +118,9 @@ public class SwallowRange : MonoBehaviour
 
 
         swallowedBullet.Activate();
+
+
+        swallowedBullet.SetIsFromPlayer(true); // 标记为玩家打出的子弹
         swallowedBullet.FireOut(fireOrigin,
                                 fireDirection,
                                 GlobalSetting.GetInstance().specialBulletSpeed);
@@ -127,6 +133,10 @@ public class SwallowRange : MonoBehaviour
 
             Bullet bullet1 = PoolManager.GetInstance().GetObj(swallowedBullet.bulletType).GetComponent<Bullet>();
             Bullet bullet2 = PoolManager.GetInstance().GetObj(swallowedBullet.bulletType).GetComponent<Bullet>();
+            bullet1.SetIsFromPlayer(true); // 标记为玩家打出的子弹
+            bullet2.SetIsFromPlayer(true); // 标记为玩家打出的子弹
+
+
             bullet1.FireOut(fireOrigin + fireDirection * 1,
                             fireDirection,
                             GlobalSetting.GetInstance().specialBulletSpeed);
