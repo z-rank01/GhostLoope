@@ -1987,15 +1987,16 @@ MonoBehaviour:
   alertDistance: 10
   attackDistance: 10
   bulletSpawnDistance: 3
-  maxHp: 100
-  fireCooldown: 1
+  maxHp: 4600
+  fireCooldown: 2
   enemyBulletType: 3
   hpSliderName: 
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
-  enemyRunSpeed: 4
-  skillCoolDown: 5
+  enemyRunSpeed: 14
+  skillCoolDown: 6
   fireTimes: 3
   leftHandObject: {fileID: 2298220938637750897}
   rightHandObject: {fileID: 205362065136406046}
@@ -2007,7 +2008,7 @@ MonoBehaviour:
   skill2DashingTime: 5
   hintRangePrefab: {fileID: 8179034662160209601, guid: de7529b0945e01e44958dcba7f6838f1,
     type: 3}
-  rangeAttackRadius: 7
+  rangeAttackRadius: 4
   rangeAttackDamage: 100
   preAttackSeconds: 2
   tenacityObj: {fileID: 2973029662175540052}
@@ -2378,8 +2379,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
+      propertyPath: tenacity
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: extraDamage
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
       propertyPath: rotateSpeed
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: brokenSeconds
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
