@@ -53,10 +53,6 @@ public class Bullet : MonoBehaviour
 
 
         if (activated) Flying();
-        if (!CheckWithinScreen())
-        {
-            Debug.Log("OUT OF SCREEN");
-        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -65,7 +61,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("EnvironmentObject"))
         {
-            Debug.Log("Collider Boooommm!!");
+            //Debug.Log("Collider Boooommm!!");
             PoolManager.GetInstance().ReturnObj(bulletType, gameObject);
         }
 
@@ -136,18 +132,18 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public bool CheckWithinScreen()
-    {
-        Vector3 viewPortPosition = Camera.main.WorldToViewportPoint(transform.position);
+    //public bool CheckWithinScreen()
+    //{
+    //    Vector3 viewPortPosition = Camera.main.WorldToViewportPoint(transform.position);
 
-        if (viewPortPosition.x >= 0 && viewPortPosition.x <= 1
-            &&
-            viewPortPosition.y >= 0 && viewPortPosition.y <= 1
-            &&
-            viewPortPosition.z > 0)
-            return true;
-        else return false;
-    }
+    //    if (viewPortPosition.x >= 0 && viewPortPosition.x <= 1
+    //        &&
+    //        viewPortPosition.y >= 0 && viewPortPosition.y <= 1
+    //        &&
+    //        viewPortPosition.z > 0)
+    //        return true;
+    //    else return false;
+    //}
 
     public void Activate()
     {

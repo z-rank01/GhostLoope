@@ -21,11 +21,12 @@ public class PlayerController : MonoBehaviour
     Vector3 fireDirection;
 
 
+    
 
     bool isSpiritPosioned = false; // 玩家是否受到精神毒素伤害
 
-   
 
+    // swallow property
     SwallowRange swallowRange;
 
     public void Start()
@@ -152,14 +153,13 @@ public class PlayerController : MonoBehaviour
     // 右键吞噬
     private void Swallow()
     {
-        Debug.Log("SwallowAndFire");
+        //Debug.Log("SwallowAndFire");
 
         // 如果没有吞噬子弹，则进行吞噬
         if (!swallowRange.ReadyToFire())
         {
             swallowRange.SwallowBullet();
         }
-
     }
  
     private void Dash()

@@ -11,9 +11,18 @@ public class SwallowRange : MonoBehaviour
     private List<SpecialBullet> specialBullets = new List<SpecialBullet>(); // 进入吞噬范围内的特殊子弹列表
     private bool readyToFire = false;
 
-
     public Transform swallowedBulletPosition; // 所吞噬的子弹放的位置
 
+    public float swallowEffetTime = 1.0f;
+    public GameObject swallowAreaObject;
+
+    private bool hasSwallowed = false;
+    private float currSwallowTime;
+
+    private void Start()
+    {
+        swallowAreaObject.transform.localScale = transform.localScale;
+    }
 
     // 进入吞噬范围，将进入玩家吞噬范围的子弹放入列表
     public void OnTriggerEnter(Collider other)
@@ -41,11 +50,24 @@ public class SwallowRange : MonoBehaviour
     }
     public void Update()
     {
-        
+        if (hasSwallowed)
+        {
+            currSwallowTime += Time.deltaTime;
+            if (currSwallowTime > swallowEffetTime)
+            {
+                swallowAreaObject.SetActive(false);
+                currSwallowTime = 0.0f;
+                hasSwallowed = false;
+            }
+        }
     }
     public void SwallowBullet()
     {
-        MusicManager.GetInstance().PlayFireSound("洛普-吸收"); 
+        MusicManager.GetInstance().PlayFireSound("洛普-吸收");
+
+        // swallow 
+        swallowAreaObject.SetActive(true);
+        hasSwallowed = true;
 
         if (specialBullets.Count > 0)
         {
