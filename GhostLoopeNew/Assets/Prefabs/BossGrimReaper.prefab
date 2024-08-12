@@ -784,14 +784,15 @@ MonoBehaviour:
   alertDistance: 7
   attackDistance: 7
   bulletSpawnDistance: 1
-  maxHp: 100
-  fireCooldown: 1
+  maxHp: 13150
+  fireCooldown: 2
   enemyBulletType: 1
   hpSliderName: 
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
-  enemyWalkSpeed: 1
-  enemyDashSpeed: 4
+  enemyWalkSpeed: 2
+  enemyDashSpeed: 14
   leftHandObject: {fileID: 3349494985385202357}
   rightHandObject: {fileID: 3349494985385202357}
   skill1DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
@@ -799,14 +800,14 @@ MonoBehaviour:
   skill1DashingTime: 4
   skill1CastTimes: 4
   skill1CastRadius: 3
-  slashAttackDamage: 10
+  slashAttackDamage: 150
   skill1FireTimes: 6
   weaponObject: {fileID: 3349494985385202357}
   skill2FireTimes: 4
   skill2SpinTime: 5
   skill2CastTimes: 20
   skill2CastRadius: 1
-  spinAttackDamage: 100
+  spinAttackDamage: 135
   tenacityObj: {fileID: 8767376839585538520}
 --- !u!1001 &5350375846925698844
 PrefabInstance:
@@ -828,18 +829,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
+      propertyPath: tenacity
+      value: 1150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: extraDamage
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
       propertyPath: rotateSpeed
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: brokenSeconds
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: bulletSpawnDistance
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
