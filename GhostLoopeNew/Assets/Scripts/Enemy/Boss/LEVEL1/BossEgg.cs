@@ -3,10 +3,15 @@ using UnityEngine;
 public class BossEgg : Enemy
 {
     [Header("Egg Spawn")]
-    public GameObject bossShade;
+    public GameObject bossShadeObject;
     public int spawnCounter = 30;
 
     private float timer;
+
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+    }
 
     protected void Update()
     {
@@ -21,7 +26,6 @@ public class BossEgg : Enemy
         }
         else
         {
-            AddSpawnEvent();
             animator.SetTrigger("Spawn");
         }
 
@@ -40,7 +44,6 @@ public class BossEgg : Enemy
         // spawn when dead
         if (hp <= 0)
         {
-            AddSpawnEvent();
             animator.SetTrigger("Spawn");
         }
     }
@@ -48,19 +51,18 @@ public class BossEgg : Enemy
     private void AddSpawnEvent()
     {
         AnimationEvent spawnEvent = new AnimationEvent();
-        spawnEvent.functionName = "SpawnEgglet";
+        spawnEvent.functionName = "SpawnShade";
         spawnEvent.time = animator.GetClipLength("Spawn");
-        spawnEvent.objectReferenceParameter = this.gameObject;
 
         animator.AddEvent("Spawn", spawnEvent);
     }
 
 
     // interface
-    public void SpawnEgglet(GameObject egg)
+    public void SpawnShade()
     {
-        BossEgg enemyEgg = egg.GetComponent<BossEgg>();
-        Instantiate(enemyEgg.bossShade, egg.transform.position, egg.transform.rotation);
-        egg.SetActive(false);
+        Enemy bossShade = Instantiate(bossShadeObject, transform.position, transform.rotation).GetComponent<Enemy>();
+        this.gameObject.SetActive(false);
+        bossShade.SetSlider(this.enemyHp, this.enemyRes);
     }
 }

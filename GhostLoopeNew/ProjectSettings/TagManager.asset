@@ -10,6 +10,8 @@ TagManager:
   - NPC
   - Enemy
   - Destination
+  - HP
+  - Tenacity
   layers:
   - Default
   - TransparentFX

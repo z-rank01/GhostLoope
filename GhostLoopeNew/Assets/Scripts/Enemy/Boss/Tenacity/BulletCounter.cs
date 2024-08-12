@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class BulletCounter : MonoBehaviour
 {
-    public void OnDisable()
+    private void OnDisable()
     {
-        EventCenter.GetInstance().EventTrigger(E_Event.TenacityBulletReturn);
+        EventCenter.GetInstance().EventTrigger<GameObject>(E_Event.TenacityBulletReturn, this.gameObject);
         Destroy(this);
     }
 }

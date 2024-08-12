@@ -241,11 +241,14 @@ MonoBehaviour:
   alertDistance: 5
   attackDistance: 3
   bulletSpawnDistance: 4
-  hp: 100
-  fireDelay: 1
+  maxHp: 100
+  fireCooldown: 1
   enemyBulletType: 1
+  hpSliderName: 
   enemyHp: {fileID: 0}
-  egglet: {fileID: 585239327103123613, guid: b07e0881dc374e44a88abd855356023c, type: 3}
+  enemyRes: {fileID: 0}
+  eggletObject: {fileID: 585239327103123613, guid: b07e0881dc374e44a88abd855356023c,
+    type: 3}
   spawnCounter: 5
 --- !u!1 &7739709546720629729
 GameObject:

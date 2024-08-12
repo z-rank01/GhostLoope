@@ -1899,7 +1899,7 @@ Transform:
   - {fileID: 479340405540974235}
   - {fileID: 6964967523672176503}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2554988139612039977
 Animator:
@@ -1986,20 +1986,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 10
   attackDistance: 10
-  bulletSpawnDistance: 4
-  hp: 100
-  fireDelay: 1
-  enemyBulletType: 1
+  bulletSpawnDistance: 3
+  maxHp: 100
+  fireCooldown: 1
+  enemyBulletType: 3
+  hpSliderName: 
   enemyHp: {fileID: 0}
+  enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
   enemyRunSpeed: 4
-  normalAgent: {fileID: 0}
   skillCoolDown: 5
+  fireTimes: 3
   leftHandObject: {fileID: 2298220938637750897}
   rightHandObject: {fileID: 205362065136406046}
   skill2DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
     type: 3}
-  castRadius: 2
+  castRadius: 1
   castTimes: 4
   slashAttackDamage: 50
   skill2DashingTime: 5
@@ -2374,6 +2376,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_RootOrder
@@ -2381,18 +2388,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8448
+      objectReference: {fileID: 0}
+    - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1421
+      objectReference: {fileID: 0}
+    - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.44
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.765
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

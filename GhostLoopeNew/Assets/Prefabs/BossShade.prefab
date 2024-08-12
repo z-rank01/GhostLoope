@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 3813853519047701814}
   m_Layer: 0
   m_Name: BossShade
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ Transform:
   - {fileID: 9183668960363896262}
   - {fileID: 9183668960363896256}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &9183668960373224006
 Animator:
@@ -231,10 +231,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.59, z: 0}
 --- !u!114 &3813853519047701814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,18 +250,21 @@ MonoBehaviour:
   alertDistance: 10
   attackDistance: 10
   bulletSpawnDistance: 3
-  hp: 100
-  fireDelay: 1
-  enemyBulletType: 1
+  maxHp: 100
+  fireCooldown: 1
+  enemyBulletType: 3
+  hpSliderName: 
   enemyHp: {fileID: 0}
+  enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
   enemyRunSpeed: 2
-  enemyAgent: {fileID: 0}
+  agent: {fileID: 0}
   status1Destination: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
     type: 3}
   mobGameObject: {fileID: 6442559389854082114, guid: c09c81c140079db419a5f3be33290cab,
     type: 3}
-  nextStageBossObject: {fileID: 0}
+  nextStageBossObject: {fileID: 6741421059132544316, guid: a9a18a96bb6691946b7c14e7c1bd2a2e,
+    type: 3}
   mobNumber: 3
   directionNoise: 3
   forceMagnitude: 5

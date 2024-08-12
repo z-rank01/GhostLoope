@@ -17,20 +17,28 @@ public class Enemy : MonoBehaviour
     public float alertDistance = 5.0f;
     public float attackDistance = 3.0f;
     public float bulletSpawnDistance = 5.0f;
-    public float hp = 100f;
-    public float fireDelay = 1.0f; // 怪物发射子弹的间隔
+    public float maxHp = 100f;
+    
+    public float fireCooldown = 1.0f; // 怪物发射子弹的间隔
     public E_PoolType enemyBulletType; // 怪物发出的子弹类型
 
-    protected float currFireCoolDown = 0.0f;
+    protected float hp;
+    protected float currFireCoolDown;
     protected bool receiveDamage = false;
     protected float currReceivedDamage;
+
+
 
     // Animator
     protected AnimatorController animator;
     protected float moveFrame;
 
     // UI
+    public string hpSliderName;
     public Slider enemyHp;
+    public Slider enemyRes;
+
+
 
     // damage receiver
     protected ThunderChainDamageReceiver thunderChainDamageReceiver;
@@ -38,14 +46,51 @@ public class Enemy : MonoBehaviour
     protected ContinuousDamageReceiver continuousDamageReceiver;
 
 
-    protected void Start()
+    protected void OnEnable()
     {
         //Debug.Log("In Enemy Start");
         //Enemy_HP = gameObject.AddComponent<Slider>();
 
+        // hp
+        hp = maxHp;
+
+
         // UI
-        if(enemyHp != null ) enemyHp.value = enemyHp.maxValue = 100;
+        GameObject hpSlider = GameObject.Find(hpSliderName);
+        if (hpSlider != null)
+        {
+            hpSlider.SetActive(true);
+            enemyHp = hpSlider.GetComponent<Slider>();
+            if (enemyHp != null)
+            {
+                enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                enemyHp.value = enemyHp.maxValue;
+            }
+            if (enemyRes != null)
+            {
+                enemyRes.maxValue = 40;
+                enemyRes.value = 40;
+            }
+            HintUI hintUI = hpSlider.GetComponent<HintUI>();
+            if (hintUI != null)
+                hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+        }
+        else
+        {
+            if (enemyHp != null)
+            {
+                enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                enemyHp.value = enemyHp.maxValue;
+            }
+            if (enemyRes != null)
+            {
+                enemyRes.maxValue = 40;
+                enemyRes.value = 40;
+            }
+        }
+
         
+
         // Animator
         animator = gameObject.AddComponent<AnimatorController>();
 
@@ -57,7 +102,7 @@ public class Enemy : MonoBehaviour
 
     protected void SimpleFire()
     {
-        Debug.Log("Enemy: SimpleFire");
+        //Debug.Log("Enemy: SimpleFire");
         Vector3 playerPosition = Player.GetInstance().GetPlayerTransform().position;
 
 
@@ -85,15 +130,18 @@ public class Enemy : MonoBehaviour
     {
         enemyHp.gameObject.SetActive(active);
     }
+
+
     // interface
     public void SetEnemyHP(float hp)
     {
         this.hp = hp;
-        enemyHp.value = hp;
+        if(enemyHp != null) enemyHp.value = hp;
 
         if (hp <= 0)
         {
-            enemyHp.gameObject.SetActive(false);
+            if(enemyHp != null) enemyHp.gameObject.SetActive(false);
+            if(enemyRes != null) enemyRes.gameObject.SetActive(false);
         }
     }
 
@@ -108,9 +156,34 @@ public class Enemy : MonoBehaviour
 
         // update property
         receiveDamage = true;
-        SetEnemyHP(GetEnemyHP() - bullet.playerDamage);
-        currReceivedDamage = bullet.playerDamage;
 
+        // 特殊子弹
+        if (bullet.bulletType != E_PoolType.SimpleBullet)
+        {
+            // 造成不同倍率的伤害
+            if (Player.GetInstance().GetSoul_2())
+            {
+                currReceivedDamage = bullet.playerDamage * 3;
+                
+            }
+            else if (Player.GetInstance().GetSoul_1())
+            {
+                currReceivedDamage = bullet.playerDamage * 2;
+            }
+            else
+            {
+                currReceivedDamage = bullet.playerDamage * 1;
+            }
+        }
+        // 普通子弹
+        else
+        {
+            currReceivedDamage = bullet.playerDamage;
+        }
+
+        SetEnemyHP(GetEnemyHP() - currReceivedDamage);
+        currReceivedDamage = bullet.playerDamage;
+        
         // 特殊效果 + 额外伤害
         switch (bullet.bulletType)
         {
@@ -152,4 +225,26 @@ public class Enemy : MonoBehaviour
         SetEnemyHP(GetEnemyHP() - damage);
     }
 
+    public void SetSlider(Slider sanSlider, Slider resilianceSlider)
+    {
+        sanSlider.gameObject.SetActive(true);
+        resilianceSlider.gameObject.SetActive(true);
+
+        enemyHp = sanSlider;
+        enemyRes = resilianceSlider;
+
+        if (enemyHp != null)
+        {
+            enemyHp.maxValue = hp; // 先设置max，再设置当前值
+            enemyHp.value = enemyHp.maxValue;
+        }
+        if (enemyRes != null)
+        {
+            enemyRes.maxValue = 40;
+            enemyRes.value = 40;
+        }
+        HintUI hintUI = enemyHp.GetComponent<HintUI>();
+        if (hintUI != null)
+            hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+    }
 }

@@ -12,14 +12,15 @@ public class EnemyMob : Enemy
     public NavMeshAgent enemyAgent;
 
 
-    protected new void Start()
+    protected new void OnEnable()
     {
         //Debug.Log("In ChasingStart");
-        base.Start();
+        base.OnEnable();
 
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
         enemyAgent.stoppingDistance = 2.0f;
 
+        AddDieAnimationEvent();
         //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
         //ChasingHP = Instantiate();
     }
@@ -68,7 +69,7 @@ public class EnemyMob : Enemy
             {
                 animator.SetBool("Attack", true);
                 SimpleFire();
-                currFireCoolDown = fireDelay;
+                currFireCoolDown = fireCooldown;
             }
             else animator.SetBool("Attack", false);
         }
@@ -121,11 +122,10 @@ public class EnemyMob : Enemy
         if (hp <= 0)
         {
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
-            enemyAgent.enabled = false;
 
             // animation
-            AddDieAnimationEvent();
-            animator.SetTrigger("GoingToExplode");
+            
+            animator.SetTrigger("Die");
         }
     }
 

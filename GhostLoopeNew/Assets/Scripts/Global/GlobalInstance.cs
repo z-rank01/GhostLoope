@@ -8,10 +8,10 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
     GameObject globalInstance;
     
     // Singleton tool
-    PoolManager poolManager;
-    EventCenter eventCenter;
-    ResourcesManager resourcesManager;
-    ScenesManager scenesManager;
+    //PoolManager poolManager;
+    //EventCenter eventCenter;
+    //ResourcesManager resourcesManager;
+    //ScenesManager scenesManager;
 
 
     // Main class
@@ -31,7 +31,6 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         // mono
         player = globalSetting.playerObject.GetComponent<Player>();
 
-
         // 需要用到场景切换时，自动创建单例对象就可以，会将其加入到donotDestroyOnLoad中
         
         //resourcesManager = globalInstance.AddComponent<ResourcesManager>();
@@ -41,26 +40,28 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
         // not mono
         inputController = new InputController();
-        eventCenter = new EventCenter();
-        poolManager = new PoolManager();
+        //eventCenter = new EventCenter();
+        //poolManager = new PoolManager();
         inputController.Init();
-        eventCenter.Init();
-        poolManager.Init();
+        EventCenter.GetInstance().Init();
+        PoolManager.GetInstance().Init();
 
-        
-        poolManager.AddPool(E_PoolType.SimpleBullet, globalSetting.simpleBullet);
+
+        PoolManager.GetInstance().AddPool(E_PoolType.SimpleBullet, globalSetting.simpleBullet);
 
 
         // 为对象池添加特殊子弹
-        poolManager.AddPool(E_PoolType.FireBullet, globalSetting.FireBullet);
-        poolManager.AddPool(E_PoolType.ThunderBullet, globalSetting.ThunderBullet);
-        poolManager.AddPool(E_PoolType.ExplodeBullet, globalSetting.ExplodeBullet);
-        poolManager.AddPool(E_PoolType.BurnBullet, globalSetting.BurnBullet);
-        poolManager.AddPool(E_PoolType.IceBullet, globalSetting.IceBullet);
-        poolManager.AddPool(E_PoolType.PoisonBullet, globalSetting.PoisonBullet);
-        poolManager.AddPool(E_PoolType.SpiritPoisonBullet, globalSetting.SpiritPoisonBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.FireBullet, globalSetting.FireBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.ThunderBullet, globalSetting.ThunderBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.ExplodeBullet, globalSetting.ExplodeBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.BurnBullet, globalSetting.BurnBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.IceBullet, globalSetting.IceBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.PoisonBullet, globalSetting.PoisonBullet);
+        PoolManager.GetInstance().AddPool(E_PoolType.SpiritPoisonBullet, globalSetting.SpiritPoisonBullet);
 
-        
+
+        // 怪物
+        PoolManager.GetInstance().AddPool(E_PoolType.spawnEnemy, globalSetting.spawnEnemy);
     }
 
     private void Start()
@@ -73,11 +74,13 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
         // Set up property
         //Debug.Log("Set up Player Property");
         SetProperty(E_Property.san, GlobalSetting.GetInstance().san);
-        SetProperty(E_Property.resilience, GlobalSetting.GetInstance().resilience);
+        SetProperty(E_Property.resilience, 0.0f); // 玩家默认的韧性值为0
+
+
         SetProperty(E_Property.speed, GlobalSetting.GetInstance().playerSpeed);
         SetProperty(E_Property.dashSpeed, GlobalSetting.GetInstance().playerDashSpeed);
-
         SetProperty(E_Property.slowSpeed, GlobalSetting.GetInstance().playerSlowSpeed);
+
     }
 
     void Update()

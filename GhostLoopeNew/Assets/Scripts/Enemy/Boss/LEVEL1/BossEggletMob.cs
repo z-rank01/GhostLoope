@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class BossEggletMob : EnemyMob
 {
-    protected new void Start()
+    new protected void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
         // event
         enemyAgent.speed = enemySpeed;
     }
@@ -47,7 +47,7 @@ public class BossEggletMob : EnemyMob
             {
                 animator.SetBool("Attack", true);
                 SimpleFire();
-                currFireCoolDown = fireDelay;
+                currFireCoolDown = fireCooldown;
             }
             else animator.SetBool("Attack", false);
         }
@@ -79,12 +79,7 @@ public class BossEggletMob : EnemyMob
             // boss event
             EventCenter.GetInstance().EventTrigger(E_Event.BossShadeStatus2Skill);
 
-            // game object
-            enemyAgent.enabled = false;
-
-            // animation
-            AddDieAnimationEvent();
-            animator.SetTrigger("GoingToExplode");
+            animator.SetTrigger("Die");
         }
     }
 

@@ -3,6 +3,16 @@ using UnityEngine.Rendering;
 
 public class EnemyBomb : EnemyMob
 {
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+        // die animation event
+    }
+
+    protected void Start()
+    {
+        //AddExplodeAnimationEvent();
+    }
 
     protected override void CheckHP()
     {
@@ -11,44 +21,29 @@ public class EnemyBomb : EnemyMob
         {
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
 
-            // stop AI agent
-            enemyAgent.enabled = false;
-
-            // die animation event
-            AddDieAnimationEvent();
-
             // animation
             animator.SetTrigger("GoingToExplode");
         }
     }
 
-    protected override void AddDieAnimationEvent()
+    protected void AddExplodeAnimationEvent()
     {
         // event: explode
         AnimationEvent explodeEvent = new AnimationEvent();
         explodeEvent.functionName = "ExplodeAfterDie";
         explodeEvent.time = animator.GetClipLength("Die") / 2;
-        explodeEvent.objectReferenceParameter = this.gameObject;
-
-
-        // event: disable object
-        AnimationEvent dieEvent = new AnimationEvent();
-        dieEvent.functionName = "DisableAfterDie";
-        dieEvent.time = animator.GetClipLength("Die");
-        dieEvent.objectReferenceParameter = this.gameObject;
 
         // add event
         animator.AddEvent("Die", explodeEvent);
-        animator.AddEvent("Die", dieEvent);
     }
 
     // interface
-    public void ExplodeAfterDie(GameObject targetObj)
+    public void ExplodeAfterDie()
     {
         // explode effect
-        EnemyBomb enemyBomb = targetObj.GetComponent<EnemyBomb>();
+        Debug.LogWarning("Bomb enemy exploding!");
         GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);
-        enemyBomb.EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
+        EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
         PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);
     }
 }

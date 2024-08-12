@@ -48,7 +48,7 @@ public class ThunderChainDamageReceiver : MonoBehaviour
         int id = -1;
         for (int i = 0; i < EnemyArray.Length; i++)
         {
-            ThunderChainDamageReceiver thunderChainDamageReceiver = EnemyArray[id].GetComponent<ThunderChainDamageReceiver>();
+            ThunderChainDamageReceiver thunderChainDamageReceiver = EnemyArray[i].GetComponent<ThunderChainDamageReceiver>();
             if (EnemyArray[i] == null || thunderChainDamageReceiver.IsAlreadyChained()) continue;
 
             //Debug.Log("EnemyArray[i]: " + EnemyArray[i].name);
