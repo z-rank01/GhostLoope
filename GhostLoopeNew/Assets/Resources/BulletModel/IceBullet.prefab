@@ -152,7 +152,7 @@ MonoBehaviour:
   damage: 60
   extraDamage: 0
   extraDamageTime: 0
-  playerDamage: 30
+  playerDamage: 60
   thunderRadius: 100
   explodeRadius: 100
   isSwallowed: 0
