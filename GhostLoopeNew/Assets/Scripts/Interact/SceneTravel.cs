@@ -36,7 +36,14 @@ public class SceneTravel : MonoBehaviour
                     SceneManager.LoadScene("Level3");
                     break;
                 case SceneName.Level3:
-                    SceneManager.LoadScene("BeginGame");
+
+                    Player.GetInstance().SetIsGameEnd(true);
+
+
+
+
+
+                    //SceneManager.LoadScene("BeginGame");
                     break;
 
             };

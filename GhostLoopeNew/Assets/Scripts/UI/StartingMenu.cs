@@ -52,6 +52,7 @@ public class StartingMenu : MonoBehaviour
 
     public Image BlurImage; // 暂停键按下后的模糊图片
 
+    public Image GameEndImage; // 游戏结束后的播放图片
 
     int FadeAlpha = 10; // 显露出场景的速度，FadeAlpha 帧后FadeImage彻底消失
     public Image FadeImage; // 开始游戏后由黑色逐渐变为透明，显露出场景
@@ -162,9 +163,34 @@ public class StartingMenu : MonoBehaviour
             }
         }
     }
+
+    private int endAlpha = 100;
+    void UpdateGameEndImage()
+    {
+        if (endAlpha > 0)
+        {
+            endAlpha--;
+            GameEndImage.GetComponent<Image>().color = new Color(0, 0, 0, 1.0f -(endAlpha * 1.0f / 100));
+            if (endAlpha == 0)
+            {
+                //GameObject.Destroy(GameEndImage);
+                SceneManager.LoadScene("BeginGame");
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        // 游戏结束播放动画
+
+        if (Player.GetInstance().GetIsGameEnd())
+        {
+            GameEndImage.gameObject.SetActive(true);
+            UpdateGameEndImage();
+        }
+
+
+
         // 动态更新最大值
         San.maxValue = GlobalSetting.GetInstance().san;
         Resilience.maxValue = GlobalSetting.GetInstance().resilience;

@@ -41,12 +41,13 @@ public class GraveStone : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         Bullet bullet = other.GetComponent<Bullet>();
+        
         if (bullet != null)
         {
             Debug.Log("In GraveStone OnTriggerEnter: " );
             PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
-            // 满足击破条件
-            if (ConditionDestroy == null)
+            // 满足击破条件, 墓碑只能由玩家的子弹打破
+            if (ConditionDestroy == null && bullet.GetIsFromPlayer() == true)
             {
                 Debug.Log(bullet.bulletType + " Hit GraveStone!");
 
@@ -59,7 +60,6 @@ public class GraveStone : MonoBehaviour
                 else
                 {
                     Destroy(gameObject);
-
                 }
             }
 

@@ -118,6 +118,9 @@ public class SwallowRange : MonoBehaviour
 
 
         swallowedBullet.Activate();
+
+
+        swallowedBullet.SetIsFromPlayer(true); // 标记为玩家打出的子弹
         swallowedBullet.FireOut(fireOrigin,
                                 fireDirection,
                                 GlobalSetting.GetInstance().specialBulletSpeed);
@@ -130,6 +133,10 @@ public class SwallowRange : MonoBehaviour
 
             Bullet bullet1 = PoolManager.GetInstance().GetObj(swallowedBullet.bulletType).GetComponent<Bullet>();
             Bullet bullet2 = PoolManager.GetInstance().GetObj(swallowedBullet.bulletType).GetComponent<Bullet>();
+            bullet1.SetIsFromPlayer(true); // 标记为玩家打出的子弹
+            bullet2.SetIsFromPlayer(true); // 标记为玩家打出的子弹
+
+
             bullet1.FireOut(fireOrigin + fireDirection * 1,
                             fireDirection,
                             GlobalSetting.GetInstance().specialBulletSpeed);

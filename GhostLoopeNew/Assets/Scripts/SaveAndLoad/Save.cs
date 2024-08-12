@@ -13,6 +13,8 @@ public class Save
     public List<int> SpawnEnemyId = new List<int>();
 
     public List<int> ComputerId = new List<int>();
+
+    public List<int> EnemyId = new List<int>();
     //public List<bool> EnemyActive = new List<bool>();
 
     //public List<bool> EnemyHpActive = new List<bool>();

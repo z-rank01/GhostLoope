@@ -77,6 +77,20 @@ public class SaveManager : BaseSingleton<SaveManager>
 
         // 敌人
 
+        // 如果敌人的有无也要保存的话，需要为每一个Enemy都要设置一个不同的id
+
+
+        //GameObject[] EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        //for (int i = 0; i < EnemyArray.Length; i++)
+        //{
+        //    if (EnemyArray[i].GetComponent<Enemy>() != null)
+        //    {
+        //        save.EnemyId.Add(EnemyArray[i].GetComponent<Enemy>().id);
+        //    }
+        //}
+
+
+
         //for (int i = 0; i < EnemyArray.Length; i++)
         //{
         //    save.EnemyActive.Add(EnemyArray[i].GetComponent<Enemy>().isActiveAndEnabled);

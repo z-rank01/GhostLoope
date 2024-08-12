@@ -128,8 +128,8 @@ public class PlayerController : MonoBehaviour
 
         Bullet bullet = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
 
-        
 
+        bullet.SetIsFromPlayer(true); // 标记为玩家打出的子弹
 
         bullet.FireOut(fireOrigin, 
                         fireDirection,
@@ -137,17 +137,17 @@ public class PlayerController : MonoBehaviour
 
 
         // 10连发，测试用
-        for (int i = 0; i < 10; i++)
-        {
-            Bullet bullet1 = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    Bullet bullet1 = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
 
 
 
 
-            bullet1.FireOut(fireOrigin,
-                            fireDirection,
-                            GlobalSetting.GetInstance().bulletSpeed);
-        }
+        //    bullet1.FireOut(fireOrigin,
+        //                    fireDirection,
+        //                    GlobalSetting.GetInstance().bulletSpeed);
+        //}
 
 
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效

@@ -60,6 +60,11 @@ public class Player : BaseSingletonMono<Player>
     private bool isGettingSoul_1 = false; // 是否得到了第一关Boss的灵魂
     private bool isGettingSoul_2 = false; // 是否得到了第二关Boss的灵魂
 
+
+    private bool isGameEnd = false; // 游戏是否结束
+
+    public void SetIsGameEnd(bool value) { isGameEnd = value; }
+    public bool GetIsGameEnd() { return isGameEnd; }
     public void SetSoul_1(bool value) { isGettingSoul_1 = value; }
     public void SetSoul_2(bool value) { isGettingSoul_2 = value; }
     public bool GetSoul_1() { return isGettingSoul_1; }

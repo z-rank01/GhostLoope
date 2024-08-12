@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
 
 
         bullet.Activate();
-
+        bullet.SetIsFromPlayer(false); // 标记为怪物发出的子弹
 
         bullet.FireOut(fireOrigin,
                        fireDirection,
