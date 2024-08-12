@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 4339717780864167839}
   - component: {fileID: 2250441607185629463}
   m_Layer: 0
-  m_Name: Eyeball Bat Red
+  m_Name: Eyeball Bat Red 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
   alertDistance: 5
   attackDistance: 5
   bulletSpawnDistance: 1
-  maxHp: 100
+  maxHp: 300
   fireCooldown: 3
   enemyBulletType: 1
   hpSliderName: 

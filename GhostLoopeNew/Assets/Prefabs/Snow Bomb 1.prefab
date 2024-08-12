@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 5441267208493048784}
   - component: {fileID: 2078511220694216178}
   m_Layer: 0
-  m_Name: Snow Bomb
+  m_Name: Snow Bomb 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
   alertDistance: 5
   attackDistance: 3
   bulletSpawnDistance: 4
-  maxHp: 230
+  maxHp: 450
   fireCooldown: 3
   enemyBulletType: 5
   hpSliderName: 
