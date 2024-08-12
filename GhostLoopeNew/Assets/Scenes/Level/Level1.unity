@@ -6347,6 +6347,8 @@ GameObject:
   - component: {fileID: 310276770}
   - component: {fileID: 310276772}
   - component: {fileID: 310276771}
+  - component: {fileID: 310276774}
+  - component: {fileID: 310276773}
   m_Layer: 0
   m_Name: Prop_Fruit_Pineapple_01 (7)
   m_TagString: Untagged
@@ -6420,6 +6422,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310276769}
   m_Mesh: {fileID: -5786107740357513922, guid: e40f3b5dd05e914449c28b33d498697c, type: 3}
+--- !u!114 &310276773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310276769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c79a82d381e894293486016d506943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  san: 10
+  res: 10
+  isSoul_1: 0
+  isSoul_2: 0
+--- !u!65 &310276774
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310276769}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.252761, y: 0.44917655, z: 0.2472497}
+  m_Center: {x: 0.00000009685755, y: 0.22458494, z: 0.0000001527369}
 --- !u!1 &318579385
 GameObject:
   m_ObjectHideFlags: 0
@@ -20557,7 +20596,7 @@ PrefabInstance:
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.47
+      value: 1.58
       objectReference: {fileID: 0}
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
@@ -20567,7 +20606,7 @@ PrefabInstance:
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32.78
+      value: 54.81
       objectReference: {fileID: 0}
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
@@ -28617,7 +28656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374323657}
   m_LocalRotation: {x: 0.5480432, y: -0.00000014125946, z: 0.00000009255337, w: 0.8364501}
-  m_LocalPosition: {x: 0.22783004, y: 12.193305, z: -5.8484974}
+  m_LocalPosition: {x: 1.3378301, y: 12.193305, z: 16.181507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29987,7 +30026,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449957559}
   m_LocalRotation: {x: 0.5480432, y: -0.00000014125946, z: 0.00000009255337, w: 0.8364501}
-  m_LocalPosition: {x: 0.22783004, y: 12.193305, z: -5.8484974}
+  m_LocalPosition: {x: 1.3378301, y: 12.193305, z: 16.181507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37924,6 +37963,8 @@ GameObject:
   - component: {fileID: 1852425124}
   - component: {fileID: 1852425126}
   - component: {fileID: 1852425125}
+  - component: {fileID: 1852425128}
+  - component: {fileID: 1852425127}
   m_Layer: 0
   m_Name: Prop_Fruit_Pineapple_01 (4)
   m_TagString: Untagged
@@ -37939,7 +37980,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852425123}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.45, y: -1.36, z: 23.98}
+  m_LocalPosition: {x: 104.69, y: -1.36, z: 21.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37997,6 +38038,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852425123}
   m_Mesh: {fileID: -5786107740357513922, guid: e40f3b5dd05e914449c28b33d498697c, type: 3}
+--- !u!114 &1852425127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852425123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c79a82d381e894293486016d506943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  san: 10
+  res: 10
+  isSoul_1: 0
+  isSoul_2: 0
+--- !u!65 &1852425128
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852425123}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.252761, y: 0.44917655, z: 0.2472497}
+  m_Center: {x: 0.00000009685755, y: 0.22458494, z: 0.0000001527369}
 --- !u!4 &1852736831 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8233355311662787366, guid: f489a64c5a47c5a459df584af158094b,
@@ -41317,6 +41395,8 @@ GameObject:
   - component: {fileID: 1969045796}
   - component: {fileID: 1969045798}
   - component: {fileID: 1969045797}
+  - component: {fileID: 1969045800}
+  - component: {fileID: 1969045799}
   m_Layer: 0
   m_Name: Prop_Fruit_Pineapple_01 (5)
   m_TagString: Untagged
@@ -41390,6 +41470,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969045795}
   m_Mesh: {fileID: -5786107740357513922, guid: e40f3b5dd05e914449c28b33d498697c, type: 3}
+--- !u!65 &1969045799
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969045795}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.252761, y: 0.44917655, z: 0.2472497}
+  m_Center: {x: 0.00000009685755, y: 0.22458494, z: 0.0000001527369}
+--- !u!114 &1969045800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969045795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c79a82d381e894293486016d506943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  san: 10
+  res: 20
+  isSoul_1: 0
+  isSoul_2: 0
 --- !u!1 &1975994385
 GameObject:
   m_ObjectHideFlags: 0
