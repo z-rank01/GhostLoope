@@ -130,7 +130,7 @@ MonoBehaviour:
   hpSliderName: 
   enemyHp: {fileID: 0}
   enemyRes: {fileID: 0}
-  eggletObject: {fileID: 4197403079796030405, guid: 600d53082dcd3f544ae5affcfacbadad,
+  spawnObject: {fileID: 4197403079796030405, guid: 600d53082dcd3f544ae5affcfacbadad,
     type: 3}
   spawnCounter: 5
 --- !u!1 &7908943668755325098

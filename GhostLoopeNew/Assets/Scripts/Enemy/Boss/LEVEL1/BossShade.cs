@@ -36,7 +36,6 @@ public class BossShade : Enemy
 
     private int mobOnScene;
     private float currSkillTime;
-    
 
     new protected void OnEnable()
     {
@@ -51,7 +50,8 @@ public class BossShade : Enemy
         agent.speed = enemyRunSpeed;
 
         // skill event
-        EventCenter.GetInstance().AddEventListener(E_Event.BossShadeStatus2Skill, DecreaseMobOnScene);
+        EventCenter.GetInstance().AddEventListener(E_Event.BossShadeDecreaseMobOnScene, DecreaseMobOnScene);
+        EventCenter.GetInstance().AddEventListener(E_Event.BossShadeIncreaseMobOnScene, IncreaseMobOnScene);
         currSkillTime = skillCoolDown;
 
         // animation event
@@ -147,7 +147,7 @@ public class BossShade : Enemy
                                           Random.Range(0, noise), 
                                           Random.Range(-noise, noise));
         Vector3 direction1 = direction + fluctuation;
-        Vector3 direction2 = direction.normalized;
+        Vector3 direction2 = direction;
         Vector3 direction3 = direction - fluctuation;
 
         return new List<Vector3> { direction1, direction2, direction3 };
@@ -159,16 +159,15 @@ public class BossShade : Enemy
         var directions = FindFluctuateDirection(playerDirection.normalized, directionNoise);
         for (int i = 0; i < mobNumber; i++)
         {
-            GameObject mobObj = Instantiate(mobGameObject);
+            GameObject mobObj = Instantiate(mobGameObject, transform.position, Quaternion.identity);
             Rigidbody mobRB = mobObj.GetComponent<Rigidbody>();
             mobRB.AddForce(directions[i] * forceMagnitude);
         }
-        mobOnScene = mobNumber;
     }
 
     private bool CheckMobOnScene()
     {
-        return mobOnScene == 0 ? false : true;
+        return mobOnScene != 0;
     }
 
 
@@ -181,7 +180,10 @@ public class BossShade : Enemy
     private void Status2Update()
     {
         if (currFireDelay > 0) currFireDelay -= Time.deltaTime;
-        if (currSkillTime > 0) currSkillTime -= Time.deltaTime;
+        if (!CheckMobOnScene())
+        {
+            if (currSkillTime > 0) currSkillTime -= Time.deltaTime;
+        }
         
         //Debug.Log("In Enemy_Chasing Update");
         float currDistance = GetPlayerDistance();
@@ -234,8 +236,10 @@ public class BossShade : Enemy
         if (currSkillTime <= 0)
         {
             if (!CheckMobOnScene())
+            {
                 SkillSpawnMob();
-            currSkillTime = skillCoolDown;
+                currSkillTime = skillCoolDown;
+            }
         }
         
 
@@ -245,21 +249,33 @@ public class BossShade : Enemy
     // interface
     public void DecreaseMobOnScene()
     {
-        mobOnScene -= mobOnScene-- < 0 ? 0 : 1;
+        mobOnScene--;
+        if (mobOnScene < 0) mobOnScene = 0;
+    }
+
+    public void IncreaseMobOnScene()
+    {
+        mobOnScene++;
     }
 
 
     public void DisableAfterDie(GameObject targetObj)
     {
-        targetObj.SetActive(false);
-        agent.enabled = false;
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        {
+            targetObj.SetActive(false);
+            agent.enabled = false;
+        }
     }
 
     public void SpawnNextStageBoss(GameObject targetObj)
     {
-        BossShade bossShade = targetObj.GetComponent<BossShade>();
-        Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
-        bossShadow.SetSlider(this.enemyHp, this.enemyRes);
-        targetObj.SetActive(false);
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        {
+            BossShade bossShade = targetObj.GetComponent<BossShade>();
+            targetObj.SetActive(false);
+            Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
+            bossShadow.SetSlider(this.enemyHp, this.enemyRes);
+        }
     }
 }

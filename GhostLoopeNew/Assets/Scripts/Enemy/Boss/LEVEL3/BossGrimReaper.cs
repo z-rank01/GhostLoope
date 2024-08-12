@@ -24,8 +24,8 @@ public class BossGrimReaper : Enemy
     public GameObject rightHandObject;
     public GameObject skill1DestinationObject;
     public float skill1DashingTime = 4.0f;
-    public int castTimes = 4;
-    public float castRadius = 3.0f;
+    public int skill1CastTimes = 4;
+    public float skill1CastRadius = 3.0f;
     public float slashAttackDamage = 10.0f;
     public int skill1FireTimes = 6;
 
@@ -36,8 +36,12 @@ public class BossGrimReaper : Enemy
     private Vector3 targetPosition;
 
     [Header("Skill 2 Setting")]
+    public GameObject weaponObject;
     public int skill2FireTimes = 4;
     public float skill2SpinTime = 5.0f;
+    public float skill2CastTimes = 4;
+    public float skill2CastRadius = 2;
+    public float spinAttackDamage = 100.0f;
 
     private bool hasStartedSpinAttack = false;
     private int currSkill2FireTimes;
@@ -419,15 +423,15 @@ public class BossGrimReaper : Enemy
     private void AddSlashAttackEvent()
     {
         // slash attack event
-        for (int i = 1; i <= castTimes; i++)
+        for (int i = 1; i <= skill1CastTimes; i++)
         {
             AnimationEvent leftHandAttackEvent = new AnimationEvent();
             leftHandAttackEvent.functionName = "LeftSlashAttack";
-            leftHandAttackEvent.time = animator.GetClipLength("Slash Attack 01") * ((float)i / (float)castTimes);
+            leftHandAttackEvent.time = animator.GetClipLength("Slash Attack 01") * ((float)i / (float)skill1CastTimes);
 
             AnimationEvent rightHandAttackEvent = new AnimationEvent();
             rightHandAttackEvent.functionName = "RightSlashAttack";
-            rightHandAttackEvent.time = animator.GetClipLength("Slash Attack 02") * ((float)i / (float)castTimes);
+            rightHandAttackEvent.time = animator.GetClipLength("Slash Attack 02") * ((float)i / (float)skill1CastTimes);
 
             // add event
             animator.AddEvent("Slash Attack 01", leftHandAttackEvent);
@@ -444,6 +448,17 @@ public class BossGrimReaper : Enemy
 
     private void AddSpinAttackEvent()
     {
+        // Spin attack event
+        for (int i = 1; i <= skill2CastTimes; i++)
+        {
+            AnimationEvent spinAttackEvent = new AnimationEvent();
+            spinAttackEvent.functionName = "SpinAttack";
+            spinAttackEvent.time = animator.GetClipLength("Spin Attack") * ((float)i / (float)skill1CastTimes);
+
+            // add event
+            animator.AddEvent("Spin Attack", spinAttackEvent);
+        }
+
         // attack finish event
         AnimationEvent spinAttackFinishEvent = new AnimationEvent();
         spinAttackFinishEvent.functionName = "ResetSpinAttackAnimation";
@@ -472,7 +487,7 @@ public class BossGrimReaper : Enemy
     {
         RaycastHit leftHandHitInfo;
         if (Physics.SphereCast(leftHandObject.transform.position,
-                               castRadius,
+                               skill1CastRadius,
                                transform.forward,
                                out leftHandHitInfo))
         {
@@ -490,7 +505,7 @@ public class BossGrimReaper : Enemy
     {
         RaycastHit rightHandHitInfo;
         if (Physics.SphereCast(rightHandObject.transform.position,
-                               castRadius,
+                               skill1CastRadius,
                                transform.forward,
                                out rightHandHitInfo))
         {
@@ -499,6 +514,23 @@ public class BossGrimReaper : Enemy
             {
                 //Debug.LogWarning("Hit player!");
                 hitObj.GetComponent<Player>().PlayerReceiveDamage(slashAttackDamage);
+            }
+        }
+    }
+
+    public void SpinAttack()
+    {
+        RaycastHit weaponHitInfo;
+        if (Physics.SphereCast(weaponObject.transform.position,
+                               skill2CastRadius,
+                               weaponObject.transform.forward,
+                               out weaponHitInfo))
+        {
+            GameObject hitObj = weaponHitInfo.collider.gameObject;
+            if (hitObj.tag == "Player")
+            {
+                //Debug.LogWarning("Hit player!");
+                hitObj.GetComponent<Player>().PlayerReceiveDamage(spinAttackDamage);
             }
         }
     }

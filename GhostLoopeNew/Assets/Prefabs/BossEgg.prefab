@@ -30,7 +30,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8061708167690463655}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -89.99959, z: -90}
 --- !u!1 &8061708167690171779
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8061708167690463655}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90}
 --- !u!1 &8061708167690171781
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +278,6 @@ MonoBehaviour:
   hpSliderName: 
   enemyHp: {fileID: 0}
   enemyRes: {fileID: 0}
-  bossShadeObject: {fileID: 9183668960363724834, guid: eda547b3526cead479e36050e0064799,
+  spawnObject: {fileID: 9183668960363724834, guid: eda547b3526cead479e36050e0064799,
     type: 3}
-  spawnCounter: 9999999
+  spawnCounter: 5

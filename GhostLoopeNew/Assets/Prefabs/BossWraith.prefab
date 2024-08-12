@@ -10658,7 +10658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6879666894852252898
 Transform:
   m_ObjectHideFlags: 0
@@ -10776,7 +10776,7 @@ MonoBehaviour:
   leftWingObject: {fileID: 3903045277082409034}
   rightWingObject: {fileID: 249222763815717160}
   skill3FireTimes: 4
-  spinCastTimes: 4
+  spinCastTimes: 20
   spinCastRadius: 2
   spinAttackDamage: 100
   preChainObject: {fileID: 2188570555822901091, guid: 10c789806e4212d43b225d7465e20b4b,

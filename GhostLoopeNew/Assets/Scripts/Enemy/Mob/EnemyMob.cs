@@ -145,6 +145,7 @@ public class EnemyMob : Enemy
     // interface
     public void DisableAfterDie(GameObject targetObj)
     {
-        targetObj.SetActive(false);
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0) 
+            targetObj.SetActive(false);
     }
 }

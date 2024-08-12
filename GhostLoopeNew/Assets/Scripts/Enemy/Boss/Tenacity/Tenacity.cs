@@ -5,6 +5,7 @@ public class Tenacity : MonoBehaviour
 {
     [Header("Tenacity Setting")]
     public float tenacity = 100.0f;
+    public float extraDamage = 100.0f;
     public float rotateSpeed = 5.0f;
     private float currTenacity;
 
@@ -48,7 +49,7 @@ public class Tenacity : MonoBehaviour
     public void ReceiveDamage(Bullet bullet)
     {
         //Debug.Log("ReceiveDamage");
-        EventCenter.GetInstance().EventTrigger<float>(E_Event.TenacityReceiveDamage, bullet.damage);
+        EventCenter.GetInstance().EventTrigger<float>(E_Event.TenacityReceiveDamage, extraDamage);
     }
 
 

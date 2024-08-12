@@ -11,7 +11,8 @@ public enum E_Event
     ReceiveDamage,
     PlayerReceiveDamage, 
 
-    BossShadeStatus2Skill, 
+    BossShadeIncreaseMobOnScene,
+    BossShadeDecreaseMobOnScene,
     TenacityReceiveDamage, 
     TenacityBulletReturn,
 

@@ -489,8 +489,11 @@ public class BossWraith : Enemy
     // interface
     public void DisableAfterDie(GameObject targetObj)
     {
-        targetObj.SetActive(false);
-        agent.enabled = false;
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        {
+            targetObj.SetActive(false);
+            agent.enabled = false;
+        }
     }
 
     private void OnDrawGizmos()
@@ -504,7 +507,7 @@ public class BossWraith : Enemy
         RaycastHit leftWingHitInfo;
         if (Physics.SphereCast(leftWingObject.transform.position,
                                spinCastRadius,
-                               transform.forward,
+                               leftWingObject.transform.up,
                                out leftWingHitInfo))
         {
             //Debug.LogWarning("Hit Something!" + leftWingHitInfo.collider.name);
@@ -522,7 +525,7 @@ public class BossWraith : Enemy
         RaycastHit rightWingHitInfo;
         if (Physics.SphereCast(rightWingObject.transform.position,
                                spinCastRadius,
-                               transform.forward,
+                               rightWingObject.transform.up,
                                out rightWingHitInfo))
         {
             GameObject hitObj = rightWingHitInfo.collider.gameObject;
@@ -539,7 +542,7 @@ public class BossWraith : Enemy
         RaycastHit leftWingHitInfo;
         if (Physics.SphereCast(leftWingObject.transform.position,
                                spinCastRadius,
-                               leftWingObject.transform.forward,
+                               leftWingObject.transform.up,
                                out leftWingHitInfo))
         {
             //Debug.LogWarning("Hit Something!" + leftWingHitInfo.collider.name);
@@ -558,7 +561,7 @@ public class BossWraith : Enemy
         RaycastHit rightWingHitInfo;
         if (Physics.SphereCast(rightWingObject.transform.position,
                                spinCastRadius,
-                               rightWingObject.transform.forward,
+                               rightWingObject.transform.up,
                                out rightWingHitInfo))
         {
             GameObject hitObj = rightWingHitInfo.collider.gameObject;
