@@ -25,4 +25,9 @@ public class HintUI : MonoBehaviour
         this.cam = targetCamera;
         this.followingTarget = targetTransform;
     }
+
+    public void SetOffset(Vector3 _offset)
+    {
+        offset = _offset; 
+    }
 }
