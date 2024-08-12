@@ -803,11 +803,11 @@ MonoBehaviour:
   slashAttackDamage: 150
   skill1FireTimes: 6
   weaponObject: {fileID: 3349494985385202357}
-  skill2FireTimes: 4
-  skill2SpinTime: 5
+  skill2FireTimes: 1
+  skill2SpinTime: 1
   skill2CastTimes: 20
   skill2CastRadius: 1
-  spinAttackDamage: 135
+  spinAttackDamage: 35
   tenacityObj: {fileID: 8767376839585538520}
 --- !u!1001 &5350375846925698844
 PrefabInstance:
@@ -845,7 +845,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: brokenSeconds
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

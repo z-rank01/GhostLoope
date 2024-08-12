@@ -10676,7 +10676,7 @@ Transform:
   - {fileID: 53531621742488520}
   - {fileID: 2801598084380233567}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 172.892, z: 0}
 --- !u!95 &857065624193363982
 Animator:
@@ -10764,19 +10764,19 @@ MonoBehaviour:
   alertDistance: 7
   attackDistance: 7
   bulletSpawnDistance: 2
-  maxHp: 300
-  fireCooldown: 1
+  maxHp: 47300
+  fireCooldown: 2
   enemyBulletType: 4
   hpSliderName: 
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
-  enemyDashSpeed: 4
-  skillCoolDown: 5
+  enemyDashSpeed: 5
+  skillCoolDown: 9
   leftWingObject: {fileID: 3903045277082409034}
   rightWingObject: {fileID: 249222763815717160}
-  skill3FireTimes: 4
+  skill3FireTimes: 2
   spinCastTimes: 20
   spinCastRadius: 2
   spinAttackDamage: 100
@@ -10784,11 +10784,11 @@ MonoBehaviour:
     type: 3}
   riseSpeed: 0.2
   riseHeight: 2
-  grabDistance: 2
+  grabDistance: 3
   preChainTime: 1.5
   chainTime: 0.5
-  chainAttackDamage: 100
-  retrieveSan: 100
+  chainAttackDamage: 175
+  retrieveSan: 4000
   tenacityObj: {fileID: 8001661972956744572}
 --- !u!1 &7739988982953385765
 GameObject:
@@ -11094,6 +11094,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: tenacity
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: extraDamage
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: brokenSeconds
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

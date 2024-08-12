@@ -40006,8 +40006,8 @@ MonoBehaviour:
   specialBulletSpeed: 0.1
   enemyBulletSpeed: 0.1
   playerObject: {fileID: 1407144747}
-  san: 1000
-  resilience: 40
+  san: 300
+  resilience: 30
   playerSpeed: 50
   playerDashSpeed: 100
   playerSlowSpeed: 25
