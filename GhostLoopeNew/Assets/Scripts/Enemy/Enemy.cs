@@ -33,8 +33,11 @@ public class Enemy : MonoBehaviour
 
     // UI
     public string hpSliderName;
-    public Slider enemyHp;
-    public Slider enemyRes;
+    public Slider enemyHp; // 小怪的生命条
+
+
+    public Slider enemySan; // Boss的生命条
+    public Slider enemyRes; // Boss的韧性条
 
 
 
@@ -132,9 +135,22 @@ public class Enemy : MonoBehaviour
         this.hp = hp;
         if(enemyHp != null) enemyHp.value = hp;
 
+
+        
         if (hp <= 0)
         {
-            if(enemyHp != null) enemyHp.gameObject.SetActive(false);
+            Debug.Log("In SetEnemy HP Slider:");
+            Debug.Log("enemyHp: " + enemyHp);
+            if (enemyHp != null && enemyHp.GetComponent<HintUI>() != null)
+            {
+                // 将跟随物体设为空即可，方便后面继续使用该血条
+                enemyHp.GetComponent<HintUI>().offset = new Vector3(0, 1000000, 0);
+
+                //enemyHp.gameObject.SetActive(false);
+            }
+
+
+
             if(enemyRes != null) enemyRes.gameObject.SetActive(false);
         }
     }

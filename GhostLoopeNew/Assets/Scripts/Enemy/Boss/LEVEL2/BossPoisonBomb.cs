@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 
 public enum E_PoisonBombStatus
 {
@@ -95,6 +97,12 @@ public class BossPoisonBomb : Enemy
         tenacity.SetTenacityParent(this.gameObject);
         tenacityObj.SetActive(false);
         EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
+
+        
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        
+        enemySan.value = enemySan.maxValue = hp;
+        enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
     }
 
     protected void Update()
@@ -420,9 +428,12 @@ public class BossPoisonBomb : Enemy
 
     private void CheckHP()
     {
+        enemySan.value = hp;
+
         // 判断怪物是否死亡
         if (hp <= 0)
         {
+            Player.GetInstance().SetIsFightingBoss(false); // 设置未处于Boss战状态，取消显示怪物血条
             MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
             RemoveNormalStatus();
             agent.enabled = false;

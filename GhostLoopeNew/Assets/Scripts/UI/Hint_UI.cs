@@ -16,13 +16,17 @@ public class HintUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (cam == null || followingTarget == null) return;
         transform.position = cam.WorldToScreenPoint(followingTarget.position + offset);
-        Debug.Log("flolowingTarget: " + followingTarget.position);
     }
 
     public void SetCameraAndFollowingTarget(Camera targetCamera, Transform targetTransform)
     {
         this.cam = targetCamera;
         this.followingTarget = targetTransform;
+    }
+    public void SetOffset(Vector3 _offset)
+    {
+        offset = _offset;
     }
 }

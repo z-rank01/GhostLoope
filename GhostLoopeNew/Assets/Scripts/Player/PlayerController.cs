@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -135,6 +136,19 @@ public class PlayerController : MonoBehaviour
                         GlobalSetting.GetInstance().bulletSpeed);
 
 
+        // 10连发，测试用
+        for (int i = 0; i < 10; i++)
+        {
+            Bullet bullet1 = PoolManager.GetInstance().GetObj(E_PoolType.SimpleBullet).GetComponent<Bullet>();
+
+
+
+
+            bullet1.FireOut(fireOrigin,
+                            fireDirection,
+                            GlobalSetting.GetInstance().bulletSpeed);
+        }
+
 
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
 
@@ -185,18 +199,43 @@ public class PlayerController : MonoBehaviour
         // trigger other event
     }
 
-
+    IEnumerator PlayParticle(ParticleSystem particle, float deltaTime)
+    {
+        particle.Play();
+        yield return new WaitForSeconds(deltaTime);
+        particle.Stop();
+    }
     // 进入玩家的碰撞范围, 玩家收到伤害
     public void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("In PlayerController OnTriggerEnter~~~~~~~~~~~~~~~~~~~~~~~");
+        Debug.Log("In Player OnTriggerEnter: " + other);
+        Debug.Log("other.tag: " + other.tag);
+        if (other.tag == "SavePoint")
+        {
+            Debug.Log(SceneManager.GetActiveScene().name);
+
+            // 直接获取保存点的子物体的粒子特效
+            if (other.transform.childCount != 0)
+            {
+                ParticleSystem particle = other.transform.GetChild(0).GetComponent<ParticleSystem>();
+                if (particle != null)
+                {
+                    StartCoroutine(PlayParticle(particle, 1.0f));
+                }
+            }
+            SaveManager.GetInstance().SaveGame();
+        }
+
+
 
         SpecialBullet bullet = other.GetComponent<SpecialBullet>();
         if (bullet != null && bullet.isSwallowed == false)
         {
             swallowRange.RemoveBulleet(bullet);
             Debug.Log("有子弹击中了你!!!");
-            EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
+            Player.GetInstance().PlayerReceiveDamage(bullet);
+            // 场景切换时用单例好麻烦~
+            //EventCenter.GetInstance().EventTrigger<SpecialBullet>(E_Event.PlayerReceiveDamage, bullet);
             PoolManager.GetInstance().ReturnObj(bullet.bulletType, bullet.gameObject);
         }
 

@@ -41,7 +41,7 @@ public class SwallowRange : MonoBehaviour
     }
     public void Update()
     {
-        
+        GetComponent<SphereCollider>().radius = Player.GetInstance().GetSwallowRadius();
     }
     public void SwallowBullet()
     {
@@ -55,8 +55,11 @@ public class SwallowRange : MonoBehaviour
             float SAN = Player.GetInstance().GetProperty(E_Property.san);
             float RES = Player.GetInstance().GetProperty(E_Property.resilience);
 
-            Player.GetInstance().SetProperty(E_Property.san, SAN - 10);
-            Player.GetInstance().SetProperty(E_Property.resilience, RES + 10);
+            float DecreaseSan = Player.GetInstance().GetSwallowDecreaseSan();
+            float IncreaseRes = Player.GetInstance().GetSwallowIncreaseRes();
+
+            Player.GetInstance().SetProperty(E_Property.san, SAN - DecreaseSan);
+            Player.GetInstance().SetProperty(E_Property.resilience, RES + IncreaseRes);
 
             StartCoroutine(Player.GetInstance().GettingHurt()); // 受到伤害，开始计时
 

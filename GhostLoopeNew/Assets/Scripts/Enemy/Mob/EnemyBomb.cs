@@ -12,6 +12,10 @@ public class EnemyBomb : EnemyMob
 
     protected override void CheckHP()
     {
+        if (enemyHp != null)
+        {
+            enemyHp.value = hp;
+        }
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {

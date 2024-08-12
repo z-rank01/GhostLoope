@@ -311,7 +311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5668525975817099668}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.76, y: 1.3407283, z: -42.24}
+  m_LocalPosition: {x: -1, y: 13, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -373,7 +373,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &1126677937526496661
 CapsuleCollider:
@@ -414,9 +414,11 @@ MonoBehaviour:
   attackDistance: 10
   bulletSpawnDistance: 3
   hp: 100
-  fireDelay: 1
+  fireCooldown: 1
   enemyBulletType: 1
+  hpSliderName: 
   enemyHp: {fileID: 0}
+  enemyRes: {fileID: 0}
   enemyType: 0
   enemySpeed: 2
   enemyAgent: {fileID: 0}
