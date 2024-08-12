@@ -16,7 +16,7 @@ public class BossShade : Enemy
     // general variable
     public float enemyWalkSpeed = 4.0f;
     public float enemyRunSpeed = 8.0f;
-    public NavMeshAgent enemyAgent;
+    public NavMeshAgent agent;
 
     private float currFireDelay = 0.0f;
     private E_BossShadeStatus enemyStatus = E_BossShadeStatus.Status1;
@@ -36,7 +36,6 @@ public class BossShade : Enemy
 
     private int mobOnScene;
     private float currSkillTime;
-    
 
     new protected void OnEnable()
     {
@@ -44,14 +43,15 @@ public class BossShade : Enemy
         base.OnEnable();
 
         // ai
-        enemyAgent = gameObject.AddComponent<NavMeshAgent>();
-        enemyAgent.stoppingDistance = 2.0f;
+        agent = gameObject.AddComponent<NavMeshAgent>();
+        agent.stoppingDistance = 2.0f;
         status1Destination = GameObject.FindGameObjectWithTag("Destination");
-        enemyAgent.SetDestination(status1Destination.transform.position);
-        enemyAgent.speed = enemyRunSpeed;
+        agent.SetDestination(status1Destination.transform.position);
+        agent.speed = enemyRunSpeed;
 
         // skill event
-        EventCenter.GetInstance().AddEventListener(E_Event.BossShadeStatus2Skill, DecreaseMobOnScene);
+        EventCenter.GetInstance().AddEventListener(E_Event.BossShadeDecreaseMobOnScene, DecreaseMobOnScene);
+        EventCenter.GetInstance().AddEventListener(E_Event.BossShadeIncreaseMobOnScene, IncreaseMobOnScene);
         currSkillTime = skillCoolDown;
 
         // animation event
@@ -77,15 +77,10 @@ public class BossShade : Enemy
     // private function
 
     // general function
-    private void SetMoveTo(GameObject destination, float speed)
-    {
-        enemyAgent.SetDestination(destination.transform.position);
-        enemyAgent.speed = speed;
-    }
 
     private void CheckReachDestination()
     {
-        if (Vector3.Distance(status1Destination.transform.position, transform.position) <= enemyAgent.stoppingDistance)
+        if (Vector3.Distance(status1Destination.transform.position, transform.position) <= agent.stoppingDistance)
         {
             // change enemy agent's status
             enemyStatus = E_BossShadeStatus.Status2;
@@ -107,7 +102,7 @@ public class BossShade : Enemy
 
     private float GetPlayerDistance()
     {
-        if (enemyAgent == null) Debug.LogError("Could not find AI agent!");
+        if (agent == null) Debug.LogError("Could not find AI agent!");
         Vector3 playerPosition = Player.GetInstance().GetPlayerTransform().position;
         float distance = (playerPosition - transform.position).magnitude;
         return distance;
@@ -152,7 +147,7 @@ public class BossShade : Enemy
                                           Random.Range(0, noise), 
                                           Random.Range(-noise, noise));
         Vector3 direction1 = direction + fluctuation;
-        Vector3 direction2 = direction.normalized;
+        Vector3 direction2 = direction;
         Vector3 direction3 = direction - fluctuation;
 
         return new List<Vector3> { direction1, direction2, direction3 };
@@ -164,16 +159,15 @@ public class BossShade : Enemy
         var directions = FindFluctuateDirection(playerDirection.normalized, directionNoise);
         for (int i = 0; i < mobNumber; i++)
         {
-            GameObject mobObj = Instantiate(mobGameObject);
+            GameObject mobObj = Instantiate(mobGameObject, transform.position, Quaternion.identity);
             Rigidbody mobRB = mobObj.GetComponent<Rigidbody>();
             mobRB.AddForce(directions[i] * forceMagnitude);
         }
-        mobOnScene = mobNumber;
     }
 
     private bool CheckMobOnScene()
     {
-        return mobOnScene == 0 ? false : true;
+        return mobOnScene != 0;
     }
 
 
@@ -186,16 +180,19 @@ public class BossShade : Enemy
     private void Status2Update()
     {
         if (currFireDelay > 0) currFireDelay -= Time.deltaTime;
-        if (currSkillTime > 0) currSkillTime -= Time.deltaTime;
+        if (!CheckMobOnScene())
+        {
+            if (currSkillTime > 0) currSkillTime -= Time.deltaTime;
+        }
         
         //Debug.Log("In Enemy_Chasing Update");
         float currDistance = GetPlayerDistance();
 
         // chasing
-        if (currDistance > enemyAgent.stoppingDistance)
+        if (currDistance > agent.stoppingDistance)
         {
-            enemyAgent.SetDestination(Player.GetInstance().transform.position);
-            enemyAgent.speed = enemyWalkSpeed;
+            agent.SetDestination(Player.GetInstance().transform.position);
+            agent.speed = enemyWalkSpeed;
 
             // animate
             moveFrame += Time.deltaTime;
@@ -239,8 +236,10 @@ public class BossShade : Enemy
         if (currSkillTime <= 0)
         {
             if (!CheckMobOnScene())
+            {
                 SkillSpawnMob();
-            currSkillTime = skillCoolDown;
+                currSkillTime = skillCoolDown;
+            }
         }
         
 
@@ -250,21 +249,33 @@ public class BossShade : Enemy
     // interface
     public void DecreaseMobOnScene()
     {
-        mobOnScene -= mobOnScene-- < 0 ? 0 : 1;
+        mobOnScene--;
+        if (mobOnScene < 0) mobOnScene = 0;
+    }
+
+    public void IncreaseMobOnScene()
+    {
+        mobOnScene++;
     }
 
 
     public void DisableAfterDie(GameObject targetObj)
     {
-        targetObj.SetActive(false);
-        enemyAgent.enabled = false;
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        {
+            targetObj.SetActive(false);
+            agent.enabled = false;
+        }
     }
 
     public void SpawnNextStageBoss(GameObject targetObj)
     {
-        BossShade bossShade = targetObj.GetComponent<BossShade>();
-        Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
-        bossShadow.SetSlider(this.enemyHp, this.enemyRes);
-        targetObj.SetActive(false);
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        {
+            BossShade bossShade = targetObj.GetComponent<BossShade>();
+            targetObj.SetActive(false);
+            Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
+            bossShadow.SetSlider(this.enemyHp, this.enemyRes);
+        }
     }
 }

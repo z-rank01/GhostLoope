@@ -30,7 +30,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8773966864234894390}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -89.99959, z: -90}
 --- !u!1 &4887639860741185008
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ Transform:
   - {fileID: 4408066895072741105}
   - {fileID: 7009998723808931880}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8003972487699417779
 Animator:
@@ -241,12 +241,15 @@ MonoBehaviour:
   alertDistance: 5
   attackDistance: 3
   bulletSpawnDistance: 4
-  hp: 100
-  fireDelay: 1
+  maxHp: 100
+  fireCooldown: 1
   enemyBulletType: 1
+  hpSliderName: 
   enemyHp: {fileID: 0}
-  egglet: {fileID: 585239327103123613, guid: b07e0881dc374e44a88abd855356023c, type: 3}
-  spawnCounter: 5
+  enemyRes: {fileID: 0}
+  spawnObject: {fileID: 585239327103123613, guid: b07e0881dc374e44a88abd855356023c,
+    type: 3}
+  spawnCounter: 2
 --- !u!1 &7739709546720629729
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,4 +280,4 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8773966864234894390}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90}

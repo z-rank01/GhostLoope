@@ -1,31 +1,15 @@
 using UnityEngine;
 
-public class BossEgg : Enemy
+public class BossEgg : EnemyEgg
 {
-    [Header("Egg Spawn")]
-    public GameObject bossShade;
-    public int spawnCounter = 30;
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+    }
 
-    private float timer;
-
-
-
-    protected void Update()
+    new protected void Update()
     {
         CheckHP();
-
-        // spawning counter
-        // Debug.Log("Egg Counter: " + spawnCounter);
-        if (timer < spawnCounter)
-        {
-            timer += Time.deltaTime;
-            int seconds = (int)(timer % 60);
-        }
-        else
-        {
-            AddSpawnEvent();
-            animator.SetTrigger("Spawn");
-        }
 
         // animate when receiving damage
         if (receiveDamage)
@@ -35,35 +19,35 @@ public class BossEgg : Enemy
         }
         else
             animator.SetBool("Shake", false);
+
+
     }
 
-    private void CheckHP()
+    protected override void CheckHP()
     {
         // spawn when dead
         if (hp <= 0)
         {
-            AddSpawnEvent();
+            readyToSpawn = true;
             animator.SetTrigger("Spawn");
         }
     }
 
-    private void AddSpawnEvent()
-    {
-        AnimationEvent spawnEvent = new AnimationEvent();
-        spawnEvent.functionName = "SpawnEgglet";
-        spawnEvent.time = animator.GetClipLength("Spawn");
-        spawnEvent.objectReferenceParameter = this.gameObject;
-
-        animator.AddEvent("Spawn", spawnEvent);
-    }
-
 
     // interface
-    public void SpawnEgglet(GameObject egg)
+
+    public override void Spawn(GameObject targetObj)
     {
-        BossEgg enemyEgg = egg.GetComponent<BossEgg>();
-        Enemy bossShade = Instantiate(enemyEgg.bossShade, egg.transform.position, egg.transform.rotation).GetComponent<Enemy>();
-        bossShade.SetSlider(this.enemyHp, this.enemyRes);
-        egg.SetActive(false);
+        BossEgg bossEgg = targetObj.GetComponent<BossEgg>();
+        if (bossEgg != null)
+        {
+            if (bossEgg.CheckReadyToSpawn())
+            {
+                Enemy bossShade = Instantiate(spawnObject, transform.position, transform.rotation).GetComponent<Enemy>();
+                this.gameObject.SetActive(false);
+                bossShade.SetSlider(this.enemyHp, this.enemyRes);
+            }
+        }
+        
     }
 }

@@ -1987,9 +1987,9 @@ MonoBehaviour:
   alertDistance: 10
   attackDistance: 10
   bulletSpawnDistance: 3
-  hp: 4000
+  maxHp: 100
   fireCooldown: 1
-  enemyBulletType: 1
+  enemyBulletType: 3
   hpSliderName: 
   enemyHp: {fileID: 0}
   enemyRes: {fileID: 0}

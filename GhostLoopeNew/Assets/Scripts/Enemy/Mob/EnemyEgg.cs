@@ -4,10 +4,17 @@ using UnityEngine;
 public class EnemyEgg : Enemy
 {
     [Header("Egg Spawn")]
-    public GameObject egglet;
-    public int spawnCounter = 30;
+    public GameObject spawnObject;
+    public int spawnCounter = 5;
 
-    private float timer;
+    protected bool readyToSpawn = false;
+    protected float timer;
+
+    new protected void OnEnable()
+    {
+        base.OnEnable();
+        AddSpawnEvent();
+    }
 
     protected void Update()
     {
@@ -22,7 +29,7 @@ public class EnemyEgg : Enemy
         }
         else
         {
-            AddSpawnEvent();
+            readyToSpawn = true;
             animator.SetTrigger("Spawn");
         }
 
@@ -47,7 +54,7 @@ public class EnemyEgg : Enemy
     private void AddSpawnEvent()
     {
         AnimationEvent spawnEvent = new AnimationEvent();
-        spawnEvent.functionName = "SpawnEgglet";
+        spawnEvent.functionName = "Spawn";
         spawnEvent.time = animator.GetClipLength("Spawn");
         spawnEvent.objectReferenceParameter = this.gameObject;
         
@@ -56,10 +63,21 @@ public class EnemyEgg : Enemy
 
 
     // interface
-    public void SpawnEgglet(GameObject egg)
+    public bool CheckReadyToSpawn()
     {
-        EnemyEgg enemyEgg = egg.GetComponent<EnemyEgg>();
-        Instantiate(enemyEgg.egglet, egg.transform.position, egg.transform.rotation);
-        egg.SetActive(false);
+        return readyToSpawn;
+    }
+
+    public virtual void Spawn(GameObject targetObj)
+    {
+        EnemyEgg enemyEgg = targetObj.GetComponent<EnemyEgg>();
+        if (enemyEgg != null)
+        {
+            if (enemyEgg.CheckReadyToSpawn())
+            {
+                Instantiate(spawnObject, transform.position, transform.rotation);
+                gameObject.SetActive(false);
+            }
+        }
     }
 }

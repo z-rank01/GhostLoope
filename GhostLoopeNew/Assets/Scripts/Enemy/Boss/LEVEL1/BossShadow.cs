@@ -42,7 +42,6 @@ public class BossShadow : Enemy
     private bool reachTarget = false;
     private bool hasSetTargetPosition = false;
     private Vector3 targetPosition;
-    private Vector3 targetDirection;
 
     [Header("Skill 3 Setting")]
     public GameObject hintRangePrefab;
@@ -186,11 +185,12 @@ public class BossShadow : Enemy
             tenacityObj.SetActive(true);
             tenacity.SpawnBullet();
             
-            if (!tenacity.CheckBulletOnScene())
+            if (!tenacity.CheckBulletOnScene() || !tenacity.CheckCounterFinish())
             {
+                tenacity.DisableTenacity();
+
                 ResetStatus(E_ShadowStatus.broken);
                 ResetStatus(E_ShadowStatus.normal);
-                tenacityObj.SetActive(false);
                 RemoveBrokenStatus();
             }
         }
@@ -412,7 +412,6 @@ public class BossShadow : Enemy
         if (hp <= 0)
         {
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
-            agent.enabled = false;
 
             // animation
             animator.SetTrigger("Die");
@@ -474,6 +473,7 @@ public class BossShadow : Enemy
     public void DisableAfterDie(GameObject targetObj)
     {
         targetObj.SetActive(false);
+        agent.enabled = false;
     }
 
     public void LeftSlashAttack(GameObject targetObj)

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,7 +8,11 @@ public class EnemyBomb : EnemyMob
     {
         base.OnEnable();
         // die animation event
-        AddDieAnimationEvent();
+    }
+
+    protected void Start()
+    {
+        AddExplodeAnimationEvent();
     }
 
     protected override void CheckHP()
@@ -26,30 +31,28 @@ public class EnemyBomb : EnemyMob
         }
     }
 
-    protected override void AddDieAnimationEvent()
+    protected void AddExplodeAnimationEvent()
     {
         // event: explode
         AnimationEvent explodeEvent = new AnimationEvent();
         explodeEvent.functionName = "ExplodeAfterDie";
         explodeEvent.time = animator.GetClipLength("Die") / 2;
-
-
-        // event: disable object
-        AnimationEvent dieEvent = new AnimationEvent();
-        dieEvent.functionName = "DisableAfterDie";
-        dieEvent.time = animator.GetClipLength("Die");
+        explodeEvent.objectReferenceParameter = this.gameObject;
 
         // add event
         animator.AddEvent("Die", explodeEvent);
-        animator.AddEvent("Die", dieEvent);
     }
 
     // interface
-    public void ExplodeAfterDie()
+    public void ExplodeAfterDie(GameObject targetObj)
     {
         // explode effect
-        GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);
-        EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
-        PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
+        {
+            Debug.LogWarning("Bomb enemy exploding!");
+            GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);
+            targetObj.GetComponent<EnemyBomb>().EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
+            PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);
+        }
     }
 }

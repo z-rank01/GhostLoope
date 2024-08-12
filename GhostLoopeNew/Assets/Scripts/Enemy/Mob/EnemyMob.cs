@@ -17,27 +17,10 @@ public class EnemyMob : Enemy
         //Debug.Log("In ChasingStart");
         base.OnEnable();
 
-
-        Debug.Log("EnemyMob OnEnable!");
-
-        // 使用GameObject.Instantiate()后，组件也会克隆，直接GetComponent即可
         enemyAgent = gameObject.AddComponent<NavMeshAgent>();
-        Debug.Log("In Update isOnNavMesh : " + enemyAgent.isOnNavMesh);
-        Debug.Log("In UPdate OnEnabled: " + enemyAgent.enabled);
-        //if (enemyAgent == null)
-        //{
-        //}
-        //else
-        //{
-
-        //    enemyAgent = gameObject.AddComponent<NavMeshAgent>();
-        //}
-
         enemyAgent.stoppingDistance = 2.0f;
 
-        // animation
         AddDieAnimationEvent();
-
         //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
         //ChasingHP = Instantiate();
     }
@@ -63,9 +46,6 @@ public class EnemyMob : Enemy
 
                 // event
                 enemyAgent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
-
-
-                Debug.Log("isOnNavMesh : " + enemyAgent.isOnNavMesh);
 
                 // animate
                 moveFrame += Time.deltaTime;
@@ -143,6 +123,8 @@ public class EnemyMob : Enemy
         {
             MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
 
+            // animation
+            
             animator.SetTrigger("Die");
         }
     }
@@ -153,6 +135,7 @@ public class EnemyMob : Enemy
         AnimationEvent dieEvent = new AnimationEvent();
         dieEvent.functionName = "DisableAfterDie";
         dieEvent.time = animator.GetClipLength("Die");
+        dieEvent.objectReferenceParameter = this.gameObject;
 
         // add event
         animator.AddEvent("Die", dieEvent);
@@ -160,9 +143,9 @@ public class EnemyMob : Enemy
 
 
     // interface
-    public void DisableAfterDie()
+    public void DisableAfterDie(GameObject targetObj)
     {
-        //targetObj.GetComponent<EnemyMob>().enemyAgent.enabled = false;
-        gameObject.SetActive(false);
+        if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0) 
+            targetObj.SetActive(false);
     }
 }

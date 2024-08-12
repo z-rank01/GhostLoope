@@ -7,6 +7,8 @@ public class BossEggletMob : EnemyMob
         base.OnEnable();
         // event
         enemyAgent.speed = enemySpeed;
+        EventCenter.GetInstance().EventTrigger(E_Event.BossShadeIncreaseMobOnScene);
+
     }
 
     protected new void Update()
@@ -76,15 +78,7 @@ public class BossEggletMob : EnemyMob
         {
             MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
 
-            // boss event
-            EventCenter.GetInstance().EventTrigger(E_Event.BossShadeStatus2Skill);
-
-            // game object
-            enemyAgent.enabled = false;
-
-            // animation
-            AddDieAnimationEvent();
-            animator.SetTrigger("GoingToExplode");
+            animator.SetTrigger("Die");
         }
     }
 
@@ -94,5 +88,10 @@ public class BossEggletMob : EnemyMob
         Vector3 playerPosition = Player.GetInstance().GetPlayerTransform().position;
         float distance = (playerPosition - transform.position).magnitude;
         return distance;
+    }
+
+    private void OnDisable()
+    {
+        EventCenter.GetInstance().EventTrigger(E_Event.BossShadeDecreaseMobOnScene);
     }
 }

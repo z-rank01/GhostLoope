@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class BossEggMob : EnemyEgg
 {
-    protected override void CheckHP()
+    new private void OnEnable()
     {
-        if (hp <= 0)
-        {
-            EventCenter.GetInstance().EventTrigger(E_Event.BossShadeStatus2Skill);
-            gameObject.SetActive(false);
-        }
+        base.OnEnable();
+        EventCenter.GetInstance().EventTrigger(E_Event.BossShadeIncreaseMobOnScene);
+    }
+
+    private void OnDisable()
+    {
+        EventCenter.GetInstance().EventTrigger(E_Event.BossShadeDecreaseMobOnScene);
     }
 }

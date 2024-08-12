@@ -437,8 +437,8 @@ MonoBehaviour:
   alertDistance: 5
   attackDistance: 5
   bulletSpawnDistance: 1
-  hp: 100
-  fireCooldown: 1
+  maxHp: 100
+  fireCooldown: 3
   enemyBulletType: 1
   hpSliderName: 
   enemyHp: {fileID: 0}

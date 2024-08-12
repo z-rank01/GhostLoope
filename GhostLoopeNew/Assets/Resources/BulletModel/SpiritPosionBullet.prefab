@@ -9872,7 +9872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 7
-  damage: 30
+  damage: 100
   extraDamage: 0
   extraDamageTime: 0
   playerDamage: 30

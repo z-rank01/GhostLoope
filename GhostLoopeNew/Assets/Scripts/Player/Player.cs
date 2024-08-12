@@ -77,11 +77,11 @@ public class Player : BaseSingletonMono<Player>
     public IEnumerator GettingHurt()
     {
         isGettingHurt = true;
-        Debug.Log("GettingHurt Begin " + HealingTime + " " + isGettingHurt);
+        //Debug.Log("GettingHurt Begin " + HealingTime + " " + isGettingHurt);
         // 先立即受到一次额外伤害，然后等待deltaTime
         yield return new WaitForSeconds(HealingTime);
 
-        Debug.Log("GettingHurt End");
+        //Debug.Log("GettingHurt End");
         isGettingHurt = false;
     }
 
@@ -377,7 +377,7 @@ public class Player : BaseSingletonMono<Player>
     {
         StartCoroutine(GettingHurt()); // 标记为正在受到伤害状态
 
-        Debug.Log("In PlayerReceiveDamage + bullet.type: " + bullet.bulletType + bullet.damage);
+        //Debug.LogWarning("In PlayerReceiveDamage + bullet.type: " + bullet.bulletType + bullet.damage);
 
         playerProperty.SetProperty(E_Property.san, playerProperty.GetProperty(E_Property.san) - bullet.damage);
         switch (bullet.bulletType)
@@ -407,7 +407,7 @@ public class Player : BaseSingletonMono<Player>
 
     public void PlayerReceiveDamage(float damage)
     {
-        Debug.Log("In PlayerReceiveDamage receive damage: " + damage);
+       // Debug.LogWarning("In PlayerReceiveDamage receive other damage: " + damage);
         float san = playerProperty.GetProperty(E_Property.san);
         playerProperty.SetProperty(E_Property.san, san - damage);
     }
