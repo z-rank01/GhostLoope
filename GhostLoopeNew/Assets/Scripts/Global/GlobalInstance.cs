@@ -61,7 +61,18 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
 
         // π÷ŒÔ
-        PoolManager.GetInstance().AddPool(E_PoolType.spawnEnemy, globalSetting.spawnEnemy);
+        PoolManager.GetInstance().AddPool(E_PoolType.EyeBallBatBlue, globalSetting.EyeBallBatBlue);
+        PoolManager.GetInstance().AddPool(E_PoolType.EyeBallBatRed, globalSetting.EyeBallBatRed);
+        PoolManager.GetInstance().AddPool(E_PoolType.EyeBallBatGreen, globalSetting.EyeBallBatGreen);
+
+        PoolManager.GetInstance().AddPool(E_PoolType.Bomb, globalSetting.Bomb);
+        PoolManager.GetInstance().AddPool(E_PoolType.SnowBomb, globalSetting.SnowBomb);
+
+
+        PoolManager.GetInstance().AddPool(E_PoolType.BossPoisonBomb1, globalSetting.BossPoisonBomb);
+
+        PoolManager.GetInstance().AddPool(E_PoolType.Egg, globalSetting.Egg);
+
     }
 
     private void Start()

@@ -29,8 +29,12 @@ public class StartingMenu : MonoBehaviour
     public Slider Enemy_San;
     public Slider Enemy_Res;
 
-    // 玩家状态是否处于Boss战，该变量可放到Player相关类中
-    bool isFightingBoss = true;
+    private Vector2 OriginalPosSan;
+    private Vector2 OriginalPosRes;
+
+    private Vector2 NotFightingPosSan;
+    private Vector2 NotFightingPosRes;
+    private Vector2 Offset = new Vector2(0,1000000);
 
     // 暂停游戏的按钮，以及接下来出现的4个按钮
     public Button PauseGame;
@@ -48,33 +52,27 @@ public class StartingMenu : MonoBehaviour
 
     public Image BlurImage; // 暂停键按下后的模糊图片
 
+    public Image GameEndImage; // 游戏结束后的播放图片
 
     int FadeAlpha = 10; // 显露出场景的速度，FadeAlpha 帧后FadeImage彻底消失
     public Image FadeImage; // 开始游戏后由黑色逐渐变为透明，显露出场景
 
-
-    // 存档功能的测试按钮
-    public Button Save;
-    public Button Load;
-
-
-
-
-    GameObject[] EnemyArray;
-
-    GameObject[] EnemyHpArray;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-        EnemyHpArray = GameObject.FindGameObjectsWithTag("HP");
-
+        
         San.maxValue = GlobalSetting.GetInstance().san;
         Resilience.maxValue = GlobalSetting.GetInstance().resilience;
 
+        OriginalPosSan = Enemy_San.GetComponent<RectTransform>().anchoredPosition;
+        OriginalPosRes = Enemy_Res.GetComponent<RectTransform>().anchoredPosition;
+
+        // 初始时Boss血条不显示
+        NotFightingPosSan = Enemy_San.GetComponent<RectTransform>().anchoredPosition + Offset;
+        NotFightingPosRes = Enemy_Res.GetComponent<RectTransform>().anchoredPosition + Offset;
 
 
         Setting.onClick.AddListener(this.SettingButtonClicked);
@@ -91,23 +89,18 @@ public class StartingMenu : MonoBehaviour
         GuideReturn.onClick.AddListener(this.GuideReturnClicked);
 
 
-        Save.onClick.AddListener(this.SaveButtonClicked);
-        Load.onClick.AddListener(this.LoadButtonClicked);
-
-
-
-        // 
         if (BeginGame.isLoadGameClicked)
         {
-            LoadGame();
+            // 不能在场景切换前的BeiginGame中调用
+            // 只能在新场景加载完成后的对象中调用！
+            // SaveManager.GetInstance().LoadGame();
         }
+        
         if (BeginGame.isNewGameClicked || BeginGame.isLoadGameClicked)
         {
             MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
-
             BeginGame.isNewGameClicked = false;
             BeginGame.isLoadGameClicked = false;
-
         }
 
 
@@ -170,9 +163,34 @@ public class StartingMenu : MonoBehaviour
             }
         }
     }
+
+    private int endAlpha = 100;
+    void UpdateGameEndImage()
+    {
+        if (endAlpha > 0)
+        {
+            endAlpha--;
+            GameEndImage.GetComponent<Image>().color = new Color(0, 0, 0, 1.0f -(endAlpha * 1.0f / 100));
+            if (endAlpha == 0)
+            {
+                //GameObject.Destroy(GameEndImage);
+                SceneManager.LoadScene("BeginGame");
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        // 游戏结束播放动画
+
+        if (Player.GetInstance().GetIsGameEnd())
+        {
+            GameEndImage.gameObject.SetActive(true);
+            UpdateGameEndImage();
+        }
+
+
+
         // 动态更新最大值
         San.maxValue = GlobalSetting.GetInstance().san;
         Resilience.maxValue = GlobalSetting.GetInstance().resilience;
@@ -192,9 +210,20 @@ public class StartingMenu : MonoBehaviour
         UpdateSanAndRes(San, Resilience, San.maxValue, Resilience.maxValue);
 
         // 处于Boss战状态，显示和更新Boss的血条和韧性条
-        if (isFightingBoss)
+        if (Player.GetInstance().GetIsFightingBoss())
         {
+            Debug.Log("Enemy_San.transform.position: " + Enemy_San.GetComponent<RectTransform>());
+
+
+            Enemy_San.GetComponent<RectTransform>().anchoredPosition = OriginalPosSan;
+            Enemy_Res.GetComponent<RectTransform>().anchoredPosition = OriginalPosRes;
+
             //UpdateSanAndRes(Enemy_San, Enemy_Res, 100, 40);
+        }
+        else
+        {
+            Enemy_San.GetComponent<RectTransform>().anchoredPosition = NotFightingPosSan;
+            Enemy_Res.GetComponent<RectTransform>().anchoredPosition = NotFightingPosRes;
         }
 
         // 动态修改音量大小
@@ -203,111 +232,6 @@ public class StartingMenu : MonoBehaviour
         // 播放场景显现动画
         UpdateFadeImage();
     }
-
-
-
-
-    public void SaveGame()
-    {
-        // 创建save对象，记录当前场景中要保存的信息
-        Save save = new Save();
-
-        Player player = Player.GetInstance();
-
-
-        save.x = player.transform.position.x;
-        save.y = player.transform.position.y;
-        save.z = player.transform.position.z;
-
-
-        for (int i = 0; i < EnemyArray.Length; i++)
-        {
-            save.EnemyActive.Add(EnemyArray[i].GetComponent<Enemy>().isActiveAndEnabled);
-            Debug.Log("EnemyArray[i]: " + EnemyArray[i].GetComponent<Enemy>().isActiveAndEnabled);
-        }
-
-
-        for (int i = 0; i < EnemyHpArray.Length; i++)
-        {
-            save.EnemyHpActive.Add(EnemyHpArray[i].GetComponent<Slider>().isActiveAndEnabled);
-            Debug.Log("EnemyHpArray[i]: " + EnemyHpArray[i].GetComponent<Slider>().isActiveAndEnabled);
-        }
-
-        // 将save对象写入json文件
-        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
-
-        Debug.Log("filePath: " + filePath);
-
-
-        string saveJsonStr = JsonMapper.ToJson(save);
-
-        StreamWriter sw = new StreamWriter(filePath);
-        sw.Write(saveJsonStr);
-        sw.Close();
-        Debug.Log("End Save!");
-
-
-
-        Debug.Log("StreamingAssetPath: " + Application.streamingAssetsPath);
-    }
-    
-    public void LoadGame()
-    {
-        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
-        if (File.Exists(filePath))
-        {
-            // 读取json文件
-            StreamReader sr = new StreamReader(filePath);
-
-            string jsonStr = sr.ReadToEnd();
-
-            sr.Close();
-
-            Save save = JsonMapper.ToObject<Save>(jsonStr);
-
-
-            Player player = Player.GetInstance();
-            player.SetTransformPosition(new Vector3((float)save.x, (float)save.y, (float)save.z));
-
-
-            for (int i = 0; i < EnemyArray.Length; i++)
-            {
-                EnemyArray[i].gameObject.SetActive(save.EnemyActive[i]);
-            }
-
-
-            for (int i = 0; i < EnemyArray.Length; i++)
-            {
-                EnemyHpArray[i].gameObject.SetActive(save.EnemyHpActive[i]);
-
-            }
-        }
-        else
-        {
-            Debug.Log("存档文件不存在");
-        }
-    }
-
-
-
-
-    public void SaveButtonClicked()
-    {
-        Debug.Log("SaveButtonClicked");
-
-
-        SaveGame();
-
-    }
-    public void LoadButtonClicked()
-    {
-        Debug.Log("In StartingMenu Load Button Clicked");
-
-        LoadGame();
-    }
-
-
-
 
 
     // 播放按钮按下的声音

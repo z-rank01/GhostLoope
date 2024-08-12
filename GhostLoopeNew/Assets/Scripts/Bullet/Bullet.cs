@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
 
     public bool isSwallowed = false; // 该子弹是否被吞噬
 
+    private bool isFromPlayer = false; // 该子弹是否是由玩家发出
 
     public ParticleSystem BulletParticleSystem; // 子弹特效
 
@@ -30,6 +31,14 @@ public class Bullet : MonoBehaviour
     private bool activated = true;
     private float bulletSpeed;
     private Vector3 fireDirection;
+
+
+    public void SetIsFromPlayer(bool value) { isFromPlayer =  value; }
+    public bool GetIsFromPlayer()
+    {
+        return isFromPlayer;
+    }
+
 
     void Start()
     {
