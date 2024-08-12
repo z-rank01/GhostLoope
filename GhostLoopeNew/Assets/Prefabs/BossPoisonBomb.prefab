@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72101359c1394b04e92dfd2e6d2a8b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomerangDamage: 35
+  boomerangDamage: 45
 --- !u!1 &3603415456519080671
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
   alertDistance: 7
   attackDistance: 7
   bulletSpawnDistance: 2
-  maxHp: 100
+  maxHp: 7800
   fireCooldown: 2
   enemyBulletType: 6
   hpSliderName: 
@@ -460,9 +460,9 @@ MonoBehaviour:
     type: 3}
   skill1CoolDown: 2
   crossboneObject: {fileID: 2888746213417936340}
-  preThrowTime: 1
-  bulletType: 0
-  skill3Time: 2
+  preThrowTime: 2
+  bulletType: 1
+  skill3Time: 3
   skill3Frequency: 4
   skill3DirectionNumber: 8
   rotateSpeed: 10
@@ -989,8 +989,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
+      propertyPath: tenacity
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: extraDamage
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: brokenSeconds
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
       propertyPath: spawnBulletType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

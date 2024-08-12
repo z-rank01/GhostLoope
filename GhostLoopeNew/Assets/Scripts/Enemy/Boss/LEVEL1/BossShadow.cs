@@ -49,6 +49,7 @@ public class BossShadow : Enemy
     public float rangeAttackDamage = 40.0f;
     public int preAttackSeconds = 2;
 
+    private bool hasStartedRangeAttack = false;
     private GameObject hintRangeObject;
 
     [Header("Tenacity")]
@@ -266,6 +267,9 @@ public class BossShadow : Enemy
                 reachTarget = false;
                 break;
             case E_ShadowStatus.skill3:
+                hintRangeObject = null;
+                agent.enabled = true;
+                hasStartedRangeAttack = false;
                 break;
             case E_ShadowStatus.broken:
                 tenacity.ResetTanacity();
@@ -362,7 +366,11 @@ public class BossShadow : Enemy
     // skill 3
     private void RangeAttack()
     {
-        StartCoroutine(PreAttack());
+        if (!hasStartedRangeAttack)
+        {
+            hasStartedRangeAttack = true;
+            StartCoroutine(PreAttack());
+        }
     }
 
     IEnumerator PreAttack()
@@ -379,7 +387,6 @@ public class BossShadow : Enemy
 
         yield return new WaitForSeconds(preAttackSeconds);
 
-
         ExertExplosion();
 
         // finish animation
@@ -387,13 +394,11 @@ public class BossShadow : Enemy
 
         // destroy object
         DestroyImmediate(hintRangeObject);
-        hintRangeObject = null;
-
-        // restart agent
-        agent.enabled = true;
+        
 
         // switch to normal
         RemoveSkill3Status();
+        ResetStatus(E_ShadowStatus.skill3);
     }
 
     private void ExertExplosion()

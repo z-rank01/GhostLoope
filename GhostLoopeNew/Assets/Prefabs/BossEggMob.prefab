@@ -246,10 +246,11 @@ MonoBehaviour:
   enemyBulletType: 1
   hpSliderName: 
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   spawnObject: {fileID: 585239327103123613, guid: b07e0881dc374e44a88abd855356023c,
     type: 3}
-  spawnCounter: 2
+  spawnCounter: 15
 --- !u!1 &7739709546720629729
 GameObject:
   m_ObjectHideFlags: 0

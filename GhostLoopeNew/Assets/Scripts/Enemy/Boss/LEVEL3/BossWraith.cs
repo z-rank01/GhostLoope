@@ -52,7 +52,6 @@ public class BossWraith : Enemy
     private bool hasSetHeight = false;
     private bool hasRisedUp = false;
     private bool hasReleasedChain = false;
-    private bool hasChained = false;
 
     [Header("Tenacity")]
     public GameObject tenacityObj;
@@ -277,7 +276,6 @@ public class BossWraith : Enemy
                 hasSetHeight = false;
                 hasRisedUp = false;
                 hasReleasedChain = false;
-                hasChained = false;
                 agent.enabled = true;
                 break;
             case E_WraithStatus.broken:
