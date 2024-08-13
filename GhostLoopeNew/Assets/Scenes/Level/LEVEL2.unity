@@ -31732,7 +31732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  spawnAmountHp: 10
+  spawnAmountHp: 25
   navMeshSurface: {fileID: 488960156}
   spawnHp: {fileID: 1737865544}
   spawnHpOffset: {x: 0, y: 0, z: 0}
@@ -31741,7 +31741,7 @@ MonoBehaviour:
   alertDistance: 8
   spawnNum: 4
   spawnRadius: 2
-  spawnTime: 5
+  spawnTime: 20
   enemySpawnPoint: {fileID: 2066231764}
   bossSpawnPoint: {fileID: 0}
   id: 0
@@ -39738,14 +39738,14 @@ MonoBehaviour:
     type: 3}
   SpiritPoisonBullet: {fileID: 9101915335588238102, guid: 71ef98a3e9ab8c64195e86cc8c5c2915,
     type: 3}
-  bulletSpeed: 0.1
+  bulletSpeed: 0.035
   specialBulletSpeed: 0.1
-  enemyBulletSpeed: 0.1
+  enemyBulletSpeed: 0.02
   playerObject: {fileID: 1407144747}
   san: 300
   resilience: 30
-  playerSpeed: 50
-  playerDashSpeed: 100
+  playerSpeed: 45
+  playerDashSpeed: 1500
   playerSlowSpeed: 25
   EyeBallBatRed: {fileID: 8721521550518137244, guid: f489a64c5a47c5a459df584af158094b,
     type: 3}

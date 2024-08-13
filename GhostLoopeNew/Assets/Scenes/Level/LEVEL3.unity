@@ -14567,13 +14567,13 @@ MonoBehaviour:
     type: 3}
   SpiritPoisonBullet: {fileID: 9101915335588238102, guid: 71ef98a3e9ab8c64195e86cc8c5c2915,
     type: 3}
-  bulletSpeed: 0.05
-  specialBulletSpeed: 0.05
-  enemyBulletSpeed: 0.05
+  bulletSpeed: 0.035
+  specialBulletSpeed: 0.1
+  enemyBulletSpeed: 0.02
   playerObject: {fileID: 492047551}
   san: 300
   resilience: 30
-  playerSpeed: 40
+  playerSpeed: 45
   playerDashSpeed: 1500
   playerSlowSpeed: 100
   EyeBallBatRed: {fileID: 0}

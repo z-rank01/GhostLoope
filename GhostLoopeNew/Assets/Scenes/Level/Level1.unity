@@ -9911,7 +9911,7 @@ MonoBehaviour:
   playerObject: {fileID: 885296944}
   san: 300
   resilience: 30
-  playerSpeed: 80
+  playerSpeed: 45
   playerDashSpeed: 1500
   playerSlowSpeed: 5
   EyeBallBatRed: {fileID: 0}
