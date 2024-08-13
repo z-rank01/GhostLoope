@@ -20266,7 +20266,7 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 0.05
   specialBulletSpeed: 0.1
-  enemyBulletSpeed: 0.02
+  enemyBulletSpeed: 0.04
   playerObject: {fileID: 885296944}
   san: 300
   resilience: 30
@@ -37062,7 +37062,7 @@ PrefabInstance:
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.43
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -37072,7 +37072,7 @@ PrefabInstance:
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.91
+      value: -19.8
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -57804,7 +57804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374323657}
   m_LocalRotation: {x: 0.5480432, y: -0.00000014125946, z: 0.00000009255337, w: 0.8364501}
-  m_LocalPosition: {x: 1.18783, y: 12.214305, z: -56.538498}
+  m_LocalPosition: {x: 0.35783005, y: 12.214307, z: -58.4285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -59338,7 +59338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449957559}
   m_LocalRotation: {x: 0.5480432, y: -0.00000014125946, z: 0.00000009255337, w: 0.8364501}
-  m_LocalPosition: {x: 1.18783, y: 12.214305, z: -56.538498}
+  m_LocalPosition: {x: 0.35783005, y: 12.214307, z: -58.4285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

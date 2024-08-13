@@ -355,7 +355,8 @@ MonoBehaviour:
   maxHp: 230
   fireCooldown: 3
   enemyBulletType: 5
-  hpSliderName: 
+  isNeedRedHp: 1
+  id: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
