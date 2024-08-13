@@ -419,11 +419,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunHeat: 1
-  dashTime: 1
-  swallowTime: 1
   interactTime: 1
+  dashTime: 1
+  dashDecreaseRes: 10
+  swallowTime: 1
+  swallowRadius: 2
+  swallowDecreaseSan: 10
+  swallowIncreaseRes: 10
   HealingTime: 3
-  RecoverRatio: 10
+  RecoverRatio: 5
 --- !u!114 &4407486059055380143
 MonoBehaviour:
   m_ObjectHideFlags: 0
