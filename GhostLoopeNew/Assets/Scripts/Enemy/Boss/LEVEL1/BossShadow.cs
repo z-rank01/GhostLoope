@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Experimental.Rendering;
+using UnityEngine.UI;
 
 
 public enum E_ShadowStatus
@@ -87,6 +88,13 @@ public class BossShadow : Enemy
         tenacity.SetTenacityParent(this.gameObject);
         tenacityObj.SetActive(false);
         EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
+
+        // UI
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        enemySan.value = enemySan.maxValue = maxHp;
+        enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+        enemyRes.value = enemyRes.maxValue = tenacity.tenacity;
+
     }
 
     protected void Update()
@@ -106,7 +114,7 @@ public class BossShadow : Enemy
         {
             ResetStatus(E_ShadowStatus.skill2);
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
@@ -216,6 +224,9 @@ public class BossShadow : Enemy
             AddStatus(E_ShadowStatus.broken, true);
         }
         CheckHP();
+
+        // update UI value
+        enemyRes.value = tenacity.GetCurrentTenacity();
     }
 
 
@@ -494,10 +505,10 @@ public class BossShadow : Enemy
         {
             //Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
             GameObject hitObj = leftHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
     }
@@ -512,10 +523,10 @@ public class BossShadow : Enemy
                                out rightHandHitInfo))
         {
             GameObject hitObj = rightHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
     }

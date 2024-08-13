@@ -56,6 +56,10 @@ public class BossShade : Enemy
 
         // animation event
         AddDieAnimationEvent();
+
+        // UI
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        enemySan.value = enemySan.maxValue = maxHp;
     }
 
 
@@ -191,7 +195,7 @@ public class BossShade : Enemy
         float currDistance = GetPlayerDistance();
 
         // chasing
-        if (currDistance > agent.stoppingDistance)
+        if (currDistance <= alertDistance)
         {
             agent.SetDestination(Player.GetInstance().transform.position);
             agent.speed = enemyWalkSpeed;
@@ -278,8 +282,6 @@ public class BossShade : Enemy
             targetObj.SetActive(false);
             Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
 
-            bossShadow.enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
-            bossShadow.enemySan.value = bossShadow.enemySan.maxValue = bossShadow.maxHp;
             //bossShadow.SetSlider(bossShadow.enemySan, bossShadow.enemyRes);
         }
     }

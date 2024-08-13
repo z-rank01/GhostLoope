@@ -16,6 +16,7 @@ TagManager:
   - computer
   - GraveStone
   - SpawnEnemy
+  - ConversationHUD
   layers:
   - Default
   - TransparentFX

@@ -63,6 +63,11 @@ public class Tenacity : MonoBehaviour
         EventCenter.GetInstance().AddEventListener<GameObject>(E_Event.TenacityBulletReturn, DecreaseBulletNumber);
     }
 
+    public float GetCurrentTenacity()
+    {
+        return currTenacity;
+    }
+
     public void DecreaseTenacity(float damage)
     {
         currTenacity -= currTenacity - damage >= 0 ? damage : currTenacity;
