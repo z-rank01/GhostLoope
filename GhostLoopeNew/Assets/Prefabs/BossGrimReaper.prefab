@@ -688,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 8725100371253426353}
   m_LocalRotation: {x: -0, y: -0.9982856, z: 0, w: -0.058531}
   m_LocalPosition: {x: 14.1832075, y: 14.310826, z: 19.508934}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0796, y: 1.0796, z: 1.0796}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5945653512913078224}
@@ -696,7 +696,7 @@ Transform:
   - {fileID: 238196108476476409}
   - {fileID: 3477097216639444475}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -186.711, z: 0}
 --- !u!95 &3681424067508788249
 Animator:
@@ -792,6 +792,8 @@ MonoBehaviour:
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
+  nextStageBossObject: {fileID: 7461354468371458085, guid: 93db5f0a36da8f943a9e8a3f6f3234bc,
+    type: 3}
   enemyWalkSpeed: 2
   enemyDashSpeed: 7
   leftHandObject: {fileID: 3349494985385202357}
@@ -805,7 +807,7 @@ MonoBehaviour:
   skill1FireTimes: 6
   weaponObject: {fileID: 3349494985385202357}
   skill2FireTimes: 2
-  skill2SpinTime: 4
+  skill2SpinTime: 2.7
   skill2CastTimes: 20
   skill2CastRadius: 1
   spinAttackDamage: 30

@@ -94913,21 +94913,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 967793773868953196, guid: 8f588c42d36692043b6b89e12ee8b281,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.0796
-      objectReference: {fileID: 0}
-    - target: {fileID: 967793773868953196, guid: 8f588c42d36692043b6b89e12ee8b281,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0796
-      objectReference: {fileID: 0}
-    - target: {fileID: 967793773868953196, guid: 8f588c42d36692043b6b89e12ee8b281,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.0796
-      objectReference: {fileID: 0}
-    - target: {fileID: 967793773868953196, guid: 8f588c42d36692043b6b89e12ee8b281,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.94949
       objectReference: {fileID: 0}
@@ -94978,8 +94963,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2514630799968138823, guid: 8f588c42d36692043b6b89e12ee8b281,
         type: 3}
-      propertyPath: skill2SpinTime
-      value: 2.7
+      propertyPath: maxHp
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8725100371253426353, guid: 8f588c42d36692043b6b89e12ee8b281,
         type: 3}

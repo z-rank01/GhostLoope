@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 public enum E_WraithStatus
 {
@@ -46,6 +47,7 @@ public class BossWraith : Enemy
     private int hpBelow80 = 1;
     private int hpBelow60 = 1;
     private int hpBelow40 = 1;
+    private int hpBelow20 = 1;
     private float currRiseHeight = 0.0f;
     private Vector3 targetHeightPosition;
 
@@ -363,8 +365,11 @@ public class BossWraith : Enemy
             hpBelow40--;
             return true;
         }
-        else if (hp < maxHp * 0.2) 
+        else if (hp <= maxHp * 0.2 && hpBelow20 > 0)
+        {
+            hpBelow20--;
             return true;
+        }
         else return false;
     }
 
@@ -558,6 +563,7 @@ public class BossWraith : Enemy
                 Debug.LogWarning("Left Wing Hit player!");
                 Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
                 this.SetEnemyHP(GetEnemyHP() + retrieveSan);
+                if (GetEnemyHP() > maxHp * 0.2) hpBelow20++;
             }
         }
     }
@@ -576,6 +582,7 @@ public class BossWraith : Enemy
                 Debug.LogWarning("Right Wing Hit player!");
                 Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
                 this.SetEnemyHP(GetEnemyHP() + retrieveSan);
+                if (GetEnemyHP() > maxHp * 0.2) hpBelow20++;
             }
         }
     }
