@@ -6403,7 +6403,7 @@ PrefabInstance:
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -49.95
+      value: 32.5
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -16379,8 +16379,6 @@ MonoBehaviour:
   BossPoisonBomb: {fileID: 0}
   BossPoisonBomb1: {fileID: 0}
   Egg: {fileID: 4197403079796030405, guid: 600d53082dcd3f544ae5affcfacbadad, type: 3}
-  treasureSan: 0
-  treasureRes: 0
 --- !u!4 &445313662
 Transform:
   m_ObjectHideFlags: 0
@@ -44501,7 +44499,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301304927}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.77, y: 10.588077, z: -54.17619}
+  m_LocalPosition: {x: 0.77, y: 10.588079, z: 28.27382}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54995,7 +54993,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629527085}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.77, y: 10.588077, z: -54.17619}
+  m_LocalPosition: {x: 0.77, y: 10.588079, z: 28.27382}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -70245,6 +70243,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514630799968138823, guid: 8f588c42d36692043b6b89e12ee8b281,
+        type: 3}
+      propertyPath: skill2CastTimes
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8725100371253426353, guid: 8f588c42d36692043b6b89e12ee8b281,
         type: 3}

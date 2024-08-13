@@ -6,35 +6,49 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    public List<TextAsset> textAssets;
+
+    private NPCConversation conversation;
+    private int cursorOfPassage;
     private bool readyToInteract = false;
     private float detectDistance = 5f;
-    public ConversationHUD conversationHUD;
+    
 
-    private void Awake()
+    void Awake()
     {
         
     }
 
     void OnEnable()
     {
-        // load .txt file
-        conversationHUD.LoadConversation(E_ConversationClip.Passage1);
+        conversation = GetComponent<NPCConversation>();
+        conversation.Init();
+
+        foreach (var item in textAssets)
+        {
+            conversation.LoadPassages(item);
+        }
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
-        // unload .txt file
-        conversationHUD.UnloadConversation();
+        
     }
+
+    void Update()
+    {
+    }
+
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             readyToInteract = true;
-            Debug.Log("NPC Status: " + readyToInteract);
+            // Debug.Log("NPC Status: " + readyToInteract);
             // main event
-            conversationHUD.gameObject.SetActive(true);
+            conversation.ParsePassage(cursorOfPassage);
+            conversation.ShowHint();
             EventCenter.GetInstance().AddEventListener(E_Event.Conversation, Conversation);
         }
         
@@ -45,23 +59,17 @@ public class NPC : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             readyToInteract = false;
-            Debug.Log("NPC Status: " + readyToInteract);
+            // Debug.Log("NPC Status: " + readyToInteract);
             // main event
-            conversationHUD.gameObject.SetActive(false);
+            conversation.UnloadPassage();
             EventCenter.GetInstance().RemoveEventListener(E_Event.Conversation, Conversation);
         }
     }
 
     public void Conversation()
     {
-        conversationHUD.Speak();
-        conversationHUD.NextLine();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
+        conversation.Speak();
+        conversation.NextLine();
     }
 
 }

@@ -120,7 +120,7 @@ public class BossWraith : Enemy
 
             ResetStatus(E_WraithStatus.skill4);
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
@@ -494,11 +494,11 @@ public class BossWraith : Enemy
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(rightWingObject.transform.position, spinCastRadius);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(rightWingObject.transform.position, spinCastRadius);
+    //}
 
     public void LeftSpinAttack()
     {
@@ -508,12 +508,10 @@ public class BossWraith : Enemy
                                leftWingObject.transform.up,
                                out leftWingHitInfo))
         {
-            //Debug.LogWarning("Hit Something!" + leftWingHitInfo.collider.name);
             GameObject hitObj = leftWingHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
-                Debug.LogWarning("left Wing Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(spinAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
             }
         }
     }
@@ -527,10 +525,10 @@ public class BossWraith : Enemy
                                out rightWingHitInfo))
         {
             GameObject hitObj = rightWingHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 Debug.LogWarning("Right Wing Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(spinAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
             }
         }
     }
@@ -545,10 +543,10 @@ public class BossWraith : Enemy
         {
             //Debug.LogWarning("Hit Something!" + leftWingHitInfo.collider.name);
             GameObject hitObj = leftWingHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 Debug.LogWarning("Left Wing Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(spinAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
                 this.SetEnemyHP(GetEnemyHP() + retrieveSan);
             }
         }
@@ -563,10 +561,10 @@ public class BossWraith : Enemy
                                out rightWingHitInfo))
         {
             GameObject hitObj = rightWingHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 Debug.LogWarning("Right Wing Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(spinAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
                 this.SetEnemyHP(GetEnemyHP() + retrieveSan);
             }
         }

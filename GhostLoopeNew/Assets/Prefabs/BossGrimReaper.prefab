@@ -792,6 +792,8 @@ MonoBehaviour:
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
+  nextStageBossObject: {fileID: 7461354468371458085, guid: 93db5f0a36da8f943a9e8a3f6f3234bc,
+    type: 3}
   enemyWalkSpeed: 2
   enemyDashSpeed: 7
   leftHandObject: {fileID: 3349494985385202357}
@@ -806,7 +808,7 @@ MonoBehaviour:
   weaponObject: {fileID: 3349494985385202357}
   skill2FireTimes: 1
   skill2SpinTime: 1
-  skill2CastTimes: 20
+  skill2CastTimes: 7
   skill2CastRadius: 1
   spinAttackDamage: 30
   tenacityObj: {fileID: 8767376839585538520}

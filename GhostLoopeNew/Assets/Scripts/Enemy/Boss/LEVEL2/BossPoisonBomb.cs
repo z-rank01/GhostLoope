@@ -128,7 +128,7 @@ public class BossPoisonBomb : Enemy
             ResetStatus(E_PoisonBombStatus.skill2);
 
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
