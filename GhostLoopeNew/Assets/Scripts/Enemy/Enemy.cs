@@ -69,16 +69,12 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (GameObject.Find("Enemy_HP" + id) != null)
+            if (GameObject.Find("Enemy_HP" + id) != null && isNeedRedHp == true)
             {
-                enemyHp = GameObject.Find("Enemy_HP" + id).GetComponent<Slider>();
-
                 // 小怪需要的血条
-                if (enemyHp != null && isNeedRedHp == true)
-                {
-                    enemyHp.value = enemyHp.maxValue = hp; // 先设置max，再设置当前值
-                    enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, transform);
-                }
+                enemyHp = GameObject.Find("Enemy_HP" + id).GetComponent<Slider>();
+                enemyHp.value = enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, transform);
             }
         }
 
@@ -220,7 +216,7 @@ public class Enemy : MonoBehaviour
             }
             else if (Player.GetInstance().GetSoul_1())
             {
-                currReceivedDamage = bullet.playerDamage * 2;
+                currReceivedDamage = bullet.playerDamage * 1.25f;
             }
             else
             {
