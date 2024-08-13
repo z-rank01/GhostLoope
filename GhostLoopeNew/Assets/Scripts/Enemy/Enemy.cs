@@ -200,13 +200,10 @@ public class Enemy : MonoBehaviour
             {
                 // 将跟随物体设为空即可，方便后面继续使用该血条
                 enemyHp.GetComponent<HintUI>().offset = new Vector3(0, 1000000, 0);
-
                 //enemyHp.gameObject.SetActive(false);
             }
 
-
-
-            if(enemyRes != null) enemyRes.gameObject.SetActive(false);
+            
         }
     }
 

@@ -114,7 +114,7 @@ public class BossShadow : Enemy
         {
             ResetStatus(E_ShadowStatus.skill2);
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
@@ -514,10 +514,10 @@ public class BossShadow : Enemy
         {
             //Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
             GameObject hitObj = leftHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
     }
@@ -534,10 +534,10 @@ public class BossShadow : Enemy
                                out rightHandHitInfo))
         {
             GameObject hitObj = rightHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
     }

@@ -199,7 +199,7 @@ public class BossShade : Enemy
         float currDistance = GetPlayerDistance();
 
         // chasing
-        if (currDistance > agent.stoppingDistance)
+        if (currDistance <= alertDistance)
         {
             agent.SetDestination(Player.GetInstance().transform.position);
             agent.speed = enemyWalkSpeed;

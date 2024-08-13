@@ -10676,7 +10676,7 @@ Transform:
   - {fileID: 53531621742488520}
   - {fileID: 2801598084380233567}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 172.892, z: 0}
 --- !u!95 &857065624193363982
 Animator:
@@ -10778,7 +10778,7 @@ MonoBehaviour:
   leftWingObject: {fileID: 3903045277082409034}
   rightWingObject: {fileID: 249222763815717160}
   skill3FireTimes: 2
-  spinCastTimes: 20
+  spinCastTimes: 7
   spinCastRadius: 2
   spinAttackDamage: 75
   preChainObject: {fileID: 2188570555822901091, guid: 10c789806e4212d43b225d7465e20b4b,
@@ -11099,7 +11099,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: tenacity
-      value: 1300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

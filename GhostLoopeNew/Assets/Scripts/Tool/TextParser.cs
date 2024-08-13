@@ -31,12 +31,19 @@ public class TextParser
         return (currLine[0], currLine[1]);
     }
 
-    public void NextLine()
+    public bool NextLine()
     {
-        if (cursor + 1 >= context.Count) 
+        if (cursor + 1 >= context.Count)
+        {
             cursor = 0;
+            return false;
+        }
         else
+        {
             cursor++;
+            return true;
+        }
+            
     }
 
     public void ResetCursor()

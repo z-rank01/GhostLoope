@@ -15,6 +15,7 @@ public enum E_GrimStatus
 public class BossGrimReaper : Enemy
 {
     [Header("Boss GrimReaper Setting")]
+    public GameObject nextStageBossObject;
     public float enemyWalkSpeed = 1.0f;
     public float enemyDashSpeed = 4.0f;
 
@@ -118,7 +119,7 @@ public class BossGrimReaper : Enemy
             //ResetStatus(E_GrimStatus.skill1);
             //ResetStatus(E_GrimStatus.skill2);
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
@@ -488,6 +489,7 @@ public class BossGrimReaper : Enemy
     {
         targetObj.SetActive(false);
         agent.enabled = false;
+        Instantiate(nextStageBossObject, transform.position, Quaternion.identity);
     }
 
     //private void OnDrawGizmos()
@@ -510,10 +512,10 @@ public class BossGrimReaper : Enemy
         {
             //Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
             GameObject hitObj = leftHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(slashAttackDamage);
             }
         }
     }
@@ -529,10 +531,10 @@ public class BossGrimReaper : Enemy
                                out rightHandHitInfo))
         {
             GameObject hitObj = rightHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(slashAttackDamage);
             }
         }
     }
@@ -546,10 +548,10 @@ public class BossGrimReaper : Enemy
                                out weaponHitInfo))
         {
             GameObject hitObj = weaponHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(spinAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(spinAttackDamage);
             }
         }
     }

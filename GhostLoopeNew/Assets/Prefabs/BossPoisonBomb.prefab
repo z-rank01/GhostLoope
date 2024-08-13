@@ -465,7 +465,7 @@ MonoBehaviour:
   preThrowTime: 2
   bulletType: 6
   skill3Time: 3
-  skill3Frequency: 4
+  skill3Frequency: 6
   skill3DirectionNumber: 8
   rotateSpeed: 10
   tenacityObj: {fileID: 6490116104862158751}
