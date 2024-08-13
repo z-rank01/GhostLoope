@@ -106,11 +106,16 @@ public class SpawnEnemy : MonoBehaviour
             //Debug.Log("enemyDis: " + enemyDis);
 
             Enemy enemy = spawnEnemy.GetComponent<Enemy>();
+            enemy.isNeedRedHp = false;
             if(GameObject.Find("SpawnEnemyHP" + i))
             {
+                
                 enemy.enemyHp = GameObject.Find("SpawnEnemyHP" + i).GetComponent<Slider>();
-                enemy.enemyHp.maxValue = 100;
-                enemy.enemyHp.value = 100;
+                enemy.enemyHp.maxValue = enemy.maxHp;
+                enemy.enemyHp.value = enemy.maxHp;
+                enemy.id = 999999999;
+                Debug.Log("£¡£¡£¡!!In SpawnEnemyHP: " + enemy.enemyHp.value);
+
                 if (enemy.enemyHp.GetComponent<HintUI>() == null)
                 {
                     enemy.enemyHp.AddComponent<HintUI>();
