@@ -73,6 +73,17 @@ public class BossPoisonBomb : Enemy
         poisonBombStatusContainer.Add(E_PoisonBombStatus.normal);
 
         // ai
+        // 不知道为什么，设置不了父物体呀
+        //Transform BossSpawnPoint = GameObject.Find("BossSpawnPoint").transform;
+        //Debug.Log("BossSpawn: " + BossSpawnPoint);
+        //transform.SetParent(BossSpawnPoint, false); // 加AI后再设置位置会导致AI的碰撞体和场景阻挡
+        
+        // 只能手动设个固定的位置了
+        transform.SetLocalPositionAndRotation(new Vector3(0,0,15), Quaternion.identity);
+
+        // 就是这个问题，加了AI后在设置位置会被场景中的物体碰撞
+
+
         agent = gameObject.AddComponent<NavMeshAgent>();
         agent.stoppingDistance = 3.0f;
         agent.speed = enemyWalkSpeed;
