@@ -17194,7 +17194,7 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 0.05
   specialBulletSpeed: 0.1
-  enemyBulletSpeed: 0.02
+  enemyBulletSpeed: 0.04
   playerObject: {fileID: 885296944}
   san: 300
   resilience: 30
