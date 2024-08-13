@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 5
-  damage: 60
+  damage: 45
   extraDamage: 0
   extraDamageTime: 0
   playerDamage: 60
