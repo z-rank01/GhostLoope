@@ -13,6 +13,7 @@ public class SaveManager : BaseSingleton<SaveManager>
 
     public bool loading = false;
     public float x, y, z;
+    public float san = 300, res = 30;
     public List<int> GraveStoneId = new List<int>();
     public List<int> SpawnEnemyId = new List<int>();
     public List<int> ComputerId = new List<int>();
@@ -40,6 +41,11 @@ public class SaveManager : BaseSingleton<SaveManager>
         save.y = player.transform.position.y;
         save.z = player.transform.position.z;
 
+        save.san = GlobalSetting.GetInstance().san;
+        save.res = GlobalSetting.GetInstance().resilience;
+
+        san = GlobalSetting.GetInstance().san;
+        res = GlobalSetting.GetInstance().resilience;
 
         Debug.Log("Save Game save.transform: " + player.transform.position);
 
@@ -162,6 +168,10 @@ public class SaveManager : BaseSingleton<SaveManager>
             x = (float)save.x;
             y = (float)save.y;
             z = (float)save.z;
+
+            san = save.san;
+            res = save.res;
+
 
 
             GraveStoneId = save.GraveStoneId;
