@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
+
+//using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class StartingMenu : MonoBehaviour
 {
@@ -164,6 +165,7 @@ public class StartingMenu : MonoBehaviour
         }
     }
 
+    // 游戏结束后回到主界面的动画速度
     private int endAlpha = 100;
     void UpdateGameEndImage()
     {

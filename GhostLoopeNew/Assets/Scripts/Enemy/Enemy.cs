@@ -34,7 +34,10 @@ public class Enemy : MonoBehaviour
     protected float moveFrame;
 
     // UI
-    public string hpSliderName;
+    public bool isNeedRedHp = true; // 怪物是否需要红色的hp，应该小怪需要，boss不需要
+    public int id; // 怪物的id，需要都不同，才能正确找到UI和存档
+
+    // public string hpSliderName;
     public Slider enemyHp; // 小怪的生命条
 
 
@@ -59,40 +62,61 @@ public class Enemy : MonoBehaviour
 
 
         // UI
-        GameObject hpSlider = GameObject.Find(hpSliderName);
-        if (hpSlider != null)
+        if (enemyHp != null)
         {
-            hpSlider.SetActive(true);
-            enemyHp = hpSlider.GetComponent<Slider>();
-            if (enemyHp != null)
-            {
-                enemyHp.maxValue = hp; // 先设置max，再设置当前值
-                enemyHp.value = enemyHp.maxValue;
-            }
-            if (enemyRes != null)
-            {
-                enemyRes.maxValue = 40;
-                enemyRes.value = 40;
-            }
-            HintUI hintUI = hpSlider.GetComponent<HintUI>();
-            if (hintUI != null)
-                hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+            enemyHp.maxValue = hp; // 先设置max，再设置当前值
+            enemyHp.value = enemyHp.maxValue;
         }
         else
         {
-            if (enemyHp != null)
+            if (GameObject.Find("Enemy_HP" + id) != null)
             {
-                enemyHp.maxValue = hp; // 先设置max，再设置当前值
-                enemyHp.value = enemyHp.maxValue;
-            }
-            if (enemyRes != null)
-            {
-                enemyRes.maxValue = 40;
-                enemyRes.value = 40;
+                enemyHp = GameObject.Find("Enemy_HP" + id).GetComponent<Slider>();
+
+                // 小怪需要的血条
+                if (enemyHp != null && isNeedRedHp == true)
+                {
+                    enemyHp.value = enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                    enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, transform);
+                }
             }
         }
 
-        
+
+        //GameObject hpSlider = GameObject.Find(hpSliderName);
+        //if (hpSlider != null)
+        //{
+        //    hpSlider.SetActive(true);
+        //    enemyHp = hpSlider.GetComponent<Slider>();
+        //    if (enemyHp != null)
+        //    {
+        //        enemyHp.maxValue = hp; // 先设置max，再设置当前值
+        //        enemyHp.value = enemyHp.maxValue;
+        //    }
+        //    if (enemyRes != null)
+        //    {
+        //        enemyRes.maxValue = 40;
+        //        enemyRes.value = 40;
+        //    }
+        //    HintUI hintUI = hpSlider.GetComponent<HintUI>();
+        //    if (hintUI != null)
+        //        hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+        //}
+        //else
+        //{
+        //    if (enemyHp != null)
+        //    {
+        //        enemyHp.maxValue = hp; // 先设置max，再设置当前值
+        //        enemyHp.value = enemyHp.maxValue;
+        //    }
+        //    if (enemyRes != null)
+        //    {
+        //        enemyRes.maxValue = 40;
+        //        enemyRes.value = 40;
+        //    }
+        //}
+
+
 
         // Animator
         animator = gameObject.AddComponent<AnimatorController>();
