@@ -31,9 +31,11 @@ public class SceneTravel : MonoBehaviour
             {
                 case SceneName.Level1:
                     SceneManager.LoadScene("Level2");
+                    //SaveManager.GetInstance().loading = true;
                     break;
                 case SceneName.Level2:
                     SceneManager.LoadScene("Level3");
+                    //SaveManager.GetInstance().loading = true;
                     break;
                 case SceneName.Level3:
 

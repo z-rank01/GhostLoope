@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72101359c1394b04e92dfd2e6d2a8b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomerangDamage: 45
+  boomerangDamage: 30
 --- !u!1 &3603415456519080671
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,8 +341,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3603415456519080671}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.08, y: 13.851555, z: -9.32}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1, y: 12.9, z: -8}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3121693726605745669}
@@ -406,7 +406,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &8647541142891084790
 CapsuleCollider:
@@ -445,11 +445,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 7
   attackDistance: 7
-  bulletSpawnDistance: 0.5
-  maxHp: 7800
-  fireCooldown: 2
+  bulletSpawnDistance: 2
+  maxHp: 7000
+  fireCooldown: 3.5
   enemyBulletType: 6
-  hpSliderName: 
+  isNeedRedHp: 1
+  id: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
@@ -990,12 +991,12 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: tenacity
-      value: 700
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: extraDamage
-      value: 700
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
@@ -1005,7 +1006,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: brokenSeconds
-      value: 14
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

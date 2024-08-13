@@ -93,6 +93,11 @@ public class Player : BaseSingletonMono<Player>
     }
     public void Awake()
     {
+
+       
+
+
+
         Init();
         // Mono
         playerProperty = gameObject.AddComponent<PlayerProperty>();
@@ -116,12 +121,22 @@ public class Player : BaseSingletonMono<Player>
             SaveManager.GetInstance().loading = false;
         }
 
+
+        Debug.Log("LoadSceneInfo: " + SaveManager.GetInstance().san);
+        GlobalSetting.GetInstance().san = SaveManager.GetInstance().san;
+        GlobalSetting.GetInstance().resilience = SaveManager.GetInstance().res;
+
+        SetProperty(E_Property.san, GlobalSetting.GetInstance().san);
+        SetProperty(E_Property.resilience, 0.0f); // 玩家默认的韧性值为0
+
     }
 
     public void LoadSceneInfo()
     {
         // position
         transform.position = new Vector3(SaveManager.GetInstance().x, SaveManager.GetInstance().y, SaveManager.GetInstance().z);
+
+
 
 
         Debug.Log("Player Loading");
