@@ -103,6 +103,10 @@ public class StartingMenu : MonoBehaviour
         
         if (BeginGame.isNewGameClicked)
         {
+
+            MusicManager.GetInstance().PlayFireSound("第一关-配乐");
+
+
             MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
             MusicManager.GetInstance().PlayEnvironmentSound("第一关-环境音-微风");
             BeginGame.isNewGameClicked = false;
