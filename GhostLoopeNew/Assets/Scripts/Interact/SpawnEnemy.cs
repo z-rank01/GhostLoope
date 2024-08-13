@@ -33,6 +33,7 @@ public class SpawnEnemy : MonoBehaviour
     public Transform bossSpawnPoint; // 手动指定Boss生成点
 
     public int id; // 存档用的该物体的id
+
     // 目前存活的小怪数量
     public int CheckEnemyNumber()
     {
@@ -144,10 +145,11 @@ public class SpawnEnemy : MonoBehaviour
         GameObject spawnEnemy = PoolManager.GetInstance().GetObj(E_PoolType.BossPoisonBomb1);
         spawnEnemy.name = "BossPoisonBomb";
 
-        spawnEnemy.transform.SetParent(bossSpawnPoint, true);
+        
+        //spawnEnemy.transform.SetParent(bossSpawnPoint, true);
 
-        // 设置怪物的出生点（相对于父物体）
-        spawnEnemy.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        //// 设置怪物的出生点（相对于父物体）w
+        //spawnEnemy.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
 
         spawnEnemy.GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, null);
