@@ -83,9 +83,9 @@ public class NPCConversation : MonoBehaviour
         textMeshProObject.SetActive(false);
     }
 
-    public void NextLine()
+    public bool NextLine()
     {
-        textParser.NextLine();
+        return textParser.NextLine();
     }
 
     public int CheckPassageCount()

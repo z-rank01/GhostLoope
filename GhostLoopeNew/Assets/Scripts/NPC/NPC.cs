@@ -68,8 +68,15 @@ public class NPC : MonoBehaviour
 
     public void Conversation()
     {
-        conversation.Speak();
-        conversation.NextLine();
+        if (readyToInteract)
+        {
+            conversation.Speak();
+            if (!conversation.NextLine())
+            {
+                conversation.UnloadPassage();
+                readyToInteract = false;
+            }
+        }
     }
 
 }
