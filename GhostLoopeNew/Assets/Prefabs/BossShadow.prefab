@@ -1988,9 +1988,10 @@ MonoBehaviour:
   attackDistance: 10
   bulletSpawnDistance: 3
   maxHp: 4600
-  fireCooldown: 2
+  fireCooldown: 3.5
   enemyBulletType: 3
-  hpSliderName: 
+  isNeedRedHp: 1
+  id: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
@@ -2004,12 +2005,12 @@ MonoBehaviour:
     type: 3}
   castRadius: 1
   castTimes: 2
-  slashAttackDamage: 30
+  slashAttackDamage: 25
   skill2DashingTime: 5
   hintRangePrefab: {fileID: 8179034662160209601, guid: de7529b0945e01e44958dcba7f6838f1,
     type: 3}
   rangeAttackRadius: 5
-  rangeAttackDamage: 70
+  rangeAttackDamage: 65
   preAttackSeconds: 2
   tenacityObj: {fileID: 2973029662175540052}
 --- !u!1 &6947269388667330067

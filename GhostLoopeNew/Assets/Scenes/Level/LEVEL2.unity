@@ -1486,16 +1486,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  spawnAmountHp: 10
+  spawnAmountHp: 50
   navMeshSurface: {fileID: 488960156}
   spawnHp: {fileID: 746344959}
   spawnHpOffset: {x: 0, y: 0, z: 0}
   ui: {fileID: 0}
   enemySpawnType: 080000000b0000000c000000
   alertDistance: 8
-  spawnNum: 4
+  spawnNum: 5
   spawnRadius: 2
-  spawnTime: 5
+  spawnTime: 25
   enemySpawnPoint: {fileID: 1808500935}
   bossSpawnPoint: {fileID: 1757846510}
   id: 1
@@ -8425,7 +8425,7 @@ PrefabInstance:
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
@@ -8435,7 +8435,7 @@ PrefabInstance:
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -49.26
+      value: -51.05
       objectReference: {fileID: 0}
     - target: {fileID: 8592886293626307770, guid: c7c7fdecf33f79e4883cd3f6ecf6723c,
         type: 3}
@@ -21414,7 +21414,7 @@ PrefabInstance:
     - target: {fileID: 7902110612077203157, guid: 046b8835668da0040b906619c37e5980,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 7902110612077203157, guid: 046b8835668da0040b906619c37e5980,
         type: 3}
@@ -21424,7 +21424,7 @@ PrefabInstance:
     - target: {fileID: 7902110612077203157, guid: 046b8835668da0040b906619c37e5980,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -79.05
+      value: -78.77
       objectReference: {fileID: 0}
     - target: {fileID: 7902110612077203157, guid: 046b8835668da0040b906619c37e5980,
         type: 3}
@@ -24968,7 +24968,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299647947}
   m_LocalRotation: {x: 0.496143, y: -0, z: -0, w: 0.8682409}
-  m_LocalPosition: {x: 0.4, y: 16.527315, z: -58.114017}
+  m_LocalPosition: {x: 0.47, y: 16.527315, z: -59.90402}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -37818,7 +37818,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879233999}
   m_LocalRotation: {x: 0.496143, y: 0, z: 0, w: 0.8682409}
-  m_LocalPosition: {x: 0.4, y: 16.527315, z: -58.114017}
+  m_LocalPosition: {x: 0.47, y: 16.527315, z: -59.90402}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39744,7 +39744,7 @@ MonoBehaviour:
   playerObject: {fileID: 1407144747}
   san: 300
   resilience: 30
-  playerSpeed: 45
+  playerSpeed: 50
   playerDashSpeed: 1500
   playerSlowSpeed: 25
   EyeBallBatRed: {fileID: 8721521550518137244, guid: f489a64c5a47c5a459df584af158094b,
