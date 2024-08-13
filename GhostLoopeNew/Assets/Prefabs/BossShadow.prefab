@@ -1995,21 +1995,21 @@ MonoBehaviour:
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
-  enemyRunSpeed: 14
-  skillCoolDown: 6
+  enemyRunSpeed: 12
+  skillCoolDown: 8
   fireTimes: 3
   leftHandObject: {fileID: 2298220938637750897}
   rightHandObject: {fileID: 205362065136406046}
   skill2DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
     type: 3}
   castRadius: 1
-  castTimes: 4
-  slashAttackDamage: 50
+  castTimes: 2
+  slashAttackDamage: 30
   skill2DashingTime: 5
   hintRangePrefab: {fileID: 8179034662160209601, guid: de7529b0945e01e44958dcba7f6838f1,
     type: 3}
-  rangeAttackRadius: 4
-  rangeAttackDamage: 100
+  rangeAttackRadius: 5
+  rangeAttackDamage: 70
   preAttackSeconds: 2
   tenacityObj: {fileID: 2973029662175540052}
 --- !u!1 &6947269388667330067
@@ -2380,12 +2380,12 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: tenacity
-      value: 400
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: extraDamage
-      value: 600
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
@@ -2395,7 +2395,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: brokenSeconds
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

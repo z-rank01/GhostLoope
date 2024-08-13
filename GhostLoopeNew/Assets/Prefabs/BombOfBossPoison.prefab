@@ -147,5 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombRadius: 3
-  bombDamage: 100
+  bombDamage: 60
   flyingTime: 1

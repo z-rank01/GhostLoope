@@ -792,7 +792,7 @@ MonoBehaviour:
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 2
-  enemyDashSpeed: 14
+  enemyDashSpeed: 7
   leftHandObject: {fileID: 3349494985385202357}
   rightHandObject: {fileID: 3349494985385202357}
   skill1DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
@@ -800,14 +800,14 @@ MonoBehaviour:
   skill1DashingTime: 4
   skill1CastTimes: 4
   skill1CastRadius: 3
-  slashAttackDamage: 150
+  slashAttackDamage: 75
   skill1FireTimes: 6
   weaponObject: {fileID: 3349494985385202357}
-  skill2FireTimes: 4
-  skill2SpinTime: 5
+  skill2FireTimes: 1
+  skill2SpinTime: 1
   skill2CastTimes: 20
   skill2CastRadius: 1
-  spinAttackDamage: 135
+  spinAttackDamage: 30
   tenacityObj: {fileID: 8767376839585538520}
 --- !u!1001 &5350375846925698844
 PrefabInstance:
@@ -845,7 +845,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: brokenSeconds
-      value: 8
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
