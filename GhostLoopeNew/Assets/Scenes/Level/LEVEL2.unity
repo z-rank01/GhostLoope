@@ -13519,6 +13519,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LOOPE
       objectReference: {fileID: 0}
+    - target: {fileID: 7381733790629776488, guid: 763995e1db480a940a046c59eff25baa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -54172,6 +54177,7 @@ MonoBehaviour:
   BlurImage: {fileID: 42631775}
   GameEndImage: {fileID: 0}
   FadeImage: {fileID: 1107638909}
+  updatePropertyText: {fileID: 0}
 --- !u!1 &1613265420
 GameObject:
   m_ObjectHideFlags: 0
