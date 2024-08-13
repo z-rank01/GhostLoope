@@ -109,12 +109,15 @@ public class SpawnEnemy : MonoBehaviour
             enemy.isNeedRedHp = false;
             if(GameObject.Find("SpawnEnemyHP" + i))
             {
-                
+                if (enemy.enemyHp != null)
+                {
+                    enemy.enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, null);
+                    enemy.enemyHp.GetComponent<HintUI>().SetOffset(Vector3.zero);
+                }
                 enemy.enemyHp = GameObject.Find("SpawnEnemyHP" + i).GetComponent<Slider>();
                 enemy.enemyHp.maxValue = enemy.maxHp;
                 enemy.enemyHp.value = enemy.maxHp;
                 enemy.id = 999999999;
-                Debug.Log("！！！!!In SpawnEnemyHP: " + enemy.enemyHp.value);
 
                 if (enemy.enemyHp.GetComponent<HintUI>() == null)
                 {
@@ -145,6 +148,10 @@ public class SpawnEnemy : MonoBehaviour
 
         // 设置怪物的出生点（相对于父物体）
         spawnEnemy.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+
+        spawnEnemy.GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, null);
+
 
         navMeshSurface.BuildNavMesh();
 
