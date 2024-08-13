@@ -117,7 +117,7 @@ public class BeginGame : MonoBehaviour
     }
     public void NewButtonClicked()
     {
-        MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
+        MusicManager.GetInstance().PlayFireSound("界面选择音");
 
 
         SelectImage.gameObject.SetActive(false);
@@ -127,7 +127,7 @@ public class BeginGame : MonoBehaviour
     }
     public void LoadButtonClicked()
     {
-        MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
+        MusicManager.GetInstance().PlayFireSound("界面选择音");
 
         SelectImage.gameObject.SetActive(false);
 
@@ -139,7 +139,7 @@ public class BeginGame : MonoBehaviour
     }
     public void MusicButtonClicked()
     {
-        MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
+        MusicManager.GetInstance().PlayFireSound("界面选择音");
 
 
         SettingImage.gameObject.SetActive(true);
@@ -148,14 +148,14 @@ public class BeginGame : MonoBehaviour
 
     public void ExitMusicClicked()
     {
-        MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
+        MusicManager.GetInstance().PlayFireSound("界面选择音");
         SettingImage.gameObject.SetActive(false);
     }
 
 
     public void ExitButtonClicked()
     {
-        MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
+        MusicManager.GetInstance().PlayFireSound("界面选择音");
 
         // 点击主界面的退出按钮后立即退出游戏
         #if UNITY_EDITOR

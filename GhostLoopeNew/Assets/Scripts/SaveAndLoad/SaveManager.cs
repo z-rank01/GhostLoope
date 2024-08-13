@@ -13,6 +13,8 @@ public class SaveManager : BaseSingleton<SaveManager>
 
     public bool loading = false;
     public float x, y, z;
+    public bool is_Soul1 = false;
+    public bool is_Soul2 = false;
     public float san = 300, res = 30;
     public List<int> GraveStoneId = new List<int>();
     public List<int> SpawnEnemyId = new List<int>();
@@ -46,6 +48,14 @@ public class SaveManager : BaseSingleton<SaveManager>
 
         san = GlobalSetting.GetInstance().san;
         res = GlobalSetting.GetInstance().resilience;
+
+        save.is_Soul1 = Player.GetInstance().GetSoul_1();
+        save.is_Soul2 = Player.GetInstance().GetSoul_2();
+
+
+        is_Soul1 = Player.GetInstance().GetSoul_1();
+        is_Soul2 = Player.GetInstance().GetSoul_2();
+
 
         Debug.Log("Save Game save.transform: " + player.transform.position);
 
@@ -145,10 +155,9 @@ public class SaveManager : BaseSingleton<SaveManager>
 
 
             // 先加载场景
-            SceneManager.LoadScene(save.sceneName);
-            //SceneManager.LoadScene("Level1");
-
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(save.sceneName);
+            
 
 
             // 这里获取到的单例player是上一关的player，不能在这赋值
@@ -172,7 +181,8 @@ public class SaveManager : BaseSingleton<SaveManager>
             san = save.san;
             res = save.res;
 
-
+            is_Soul1 = save.is_Soul1;
+            is_Soul2 = save.is_Soul2;
 
             GraveStoneId = save.GraveStoneId;
             SpawnEnemyId = save.SpawnEnemyId;

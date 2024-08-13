@@ -171,7 +171,11 @@ public class BossGrimReaper : Enemy
             if (!hasSetTargetPosition) SetTarget();
             else
             {
-                if (!reachTarget) DashToward();
+                if (!reachTarget)
+                {
+                    DashToward();
+                    MusicManager.GetInstance().PlayFireSound("BOSS3-1³å´ÌÒôĞ§");
+                }
                 else
                 {
                     // animation
@@ -375,6 +379,7 @@ public class BossGrimReaper : Enemy
     // skill2
     private void StartSpinAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("Ò»½×¶ÎĞı×ªÒÆ¶¯µÄÒôĞ§");
         animator.SetBool("StartSpinAttack", true);
         hasStartedSpinAttack = true;
         
@@ -402,7 +407,7 @@ public class BossGrimReaper : Enemy
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("òùòğ¹Ö±¬Õ¨ÒôĞ§");
+            MusicManager.GetInstance().PlayFireSound("±¬Õ¨ÒôĞ§");
 
             // animation
             animator.SetTrigger("Die");
@@ -495,6 +500,8 @@ public class BossGrimReaper : Enemy
 
     public void LeftSlashAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("ºáÏò»Ó¿³Á­µ¶ÒôĞ§");
+
         RaycastHit leftHandHitInfo;
         if (Physics.SphereCast(leftHandObject.transform.position,
                                skill1CastRadius,
@@ -513,6 +520,8 @@ public class BossGrimReaper : Enemy
 
     public void RightSlashAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("ºáÏò»Ó¿³Á­µ¶ÒôĞ§");
+
         RaycastHit rightHandHitInfo;
         if (Physics.SphereCast(rightHandObject.transform.position,
                                skill1CastRadius,

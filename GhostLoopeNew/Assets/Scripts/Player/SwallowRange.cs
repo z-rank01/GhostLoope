@@ -63,7 +63,7 @@ public class SwallowRange : MonoBehaviour
     }
     public void SwallowBullet()
     {
-        MusicManager.GetInstance().PlayFireSound("洛普-吸收");
+        MusicManager.GetInstance().PlayFireSound("洛普-吸收过程");
 
         // swallow 
         swallowAreaObject.SetActive(true);
@@ -159,13 +159,37 @@ public class SwallowRange : MonoBehaviour
         }
 
 
+
+
+
+        MusicManager.GetInstance().PlayFireSound("洛普发射子弹"); // 添加子弹音效
+        switch(swallowedBullet.bulletType)
+        {
+            case E_PoolType.FireBullet:
+                MusicManager.GetInstance().PlayFireSound("火子弹-飞行");// 添加子弹音效
+                break;
+            case E_PoolType.ExplodeBullet:
+                MusicManager.GetInstance().PlayFireSound("火子弹-飞行");// 添加子弹音效
+                break;
+            case E_PoolType.BurnBullet:
+                MusicManager.GetInstance().PlayFireSound("火子弹-飞行");// 添加子弹音效
+                break;
+            case E_PoolType.ThunderBullet:
+                MusicManager.GetInstance().PlayFireSound("电子弹-飞行");// 添加子弹音效
+                break;
+            case E_PoolType.PoisonBullet:
+                MusicManager.GetInstance().PlayFireSound("毒子弹-飞行");// 添加子弹音效
+                break;
+            case E_PoolType.SpiritPoisonBullet:
+                MusicManager.GetInstance().PlayFireSound("毒子弹-飞行");// 添加子弹音效
+                break;
+            default:
+                MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行");// 添加子弹音效
+                break;
+        }
+
         swallowedBullet = null;
         readyToFire = false;
-
-
-
-        MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
-        MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }
 
     public bool ReadyToFire()

@@ -42,6 +42,9 @@ public class BombOfBossPoison : MonoBehaviour
     // private function
     private void Bomb()
     {
+        // music
+        MusicManager.GetInstance().PlayFireSound("’®µØ±¨’®“Ù–ß");
+
         // exert effect
         if (GetPlayerDistance() < bombRadius)
             Player.GetInstance().PlayerReceiveDamage(bombDamage);

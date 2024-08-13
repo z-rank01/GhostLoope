@@ -48,6 +48,7 @@ public class BossEgg : EnemyEgg
         {
             if (bossEgg.CheckReadyToSpawn())
             {
+                MusicManager.GetInstance().PlayFireSound("µ∞ø«ÀÈ¡—");
                 Enemy bossShade = Instantiate(spawnObject, transform.position, transform.rotation).GetComponent<Enemy>();
                 this.gameObject.SetActive(false);
 

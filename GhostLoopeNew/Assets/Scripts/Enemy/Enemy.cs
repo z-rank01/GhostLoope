@@ -10,6 +10,7 @@ public enum E_EnemyType
     stayingMob,
 }
 
+
 public class Enemy : MonoBehaviour
 {
     [Header("Default Setting")]
@@ -45,11 +46,21 @@ public class Enemy : MonoBehaviour
     public Slider enemyRes; // Boss的韧性条
 
 
-
+    public ParticleSystem fallenSmoke; // 怪物死亡后的特效
     // damage receiver
     protected ThunderChainDamageReceiver thunderChainDamageReceiver;
     protected ExplodeDamageReceiver explodeDamageReceiver;
     protected ContinuousDamageReceiver continuousDamageReceiver;
+
+
+
+
+    IEnumerator PlaySmokeParticle()
+    {
+        fallenSmoke.Play();
+        yield return new WaitForSeconds(1.0f);
+        fallenSmoke.Stop();
+    }
 
 
     protected void OnEnable()
@@ -77,8 +88,10 @@ public class Enemy : MonoBehaviour
                 enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, transform);
             }
         }
-
-
+        if (transform.Find("Smoke") != null)
+        {
+            fallenSmoke = transform.Find("Smoke").GetComponent<ParticleSystem>();
+        }
         //GameObject hpSlider = GameObject.Find(hpSliderName);
         //if (hpSlider != null)
         //{
@@ -177,6 +190,10 @@ public class Enemy : MonoBehaviour
 
         if (hp <= 0)
         {
+            if (fallenSmoke)
+            {
+                StartCoroutine(PlaySmokeParticle()); // 死亡特效
+            }
             Debug.Log("In SetEnemy HP Slider:");
             Debug.Log("enemyHp: " + enemyHp);
             if (enemyHp != null && enemyHp.GetComponent<HintUI>() != null)

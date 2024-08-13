@@ -24,7 +24,7 @@ public class EnemyBomb : EnemyMob
         // ≈–∂œπ÷ŒÔ «∑ÒÀ¿Õˆ
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("Ú˘Úπ÷±¨’®“Ù–ß");
+            MusicManager.GetInstance().PlayFireSound("’®µØπ÷±¨’®“Ù–ß");
 
             // animation
             animator.SetTrigger("GoingToExplode");
@@ -49,7 +49,7 @@ public class EnemyBomb : EnemyMob
         // explode effect
         if (targetObj != null && targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
         {
-            Debug.LogWarning("Bomb enemy exploding!");
+            //Debug.LogWarning("Bomb enemy exploding!");
             GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);
             targetObj.GetComponent<EnemyBomb>().EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
             PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);

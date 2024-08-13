@@ -396,6 +396,7 @@ public class BossWraith : Enemy
 
     public void ChainSuccessEvent()
     {
+        MusicManager.GetInstance().PlayFireSound("翅膀包裹玩家造成伤害的音效");
         animator.SetBool("PullOpponent", true);
         Player.GetInstance().transform.position = transform.position + transform.forward * grabDistance;
     }
@@ -413,7 +414,7 @@ public class BossWraith : Enemy
         // 判断怪物是否死亡
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
+            MusicManager.GetInstance().PlayFireSound("爆炸音效");
 
             // animation
             animator.SetTrigger("Die");
@@ -499,19 +500,22 @@ public class BossWraith : Enemy
     {
         if (targetObj.GetComponent<Enemy>().GetEnemyHP() <= 0)
         {
+            MusicManager.GetInstance().PlayFireSound("BOSS3-2倒地音效");
             targetObj.SetActive(false);
             agent.enabled = false;
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(rightWingObject.transform.position, spinCastRadius);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(rightWingObject.transform.position, spinCastRadius);
+    //}
 
     public void LeftSpinAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("二阶段旋转移动的音效");
+
         RaycastHit leftWingHitInfo;
         if (Physics.SphereCast(leftWingObject.transform.position,
                                spinCastRadius,
@@ -530,6 +534,8 @@ public class BossWraith : Enemy
 
     public void RightSpinAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("二阶段旋转移动的音效");
+
         RaycastHit rightWingHitInfo;
         if (Physics.SphereCast(rightWingObject.transform.position,
                                spinCastRadius,
@@ -547,6 +553,8 @@ public class BossWraith : Enemy
 
     public void LeftChainAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("蓄力和发动锁链音效");
+
         RaycastHit leftWingHitInfo;
         if (Physics.SphereCast(leftWingObject.transform.position,
                                spinCastRadius,
@@ -566,6 +574,8 @@ public class BossWraith : Enemy
 
     public void RightChainAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("蓄力和发动锁链音效");
+
         RaycastHit rightWingHitInfo;
         if (Physics.SphereCast(rightWingObject.transform.position,
                                spinCastRadius,

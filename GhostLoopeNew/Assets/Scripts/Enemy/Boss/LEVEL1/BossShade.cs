@@ -60,6 +60,9 @@ public class BossShade : Enemy
         // UI
         enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
         enemySan.value = enemySan.maxValue = maxHp;
+
+        // music
+        MusicManager.GetInstance().PlayFireSound("BOSS1-1施法音效");
     }
 
 
@@ -119,7 +122,7 @@ public class BossShade : Enemy
         // 判断怪物是否死亡
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
+            MusicManager.GetInstance().PlayFireSound("爆炸音效");
 
             // animation
             animator.SetTrigger("Die");
@@ -161,6 +164,7 @@ public class BossShade : Enemy
 
     private void SkillSpawnMob()
     {
+        MusicManager.GetInstance().PlayFireSound("boss召唤出蛋到地面的音效");
         Vector3 playerDirection = Player.GetInstance().GetPlayerTransform().position - transform.position;
         var directions = FindFluctuateDirection(playerDirection.normalized, directionNoise);
         for (int i = 0; i < mobNumber; i++)

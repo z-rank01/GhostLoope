@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         //}
 
 
-        MusicManager.GetInstance().PlayFireSound("洛普-普攻-射出"); // 添加子弹音效
+        MusicManager.GetInstance().PlayFireSound("洛普发射子弹"); // 添加子弹音效
 
         MusicManager.GetInstance().PlayFireSound("洛普-普攻-飞行"); // 添加子弹音效
     }

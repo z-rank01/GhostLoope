@@ -76,7 +76,7 @@ public class BossEggletMob : EnemyMob
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("òùòğ¹Ö±¬Õ¨ÒôĞ§");
+            MusicManager.GetInstance().PlayFireSound("±¬Õ¨ÒôĞ§");
 
             animator.SetTrigger("Die");
         }

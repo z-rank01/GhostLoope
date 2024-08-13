@@ -169,7 +169,11 @@ public class BossShadow : Enemy
             if (!hasSetTargetPosition) SetTarget();
             else
             {
-                if (!reachTarget) DashToward();
+                if (!reachTarget)
+                {
+                    MusicManager.GetInstance().PlayFireSound("BOSS1-2≥Â¥Ã“Ù–ß");
+                    DashToward();
+                }
                 else
                 {
                     // animation
@@ -386,6 +390,8 @@ public class BossShadow : Enemy
 
     IEnumerator PreAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("BOSS1-2 ©∑®“Ù–ß");
+        
         // start animation
         animator.SetBool("Attack", true);
 
@@ -398,6 +404,7 @@ public class BossShadow : Enemy
 
         yield return new WaitForSeconds(preAttackSeconds);
 
+        MusicManager.GetInstance().PlayFireSound("—“Ω¨“˝±¨“Ù–ß");
         ExertExplosion();
 
         // finish animation
@@ -428,7 +435,7 @@ public class BossShadow : Enemy
         // ≈–∂œπ÷ŒÔ «∑ÒÀ¿Õˆ
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("Ú˘Úπ÷±¨’®“Ù–ß");
+            MusicManager.GetInstance().PlayFireSound("bossÀ¿Õˆµπµÿ“Ù–ß");
 
             // animation
             animator.SetTrigger("Die");
@@ -495,6 +502,8 @@ public class BossShadow : Enemy
 
     public void LeftSlashAttack(GameObject targetObj)
     {
+        MusicManager.GetInstance().PlayFireSound("ª”◊¶π•ª˜…˘“Ù");
+        
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
         
         RaycastHit leftHandHitInfo;
@@ -515,6 +524,8 @@ public class BossShadow : Enemy
 
     public void RightSlashAttack(GameObject targetObj)
     {
+        MusicManager.GetInstance().PlayFireSound("ª”◊¶π•ª˜…˘“Ù");
+
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
         RaycastHit rightHandHitInfo;
         if (Physics.SphereCast(bossShadow.rightHandObject.transform.position, 
