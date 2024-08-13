@@ -89,7 +89,13 @@ public class BeginGame : MonoBehaviour
                 isReadyToOpenLower = false;
 
                 // 新游戏，只加载场景即可，玩家在初始位置
-                if(isNewGameClicked) SceneManager.LoadScene("Level1");
+                if (isNewGameClicked)
+                {
+                    SaveManager.GetInstance().san = 300;
+                    SaveManager.GetInstance().res = 30;
+
+                    SceneManager.LoadScene("Level1");
+                }
                 // 继续游戏，加载场景后，加载已保存文件中玩家的位置和信息
                 else if (isLoadGameClicked)
                 {

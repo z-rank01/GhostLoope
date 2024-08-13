@@ -148,4 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombRadius: 3
   bombDamage: 60
-  flyingTime: 1
+  flyingTime: 2

@@ -8,6 +8,7 @@ public class Save
     public string sceneName;
     public double x, y, z;
 
+    public float san, res; // 主角的生命值和韧性值
     public List<int> GraveStoneId = new List<int>(); // 目前仍然存在的可交互的物体的ID
 
     public List<int> SpawnEnemyId = new List<int>();

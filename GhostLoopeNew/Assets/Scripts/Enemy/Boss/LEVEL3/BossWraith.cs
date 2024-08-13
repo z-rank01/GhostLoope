@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 public enum E_WraithStatus
 {
     normal,
@@ -91,6 +91,13 @@ public class BossWraith : Enemy
         tenacity.SetTenacityParent(this.gameObject);
         tenacityObj.SetActive(false);
         EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
+
+
+        // UI
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        enemySan.value = enemySan.maxValue = maxHp;
+        enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+        enemyRes.value = enemyRes.maxValue = tenacity.tenacity;
     }
 
     protected void Update()
@@ -220,6 +227,9 @@ public class BossWraith : Enemy
             AddStatus(E_WraithStatus.broken, true);
         }
         CheckHP();
+
+        // update UI value
+        enemyRes.value = tenacity.GetCurrentTenacity();
     }
 
     // status control
