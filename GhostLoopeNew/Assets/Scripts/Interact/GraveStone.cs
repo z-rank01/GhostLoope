@@ -10,7 +10,7 @@ public class GraveStone : MonoBehaviour
 
     bool fallen = false; // 墓碑是否正在消失
 
-
+    //public bool isTriggerBossFight = false;
     public int id;
 
     // Start is called before the first frame update
@@ -50,6 +50,13 @@ public class GraveStone : MonoBehaviour
             if (ConditionDestroy == null && bullet.GetIsFromPlayer() == true)
             {
                 Debug.Log(bullet.bulletType + " Hit GraveStone!");
+
+
+                //if (isTriggerBossFight)
+                //{
+                //    Player.GetInstance().SetIsFightingBoss(true);
+                //}
+
 
                 fallen = true;
 

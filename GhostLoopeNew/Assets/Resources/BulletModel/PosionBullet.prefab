@@ -4986,9 +4986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 6
-  damage: 100
+  damage: 0
   extraDamage: 3
-  extraDamageTime: 10
+  extraDamageTime: 8
   playerDamage: 100
   thunderRadius: 100
   explodeRadius: 100

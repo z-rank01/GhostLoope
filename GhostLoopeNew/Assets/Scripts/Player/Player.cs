@@ -179,7 +179,7 @@ public class Player : BaseSingletonMono<Player>
         float maxSan = GlobalSetting.GetInstance().san;
         if (san < maxSan && isGettingHurt == false)
         {
-            Debug.Log("Healinginging");
+            //Debug.Log("Healinginging");
             playerProperty.SetProperty(E_Property.san, san + Time.deltaTime * RecoverRatio);
         }
 

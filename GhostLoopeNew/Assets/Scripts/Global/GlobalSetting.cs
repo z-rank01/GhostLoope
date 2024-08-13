@@ -54,12 +54,7 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public GameObject Bomb; // 动态生成怪物
     public GameObject SnowBomb; // 动态生成怪物
     public GameObject BossPoisonBomb; //第二关BOSS
-
-    public GameObject Egg; 
-
-
-    [Header("Other Setting")]
-
-    public float treasureSan; // 拾取增益道具后所增加的生命值
-    public float treasureRes; // 拾取增益道具后所增加的韧性值
+    public GameObject BossPoisonBomb1; //第二关BOSS
+    public GameObject Egg;
+   
 }

@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
+
+//using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class StartingMenu : MonoBehaviour
 {
@@ -164,6 +165,7 @@ public class StartingMenu : MonoBehaviour
         }
     }
 
+    // 游戏结束后回到主界面的动画速度
     private int endAlpha = 100;
     void UpdateGameEndImage()
     {
@@ -212,7 +214,7 @@ public class StartingMenu : MonoBehaviour
         // 处于Boss战状态，显示和更新Boss的血条和韧性条
         if (Player.GetInstance().GetIsFightingBoss())
         {
-            Debug.Log("Enemy_San.transform.position: " + Enemy_San.GetComponent<RectTransform>());
+            //Debug.Log("Enemy_San.transform.position: " + Enemy_San.GetComponent<RectTransform>());
 
 
             Enemy_San.GetComponent<RectTransform>().anchoredPosition = OriginalPosSan;

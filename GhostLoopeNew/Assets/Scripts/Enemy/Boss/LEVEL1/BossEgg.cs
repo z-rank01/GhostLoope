@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossEgg : EnemyEgg
 {
@@ -45,7 +46,16 @@ public class BossEgg : EnemyEgg
             {
                 Enemy bossShade = Instantiate(spawnObject, transform.position, transform.rotation).GetComponent<Enemy>();
                 this.gameObject.SetActive(false);
-                bossShade.SetSlider(this.enemyHp, this.enemyRes);
+
+                bossShade.enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+                bossShade.enemySan.value = bossShade.enemySan.maxValue = bossShade.maxHp;
+
+
+
+                //bossShade.SetSlider(bossShade.enemySan, bossShade.enemyRes);
+
+
+                Player.GetInstance().SetIsFightingBoss(true);
             }
         }
         

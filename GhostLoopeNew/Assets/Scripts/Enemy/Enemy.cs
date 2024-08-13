@@ -34,7 +34,10 @@ public class Enemy : MonoBehaviour
     protected float moveFrame;
 
     // UI
-    public string hpSliderName;
+    public bool isNeedRedHp = true; // 怪物是否需要红色的hp，应该小怪需要，boss不需要
+    public int id; // 怪物的id，需要都不同，才能正确找到UI和存档
+
+    // public string hpSliderName;
     public Slider enemyHp; // 小怪的生命条
 
 
@@ -59,40 +62,57 @@ public class Enemy : MonoBehaviour
 
 
         // UI
-        GameObject hpSlider = GameObject.Find(hpSliderName);
-        if (hpSlider != null)
+        if (enemyHp != null)
         {
-            hpSlider.SetActive(true);
-            enemyHp = hpSlider.GetComponent<Slider>();
-            if (enemyHp != null)
-            {
-                enemyHp.maxValue = hp; // 先设置max，再设置当前值
-                enemyHp.value = enemyHp.maxValue;
-            }
-            if (enemyRes != null)
-            {
-                enemyRes.maxValue = 40;
-                enemyRes.value = 40;
-            }
-            HintUI hintUI = hpSlider.GetComponent<HintUI>();
-            if (hintUI != null)
-                hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+            enemyHp.maxValue = hp; // 先设置max，再设置当前值
+            enemyHp.value = enemyHp.maxValue;
         }
         else
         {
-            if (enemyHp != null)
+            if (GameObject.Find("Enemy_HP" + id) != null && isNeedRedHp == true)
             {
-                enemyHp.maxValue = hp; // 先设置max，再设置当前值
-                enemyHp.value = enemyHp.maxValue;
-            }
-            if (enemyRes != null)
-            {
-                enemyRes.maxValue = 40;
-                enemyRes.value = 40;
+                // 小怪需要的血条
+                enemyHp = GameObject.Find("Enemy_HP" + id).GetComponent<Slider>();
+                enemyHp.value = enemyHp.maxValue = hp; // 先设置max，再设置当前值
+                enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, transform);
             }
         }
 
-        
+
+        //GameObject hpSlider = GameObject.Find(hpSliderName);
+        //if (hpSlider != null)
+        //{
+        //    hpSlider.SetActive(true);
+        //    enemyHp = hpSlider.GetComponent<Slider>();
+        //    if (enemyHp != null)
+        //    {
+        //        enemyHp.maxValue = hp; // 先设置max，再设置当前值
+        //        enemyHp.value = enemyHp.maxValue;
+        //    }
+        //    if (enemyRes != null)
+        //    {
+        //        enemyRes.maxValue = 40;
+        //        enemyRes.value = 40;
+        //    }
+        //    HintUI hintUI = hpSlider.GetComponent<HintUI>();
+        //    if (hintUI != null)
+        //        hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+        //}
+        //else
+        //{
+        //    if (enemyHp != null)
+        //    {
+        //        enemyHp.maxValue = hp; // 先设置max，再设置当前值
+        //        enemyHp.value = enemyHp.maxValue;
+        //    }
+        //    if (enemyRes != null)
+        //    {
+        //        enemyRes.maxValue = 40;
+        //        enemyRes.value = 40;
+        //    }
+        //}
+
+
 
         // Animator
         animator = gameObject.AddComponent<AnimatorController>();
@@ -101,6 +121,13 @@ public class Enemy : MonoBehaviour
         thunderChainDamageReceiver = gameObject.AddComponent<ThunderChainDamageReceiver>();
         explodeDamageReceiver = gameObject.AddComponent<ExplodeDamageReceiver>();
         continuousDamageReceiver = gameObject.AddComponent<ContinuousDamageReceiver>();
+
+
+
+
+        //enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        //enemySan.value = enemySan.maxValue = hp;
+        //enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
     }
 
     protected void SimpleFire()
@@ -140,9 +167,14 @@ public class Enemy : MonoBehaviour
     {
         this.hp = hp;
         if(enemyHp != null) enemyHp.value = hp;
+        Debug.Log("In Enemy SetEnemyHp" + hp);
+        if (enemySan)
+        {
+            Debug.Log("enemySan is not null!");
+            enemySan.value = hp;
+        }
+            //if(enemyRes)enemyRes.value = hp;
 
-
-        
         if (hp <= 0)
         {
             Debug.Log("In SetEnemy HP Slider:");
@@ -184,7 +216,7 @@ public class Enemy : MonoBehaviour
             }
             else if (Player.GetInstance().GetSoul_1())
             {
-                currReceivedDamage = bullet.playerDamage * 2;
+                currReceivedDamage = bullet.playerDamage * 1.25f;
             }
             else
             {
@@ -243,24 +275,34 @@ public class Enemy : MonoBehaviour
 
     public void SetSlider(Slider sanSlider, Slider resilianceSlider)
     {
-        sanSlider.gameObject.SetActive(true);
-        resilianceSlider.gameObject.SetActive(true);
+        sanSlider = GameObject.Find("Enemy_San").GetComponent<Slider>();
 
-        enemyHp = sanSlider;
-        enemyRes = resilianceSlider;
+        sanSlider.value = sanSlider.maxValue = hp;
 
-        if (enemyHp != null)
-        {
-            enemyHp.maxValue = hp; // 先设置max，再设置当前值
-            enemyHp.value = enemyHp.maxValue;
-        }
-        if (enemyRes != null)
-        {
-            enemyRes.maxValue = 40;
-            enemyRes.value = 40;
-        }
-        HintUI hintUI = enemyHp.GetComponent<HintUI>();
-        if (hintUI != null)
-            hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
+        resilianceSlider = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+
+        resilianceSlider.value = resilianceSlider.maxValue = 40;
+
+
+
+        //sanSlider.gameObject.SetActive(true);
+        //resilianceSlider.gameObject.SetActive(true);
+
+        //enemyHp = sanSlider;
+        //enemyRes = resilianceSlider;
+
+        //if (enemyHp != null)
+        //{
+        //    enemyHp.maxValue = hp; // 先设置max，再设置当前值
+        //    enemyHp.value = enemyHp.maxValue;
+        //}
+        //if (enemyRes != null)
+        //{
+        //    enemyRes.maxValue = 40;
+        //    enemyRes.value = 40;
+        //}
+        //HintUI hintUI = enemyHp.GetComponent<HintUI>();
+        //if (hintUI != null)
+        //    hintUI.SetCameraAndFollowingTarget(Camera.main, transform);
     }
 }

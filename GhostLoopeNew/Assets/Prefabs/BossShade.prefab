@@ -250,14 +250,16 @@ MonoBehaviour:
   alertDistance: 10
   attackDistance: 10
   bulletSpawnDistance: 1.5
-  maxHp: 100
-  fireCooldown: 1
+  maxHp: 500
+  fireCooldown: 3.6
   enemyBulletType: 3
-  hpSliderName: 
+  isNeedRedHp: 1
+  id: 0
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
-  enemyRunSpeed: 2
+  enemyRunSpeed: 14
   agent: {fileID: 0}
   status1Destination: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
     type: 3}
@@ -268,7 +270,7 @@ MonoBehaviour:
   mobNumber: 3
   directionNoise: 3
   forceMagnitude: 5
-  skillCoolDown: 4
+  skillCoolDown: 8
 --- !u!1 &9183668960363724836
 GameObject:
   m_ObjectHideFlags: 0

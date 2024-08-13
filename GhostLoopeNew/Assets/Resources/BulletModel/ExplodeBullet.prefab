@@ -9872,12 +9872,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 3
-  damage: 60
+  damage: 25
   extraDamage: 0
   extraDamageTime: 0
-  playerDamage: 60
-  thunderRadius: 100
-  explodeRadius: 100
+  playerDamage: 40
+  thunderRadius: 80
+  explodeRadius: 80
   isSwallowed: 0
   BulletParticleSystem: {fileID: 6147434164567218897}
   BulletTrailParticle: {fileID: 2196356925146839451}

@@ -351,15 +351,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 5
   attackDistance: 3
-  bulletSpawnDistance: 4
-  maxHp: 100
-  fireCooldown: 1
+  bulletSpawnDistance: 1
+  maxHp: 230
+  fireCooldown: 3
   enemyBulletType: 5
   hpSliderName: 
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyType: 0
-  enemySpeed: 0.3
+  enemySpeed: 0.5
   enemyAgent: {fileID: 0}
 --- !u!1 &360634170535823028
 GameObject:

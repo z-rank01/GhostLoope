@@ -1987,28 +1987,30 @@ MonoBehaviour:
   alertDistance: 10
   attackDistance: 10
   bulletSpawnDistance: 3
-  maxHp: 100
-  fireCooldown: 1
+  maxHp: 4600
+  fireCooldown: 3.5
   enemyBulletType: 3
-  hpSliderName: 
+  isNeedRedHp: 1
+  id: 0
   enemyHp: {fileID: 0}
+  enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
-  enemyRunSpeed: 4
-  skillCoolDown: 5
+  enemyRunSpeed: 12
+  skillCoolDown: 8
   fireTimes: 3
   leftHandObject: {fileID: 2298220938637750897}
   rightHandObject: {fileID: 205362065136406046}
   skill2DestinationObject: {fileID: 7357317712251811196, guid: 716786477cd2739498cc73cabd8d0bcd,
     type: 3}
   castRadius: 1
-  castTimes: 4
-  slashAttackDamage: 50
+  castTimes: 2
+  slashAttackDamage: 25
   skill2DashingTime: 5
   hintRangePrefab: {fileID: 8179034662160209601, guid: de7529b0945e01e44958dcba7f6838f1,
     type: 3}
-  rangeAttackRadius: 7
-  rangeAttackDamage: 100
+  rangeAttackRadius: 5
+  rangeAttackDamage: 65
   preAttackSeconds: 2
   tenacityObj: {fileID: 2973029662175540052}
 --- !u!1 &6947269388667330067
@@ -2378,8 +2380,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
+      propertyPath: tenacity
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: extraDamage
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
       propertyPath: rotateSpeed
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: brokenSeconds
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
