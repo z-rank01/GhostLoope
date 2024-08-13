@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 7
   attackDistance: 7
-  bulletSpawnDistance: 2
+  bulletSpawnDistance: 0.5
   maxHp: 7800
   fireCooldown: 2
   enemyBulletType: 6
