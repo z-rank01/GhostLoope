@@ -804,8 +804,8 @@ MonoBehaviour:
   slashAttackDamage: 75
   skill1FireTimes: 6
   weaponObject: {fileID: 3349494985385202357}
-  skill2FireTimes: 1
-  skill2SpinTime: 1
+  skill2FireTimes: 2
+  skill2SpinTime: 4
   skill2CastTimes: 20
   skill2CastRadius: 1
   spinAttackDamage: 30
