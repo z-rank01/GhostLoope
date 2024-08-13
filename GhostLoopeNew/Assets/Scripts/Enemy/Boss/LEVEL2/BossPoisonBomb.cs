@@ -109,11 +109,11 @@ public class BossPoisonBomb : Enemy
         tenacityObj.SetActive(false);
         EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
 
-        
+        // UI
         enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
-        
-        enemySan.value = enemySan.maxValue = hp;
+        enemySan.value = enemySan.maxValue = maxHp;
         enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+        enemyRes.value = enemyRes.maxValue = tenacity.tenacity;
     }
 
     protected void Update()
@@ -259,6 +259,9 @@ public class BossPoisonBomb : Enemy
             AddStatus(E_PoisonBombStatus.broken, true);
         }
         CheckHP();
+
+        // update UI value
+        enemyRes.value = tenacity.GetCurrentTenacity();
     }
 
 
