@@ -10772,14 +10772,14 @@ MonoBehaviour:
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
   enemyWalkSpeed: 1
-  enemyDashSpeed: 5
+  enemyDashSpeed: 7
   skillCoolDown: 9
   leftWingObject: {fileID: 3903045277082409034}
   rightWingObject: {fileID: 249222763815717160}
   skill3FireTimes: 2
   spinCastTimes: 20
   spinCastRadius: 2
-  spinAttackDamage: 100
+  spinAttackDamage: 75
   preChainObject: {fileID: 2188570555822901091, guid: 10c789806e4212d43b225d7465e20b4b,
     type: 3}
   riseSpeed: 0.2
@@ -10787,8 +10787,8 @@ MonoBehaviour:
   grabDistance: 3
   preChainTime: 1.5
   chainTime: 0.5
-  chainAttackDamage: 175
-  retrieveSan: 4000
+  chainAttackDamage: 125
+  retrieveSan: 2000
   tenacityObj: {fileID: 8001661972956744572}
 --- !u!1 &7739988982953385765
 GameObject:
@@ -11098,7 +11098,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: tenacity
-      value: 750
+      value: 1300
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
@@ -11113,7 +11113,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: brokenSeconds
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

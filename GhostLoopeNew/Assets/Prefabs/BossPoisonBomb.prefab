@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72101359c1394b04e92dfd2e6d2a8b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomerangDamage: 45
+  boomerangDamage: 30
 --- !u!1 &3603415456519080671
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
   alertDistance: 7
   attackDistance: 7
   bulletSpawnDistance: 2
-  maxHp: 7800
+  maxHp: 7000
   fireCooldown: 2
   enemyBulletType: 6
   hpSliderName: 
@@ -990,7 +990,7 @@ PrefabInstance:
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: tenacity
-      value: 700
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5763162176647393340, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
