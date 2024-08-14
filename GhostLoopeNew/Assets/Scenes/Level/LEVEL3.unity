@@ -6278,7 +6278,7 @@ PrefabInstance:
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -39.28
+      value: -39.64
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -15404,7 +15404,7 @@ MonoBehaviour:
   specialBulletSpeed: 0.05
   enemyBulletSpeed: 0.05
   playerObject: {fileID: 492047551}
-  san: 300
+  san: 1000
   resilience: 20
   playerSpeed: 45
   playerDashSpeed: 1500
@@ -32885,7 +32885,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh1585186
+  m_Name: pb_Mesh123996
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -42263,7 +42263,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh1586558
+  m_Name: pb_Mesh125408
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -63548,7 +63548,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301304927}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.6107199, y: 10.634078, z: -55.120922}
+  m_LocalPosition: {x: 0.6107199, y: 10.634077, z: -55.48092}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -79852,7 +79852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629527085}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.6107199, y: 10.634078, z: -55.120922}
+  m_LocalPosition: {x: 0.6107199, y: 10.634077, z: -55.48092}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -87906,7 +87906,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh87222
+  m_Name: pb_Mesh125362
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -109506,7 +109506,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh1582634
+  m_Name: pb_Mesh121380
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

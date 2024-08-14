@@ -435,7 +435,7 @@ public class BossShadow : Enemy
         // 判断怪物是否死亡
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("boss死亡倒地音效");
+            // MusicManager.GetInstance().PlayFireSound("boss死亡倒地音效");
 
             // animation
             animator.SetTrigger("Die");

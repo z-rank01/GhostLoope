@@ -10769,9 +10769,11 @@ MonoBehaviour:
   enemyBulletType: 4
   isNeedRedHp: 1
   id: 0
+  isNeedAIAgent: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
+  fallenSmoke: {fileID: 0}
   enemyWalkSpeed: 1
   enemyDashSpeed: 7
   skillCoolDown: 9

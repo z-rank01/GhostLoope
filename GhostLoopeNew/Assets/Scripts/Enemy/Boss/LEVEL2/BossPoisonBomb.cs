@@ -419,8 +419,8 @@ public class BossPoisonBomb : Enemy
         transform.Rotate(transform.up, 0.1f * rotateSpeed);
 
         // music
-        MusicManager.GetInstance().PlayFireSound("底盘旋转音效");
-        MusicManager.GetInstance().PlayFireSound("第二关boss弹幕子弹（技能）音效");
+        // MusicManager.GetInstance().PlayFireSound("底盘旋转音效");
+        // MusicManager.GetInstance().PlayFireSound("第二关boss弹幕子弹（技能）音效");
 
         // get direction and fire
         currSkill3Time += Time.deltaTime;
@@ -458,7 +458,7 @@ public class BossPoisonBomb : Enemy
         if (hp <= 0)
         {
             Player.GetInstance().SetIsFightingBoss(false); // 设置未处于Boss战状态，取消显示怪物血条
-            MusicManager.GetInstance().PlayFireSound("爆炸音效");
+            // MusicManager.GetInstance().PlayFireSound("爆炸音效");
             RemoveNormalStatus();
             agent.enabled = false;
 
@@ -502,7 +502,7 @@ public class BossPoisonBomb : Enemy
     // interface
     public void DisableAfterDie(GameObject targetObj)
     {
-        MusicManager.GetInstance().PlayFireSound("boss死亡(自爆）音效");
+        // MusicManager.GetInstance().PlayFireSound("boss死亡(自爆）音效");
         targetObj.SetActive(false);
 
         GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);

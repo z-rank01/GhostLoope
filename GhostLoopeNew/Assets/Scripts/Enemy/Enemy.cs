@@ -95,6 +95,7 @@ public class Enemy : MonoBehaviour
         if (transform.Find("Smoke") != null)
         {
             fallenSmoke = transform.Find("Smoke").GetComponent<ParticleSystem>();
+            StartCoroutine(playsmokeparticle());
         }
         //GameObject hpSlider = GameObject.Find(hpSliderName);
         //if (hpSlider != null)
