@@ -38,6 +38,10 @@ public class Enemy : MonoBehaviour
     public bool isNeedRedHp = true; // 怪物是否需要红色的hp，应该小怪需要，boss不需要
     public int id; // 怪物的id，需要都不同，才能正确找到UI和存档
 
+
+
+    public bool isNeedAIAgent = false; // 是否需要自动创建AI组件（动态生成的怪物不需要，场景中放置的怪物需要）
+
     // public string hpSliderName;
     public Slider enemyHp; // 小怪的生命条
 
@@ -55,7 +59,7 @@ public class Enemy : MonoBehaviour
 
 
 
-    IEnumerator PlaySmokeParticle()
+    IEnumerator playsmokeparticle()
     {
         fallenSmoke.Play();
         yield return new WaitForSeconds(1.0f);
@@ -190,10 +194,10 @@ public class Enemy : MonoBehaviour
 
         if (hp <= 0)
         {
-            if (fallenSmoke)
-            {
-                StartCoroutine(PlaySmokeParticle()); // 死亡特效
-            }
+            //if (fallenSmoke)
+            //{
+            //    StartCoroutine(PlaySmokeParticle()); // 死亡特效
+            //}
             Debug.Log("In SetEnemy HP Slider:");
             Debug.Log("enemyHp: " + enemyHp);
             if (enemyHp != null && enemyHp.GetComponent<HintUI>() != null)

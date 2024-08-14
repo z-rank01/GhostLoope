@@ -1,3 +1,5 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -17,8 +19,13 @@ public class EnemyMob : Enemy
         //Debug.Log("In ChasingStart");
         base.OnEnable();
 
-        enemyAgent = gameObject.AddComponent<NavMeshAgent>();
-        enemyAgent.stoppingDistance = 2.0f;
+        //Player.GetInstance().surface.BuildNavMesh(); // 重新构建导航网格
+
+        if (isNeedAIAgent)
+        {
+            enemyAgent = gameObject.AddComponent<NavMeshAgent>();
+            enemyAgent.stoppingDistance = 2.0f;
+        }
 
         AddDieAnimationEvent();
         //EventCenter.GetInstance().AddEventListener<float>(E_Event.ReceiveDamage, this.ReceiveDamage);
@@ -38,7 +45,7 @@ public class EnemyMob : Enemy
         if (enemyType == E_EnemyType.chasingMob)
         {
             // 进入警戒范围内，追踪玩家
-            if (currDistance <= alertDistance)
+            if (currDistance <= alertDistance && enemyAgent.isOnNavMesh == true)
             {
                 enemyAgent.speed = enemySpeed;
 

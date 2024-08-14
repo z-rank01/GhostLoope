@@ -12,7 +12,7 @@ public class SpawnEnemy : MonoBehaviour
     public float spawnAmountHp = 10.0f; //召唤一次怪物所需要的HP
 
     // AI
-    public NavMeshSurface navMeshSurface; // 获取到场景中的导航网格，动态生成怪物后重新烘焙
+    //public NavMeshSurface navMeshSurface; // 获取到场景中的导航网格，动态生成怪物后重新烘焙
 
     // UI
     public Slider spawnHp;
@@ -72,10 +72,10 @@ public class SpawnEnemy : MonoBehaviour
             spawnHp.value = hp;
         }
     }
-
     // 召唤一轮小怪
     public void SpawnEnemyRound()
     {
+       
         if (enemySpawnType.Count == 0) return;
         for (int i = 0; i < spawnNum; i++)
         {
@@ -87,6 +87,11 @@ public class SpawnEnemy : MonoBehaviour
             spawnEnemy.name = "spawnEnemy" + i;
 
             spawnEnemy.transform.SetParent(enemySpawnPoint, true);
+
+            
+
+
+
             Debug.Log("After Set Parent : " + spawnEnemy.transform.localPosition);
             // 单位圆上随机一点的角度
             float theta = Random.Range(0.0f, Mathf.PI * 2);
@@ -106,8 +111,18 @@ public class SpawnEnemy : MonoBehaviour
             float enemyDis = (spawnPosition).magnitude;
             //Debug.Log("enemyDis: " + enemyDis);
 
-            Enemy enemy = spawnEnemy.GetComponent<Enemy>();
+
+
+            EnemyMob enemy = spawnEnemy.GetComponent<EnemyMob>();
             enemy.isNeedRedHp = false;
+            // 手动创建AI组件
+            if (enemy.isNeedAIAgent == false)
+            {
+                enemy.enemyAgent = enemy.AddComponent<NavMeshAgent>();
+                enemy.enemyAgent.stoppingDistance = 2.0f;
+            }
+            
+
             if(GameObject.Find("SpawnEnemyHP" + i))
             {
                 if (enemy.enemyHp != null)
@@ -118,7 +133,7 @@ public class SpawnEnemy : MonoBehaviour
                 enemy.enemyHp = GameObject.Find("SpawnEnemyHP" + i).GetComponent<Slider>();
                 enemy.enemyHp.maxValue = enemy.maxHp;
                 enemy.enemyHp.value = enemy.maxHp;
-                enemy.id = 999999999;
+                enemy.id = 9999999;
 
                 if (enemy.enemyHp.GetComponent<HintUI>() == null)
                 {
@@ -135,7 +150,7 @@ public class SpawnEnemy : MonoBehaviour
 
         // 重新烘焙导航网格，使得怪物上的AI组件可以运行
 
-        navMeshSurface.BuildNavMesh();
+        //navMeshSurface.BuildNavMesh();
     }
 
 
@@ -155,7 +170,7 @@ public class SpawnEnemy : MonoBehaviour
         spawnEnemy.GetComponent<Enemy>().enemyHp.GetComponent<HintUI>().SetCameraAndFollowingTarget(Camera.main, null);
 
 
-        navMeshSurface.BuildNavMesh();
+        //navMeshSurface.BuildNavMesh();
 
         // 设置Boss战状态，显示Boss血条
         Player.GetInstance().SetIsFightingBoss(true);
@@ -191,7 +206,7 @@ public class SpawnEnemy : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            navMeshSurface.BuildNavMesh();
+            //navMeshSurface.BuildNavMesh();
         }
 
         

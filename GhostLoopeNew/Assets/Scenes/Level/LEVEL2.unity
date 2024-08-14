@@ -8,9 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 1
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 0e1df0797dfbd124d9ce063c86343146
-  m_OcclusionCullingData: {fileID: 36300000, guid: 3fdfc5897b562934e9c285410568072e,
-    type: 2}
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -24971,6 +24970,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695657865}
   m_Mesh: {fileID: 5488850086324544963, guid: 4f31c65cf817237428a98cd6cc5de06d, type: 3}
+--- !u!1 &698678799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 698678800}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &698678800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698678799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.931, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1647235275}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698938935
 GameObject:
   m_ObjectHideFlags: 0
@@ -53353,11 +53383,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   spawnAmountHp: 25
-  navMeshSurface: {fileID: 488960156}
   spawnHp: {fileID: 1737865544}
   spawnHpOffset: {x: 0, y: 0, z: 0}
   ui: {fileID: 0}
-  enemySpawnType: 0a0000000b00000008000000
+  enemySpawnType: 0b0000000c000000
   alertDistance: 8
   spawnNum: 4
   spawnRadius: 2
@@ -55270,6 +55299,8 @@ GameObject:
   - component: {fileID: 1647235275}
   - component: {fileID: 1647235277}
   - component: {fileID: 1647235276}
+  - component: {fileID: 1647235279}
+  - component: {fileID: 1647235278}
   m_Layer: 0
   m_Name: Cube (12)
   m_TagString: computer
@@ -55288,7 +55319,8 @@ Transform:
   m_LocalPosition: {x: -6.332466, y: -4.9695473, z: 52.267532}
   m_LocalScale: {x: 2.7005498, y: 5.378252, z: 6.063467}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 698678800}
   m_Father: {fileID: 961893223}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 89.283, z: 0}
@@ -55342,6 +55374,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647235274}
   m_Mesh: {fileID: -159124052029866069, guid: eb0e8b66da0f79441a095a2ef57e921d, type: 3}
+--- !u!114 &1647235278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647235274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb1dccef30cf0d4fbc94e7105abd968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  spawnAmountHp: 10
+  spawnHp: {fileID: 746344959}
+  spawnHpOffset: {x: 0, y: 0, z: 0}
+  ui: {fileID: 0}
+  enemySpawnType: 0b0000000c000000
+  alertDistance: 8
+  spawnNum: 4
+  spawnRadius: 2
+  spawnTime: 5
+  enemySpawnPoint: {fileID: 698678800}
+  bossSpawnPoint: {fileID: 0}
+  id: 1
+--- !u!65 &1647235279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647235274}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7621747, y: 1.3921797, z: 1.0000001}
+  m_Center: {x: 0.019969318, y: -0.19608837, z: -9.323935e-12}
 --- !u!1 &1648533180
 GameObject:
   m_ObjectHideFlags: 0
@@ -63720,7 +63798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066231763}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.676, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

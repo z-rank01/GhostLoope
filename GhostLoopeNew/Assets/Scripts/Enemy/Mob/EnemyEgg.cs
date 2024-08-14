@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyEgg : Enemy
 {
@@ -75,7 +76,14 @@ public class EnemyEgg : Enemy
         {
             if (enemyEgg.CheckReadyToSpawn())
             {
-                Instantiate(spawnObject, transform.position, transform.rotation);
+                GameObject spawnedEgglet = Instantiate(spawnObject, transform.position, transform.rotation);
+
+                spawnedEgglet.GetComponent<EnemyMob>().enemyAgent = spawnedEgglet.AddComponent<NavMeshAgent>();
+                spawnedEgglet.GetComponent<EnemyMob>().enemyAgent.stoppingDistance = 2.0f;
+
+
+
+                //spawnObject.GetComponent<Enemy>().isNeedAIAgent = true;
                 gameObject.SetActive(false);
             }
         }
