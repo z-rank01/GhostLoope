@@ -77,7 +77,7 @@ public class BossEggletMob : EnemyMob
         // 判断怪物是否死亡
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("爆炸音效");
+            // MusicManager.GetInstance().PlayFireSound("爆炸音效");
 
             animator.SetTrigger("Die");
         }

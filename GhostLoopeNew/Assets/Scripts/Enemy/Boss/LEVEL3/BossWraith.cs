@@ -425,7 +425,7 @@ public class BossWraith : Enemy
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("±¬Õ¨ÒôĞ§");
+            // MusicManager.GetInstance().PlayFireSound("±¬Õ¨ÒôĞ§");
 
             // animation
             animator.SetTrigger("Die");
