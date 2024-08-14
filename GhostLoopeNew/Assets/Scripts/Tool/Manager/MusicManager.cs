@@ -121,9 +121,9 @@ public class MusicManager : BaseSingletonMono<MusicManager>
     //        GameObject.Destroy(source);
     //    }
     //}
-    //public void update()
+    //public void Update()
     //{
-    //    //Debug.Log("Music Update");
+    //    Debug.Log("Music Update");
     //    for (int i = soundList.Count - 1; i >= 0; i--)
     //    {
     //        if (!soundList[i].isPlaying)

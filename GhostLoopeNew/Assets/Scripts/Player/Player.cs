@@ -224,7 +224,12 @@ public class Player : BaseSingletonMono<Player>
 
     public void Update()
     {
-        
+        // 主角死亡，回到上一个存档点
+        if (playerProperty.GetProperty(E_Property.san) <= 0)
+        {
+            SaveManager.GetInstance().LoadGame();
+            return;
+        }
         //Debug.Log("Player.Transform: " + transform.position);
         // 回血
         float san = playerProperty.GetProperty(E_Property.san);

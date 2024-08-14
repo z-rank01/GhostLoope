@@ -264,7 +264,7 @@ Transform:
   - {fileID: 360634170535336650}
   - {fileID: 360634170535336666}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &360634170528412950
 Animator:
@@ -351,15 +351,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 5
   attackDistance: 3
-  bulletSpawnDistance: 0.5
+  bulletSpawnDistance: 1
   maxHp: 230
   fireCooldown: 3
   enemyBulletType: 5
   isNeedRedHp: 1
   id: 0
+  isNeedAIAgent: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
+  fallenSmoke: {fileID: 0}
   enemyType: 0
   enemySpeed: 0.5
   enemyAgent: {fileID: 0}
