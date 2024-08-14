@@ -6278,7 +6278,7 @@ PrefabInstance:
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -39.28
+      value: -39.5
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -63548,7 +63548,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301304927}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.6107199, y: 10.634078, z: -55.120922}
+  m_LocalPosition: {x: 0.6107199, y: 10.634077, z: -55.340923}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78738,6 +78738,11 @@ PrefabInstance:
       propertyPath: isNeedAIAgent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2541779271779154200, guid: d8e69e1850c23614c856a20c5f3c3e76,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79852,7 +79857,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629527085}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.6107199, y: 10.634078, z: -55.120922}
+  m_LocalPosition: {x: 0.6107199, y: 10.634077, z: -55.340923}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -95135,6 +95140,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514630799968138823, guid: 8f588c42d36692043b6b89e12ee8b281,
+        type: 3}
+      propertyPath: id
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2514630799968138823, guid: 8f588c42d36692043b6b89e12ee8b281,
         type: 3}

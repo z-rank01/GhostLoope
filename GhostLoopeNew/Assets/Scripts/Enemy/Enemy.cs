@@ -161,6 +161,7 @@ public class Enemy : MonoBehaviour
 
         // Set fire origin
         Vector3 fireOrigin = transform.position + fireDirection * bulletSpawnDistance;
+        fireOrigin.y += 1;
 
         SpecialBullet bullet = PoolManager.GetInstance().GetObj(enemyBulletType).GetComponent<SpecialBullet>();
         bullet.bulletType = enemyBulletType;
@@ -169,6 +170,7 @@ public class Enemy : MonoBehaviour
         bullet.Activate();
         bullet.SetIsFromPlayer(false); // 标记为怪物发出的子弹
 
+        
         bullet.FireOut(fireOrigin,
                        fireDirection,
                        GlobalSetting.GetInstance().enemyBulletSpeed);
