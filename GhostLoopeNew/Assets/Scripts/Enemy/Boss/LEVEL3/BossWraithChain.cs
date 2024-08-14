@@ -15,7 +15,7 @@ public class BossWraithChain : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other != null && other.tag == "Player")
+        if (other != null && other.tag == "Player" && !chainedPlayer)
         {
             EventCenter.GetInstance().EventTrigger(E_Event.BossWraithChainSuccess);
             chainedPlayer = true;

@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 1
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 0e1df0797dfbd124d9ce063c86343146
+  m_OcclusionCullingData: {fileID: 36300000, guid: 3fdfc5897b562934e9c285410568072e,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -297,7 +298,7 @@ GameObject:
   - component: {fileID: 16238896}
   m_Layer: 0
   m_Name: wall mod
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -551,7 +552,7 @@ GameObject:
   - component: {fileID: 32639445}
   m_Layer: 0
   m_Name: wall mod (32)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1794,7 +1795,7 @@ GameObject:
   - component: {fileID: 93758989}
   m_Layer: 0
   m_Name: wall mod (17)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2666,7 +2667,7 @@ GameObject:
   - component: {fileID: 119854387}
   m_Layer: 0
   m_Name: wall mod (29)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3727,7 +3728,7 @@ GameObject:
   - component: {fileID: 173831606}
   m_Layer: 0
   m_Name: wall mod (6)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9296,7 +9297,7 @@ GameObject:
   - component: {fileID: 220780431}
   m_Layer: 0
   m_Name: wall mod (30)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10735,7 +10736,7 @@ GameObject:
   - component: {fileID: 282409433}
   m_Layer: 0
   m_Name: wall mod (3)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12027,7 +12028,7 @@ GameObject:
   - component: {fileID: 352132341}
   m_Layer: 0
   m_Name: wall mod (27)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12327,7 +12328,7 @@ GameObject:
   - component: {fileID: 356135074}
   m_Layer: 0
   m_Name: wall mod (22)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12807,7 +12808,7 @@ GameObject:
   - component: {fileID: 369748121}
   m_Layer: 0
   m_Name: wall mod (28)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14091,7 +14092,7 @@ GameObject:
   - component: {fileID: 454262246}
   m_Layer: 0
   m_Name: wall mod (16)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14905,7 +14906,7 @@ GameObject:
   - component: {fileID: 480588496}
   m_Layer: 0
   m_Name: wall mod (4)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15038,7 +15039,7 @@ GameObject:
   - component: {fileID: 483103761}
   m_Layer: 0
   m_Name: wall mod (21)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16261,7 +16262,7 @@ GameObject:
   - component: {fileID: 525317796}
   m_Layer: 0
   m_Name: wall mod (10)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22737,7 +22738,7 @@ GameObject:
   - component: {fileID: 587094781}
   m_Layer: 0
   m_Name: wall mod (8)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24392,7 +24393,7 @@ GameObject:
   - component: {fileID: 664468690}
   m_Layer: 0
   m_Name: wall mod (24)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34043,7 +34044,7 @@ GameObject:
   - component: {fileID: 905035294}
   m_Layer: 0
   m_Name: wall mod (1)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35409,7 +35410,7 @@ GameObject:
   - component: {fileID: 958996472}
   m_Layer: 0
   m_Name: wall mod (9)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37753,7 +37754,7 @@ GameObject:
   - component: {fileID: 1060612135}
   m_Layer: 0
   m_Name: wall mod (31)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -46300,7 +46301,7 @@ GameObject:
   - component: {fileID: 1260531761}
   m_Layer: 0
   m_Name: wall mod (35)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -49577,7 +49578,7 @@ GameObject:
   - component: {fileID: 1420886562}
   m_Layer: 0
   m_Name: wall mod (19)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -49911,7 +49912,7 @@ GameObject:
   - component: {fileID: 1446624936}
   m_Layer: 0
   m_Name: wall mod (12)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -50950,7 +50951,7 @@ GameObject:
   - component: {fileID: 1482209056}
   m_Layer: 0
   m_Name: wall mod (13)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -52017,7 +52018,7 @@ GameObject:
   - component: {fileID: 1543272022}
   m_Layer: 0
   m_Name: wall mod (23)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -52605,7 +52606,7 @@ GameObject:
   - component: {fileID: 1562926942}
   m_Layer: 0
   m_Name: wall mod (18)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -53153,7 +53154,7 @@ GameObject:
   - component: {fileID: 1580627123}
   m_Layer: 0
   m_Name: wall mod (14)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -53772,7 +53773,7 @@ GameObject:
   - component: {fileID: 1602362574}
   m_Layer: 0
   m_Name: wall mod (2)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -53988,7 +53989,7 @@ GameObject:
   - component: {fileID: 1604461920}
   m_Layer: 0
   m_Name: wall mod (26)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -55435,7 +55436,7 @@ GameObject:
   - component: {fileID: 1648533182}
   m_Layer: 0
   m_Name: wall mod (15)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -56764,7 +56765,7 @@ GameObject:
   - component: {fileID: 1749296314}
   m_Layer: 0
   m_Name: wall mod (7)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -57974,7 +57975,7 @@ GameObject:
   - component: {fileID: 1797536408}
   m_Layer: 0
   m_Name: wall mod (11)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -58589,7 +58590,7 @@ GameObject:
   - component: {fileID: 1825019708}
   m_Layer: 0
   m_Name: wall mod (20)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -63481,7 +63482,7 @@ GameObject:
   - component: {fileID: 2041476366}
   m_Layer: 0
   m_Name: wall mod (33)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -64032,7 +64033,7 @@ GameObject:
   - component: {fileID: 2080054696}
   m_Layer: 0
   m_Name: wall mod (5)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -64248,7 +64249,7 @@ GameObject:
   - component: {fileID: 2084810233}
   m_Layer: 0
   m_Name: wall mod (34)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -64844,7 +64845,7 @@ GameObject:
   - component: {fileID: 2123300552}
   m_Layer: 0
   m_Name: wall mod (25)
-  m_TagString: Untagged
+  m_TagString: EnvironmentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
