@@ -39,7 +39,7 @@ public class SaveManager : BaseSingleton<SaveManager>
         Player player = Player.GetInstance();
 
 
-        save.x = player.transform.position.x;
+        save.x = player.transform.position.x + 2.0f;
         save.y = player.transform.position.y;
         save.z = player.transform.position.z;
 

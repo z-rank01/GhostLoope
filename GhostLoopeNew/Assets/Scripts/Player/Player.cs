@@ -227,6 +227,7 @@ public class Player : BaseSingletonMono<Player>
         // 主角死亡，回到上一个存档点
         if (playerProperty.GetProperty(E_Property.san) <= 0)
         {
+            //SaveManager.GetInstance().SaveGame();
             EventCenter.GetInstance().Clear();
             SaveManager.GetInstance().LoadGame();
             return;

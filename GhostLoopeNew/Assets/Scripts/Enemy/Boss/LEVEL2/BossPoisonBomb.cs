@@ -485,13 +485,13 @@ public class BossPoisonBomb : Enemy
         AnimationEvent crossboneAttackEvent = new AnimationEvent();
         crossboneAttackEvent.functionName = "FinishCrossboneAttack";
         crossboneAttackEvent.time = animator.GetClipLength("Crossbone Attack");
-        crossboneAttackEvent.objectReferenceParameter = this.gameObject;
+        // crossboneAttackEvent.objectReferenceParameter = this.gameObject;
 
         // event: finish long range attack
         AnimationEvent crossboneLongAttackEvent = new AnimationEvent();
         crossboneLongAttackEvent.functionName = "FinishCrossboneAttack";
         crossboneLongAttackEvent.time = animator.GetClipLength("Crossbone Long Range Attack");
-        crossboneLongAttackEvent.objectReferenceParameter = this.gameObject;
+        // crossboneLongAttackEvent.objectReferenceParameter = this.gameObject;
 
         // add event
         animator.AddEvent("Crossbone Attack", crossboneAttackEvent);
@@ -510,11 +510,10 @@ public class BossPoisonBomb : Enemy
         PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);
     }
 
-    public void FinishCrossboneAttack(GameObject targetObj)
+    public void FinishCrossboneAttack()
     {
-        BossPoisonBomb bossPoisonBomb = targetObj.GetComponent<BossPoisonBomb>();
-        bossPoisonBomb.ResetStatus(E_PoisonBombStatus.normal);
-        bossPoisonBomb.animator.SetBool("StartCrossboneAttack", false);
-        bossPoisonBomb.RemoveSkill2Status();
+        ResetStatus(E_PoisonBombStatus.normal);
+        animator.SetBool("StartCrossboneAttack", false);
+        RemoveSkill2Status();
     }
 }
