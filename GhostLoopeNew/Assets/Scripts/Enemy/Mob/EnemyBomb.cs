@@ -24,7 +24,7 @@ public class EnemyBomb : EnemyMob
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            // MusicManager.GetInstance().PlayFireSound("Õ¨µ¯¹Ö±¬Õ¨ÒôĞ§");
+            //MusicManager.GetInstance().PlayFireSound("Õ¨µ¯¹Ö±¬Õ¨ÒôĞ§");
 
             // animation
             animator.SetTrigger("GoingToExplode");

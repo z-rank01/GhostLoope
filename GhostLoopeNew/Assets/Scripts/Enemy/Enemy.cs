@@ -197,7 +197,7 @@ public class Enemy : MonoBehaviour
         {
             //if (fallenSmoke)
             //{
-            //    StartCoroutine(PlaySmokeParticle()); // 死亡特效
+            //    StartCoroutine(playsmokeparticle()); // 死亡特效
             //}
             Debug.Log("In SetEnemy HP Slider:");
             Debug.Log("enemyHp: " + enemyHp);
@@ -207,8 +207,6 @@ public class Enemy : MonoBehaviour
                 enemyHp.GetComponent<HintUI>().offset = new Vector3(0, 1000000, 0);
                 //enemyHp.gameObject.SetActive(false);
             }
-
-            
         }
     }
 

@@ -413,12 +413,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 10
   attackDistance: 10
-  bulletSpawnDistance: 0.5
+  bulletSpawnDistance: 1
   maxHp: 230
   fireCooldown: 3
   enemyBulletType: 4
   isNeedRedHp: 1
   id: 0
+  isNeedAIAgent: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
@@ -5361,7 +5362,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 09eb5112ab1affa418bf376d6f9028bd, type: 2}
-  - {fileID: 2100000, guid: 09eb5112ab1affa418bf376d6f9028bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10176,7 +10176,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 22a6e15abd5164a47920dcbd8cbfd076, type: 2}
   - {fileID: 2100000, guid: 22a6e15abd5164a47920dcbd8cbfd076, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
