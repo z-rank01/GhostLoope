@@ -10668,7 +10668,7 @@ Transform:
   m_GameObject: {fileID: 7461354468371458085}
   m_LocalRotation: {x: 0, y: 0.99807686, z: 0, w: 0.061989363}
   m_LocalPosition: {x: 12.052172, y: 13.851556, z: 22.296646}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 664636470448710217}
@@ -10676,7 +10676,7 @@ Transform:
   - {fileID: 53531621742488520}
   - {fileID: 2801598084380233567}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 172.892, z: 0}
 --- !u!95 &857065624193363982
 Animator:
@@ -10767,7 +10767,7 @@ MonoBehaviour:
   maxHp: 47300
   fireCooldown: 3.5
   enemyBulletType: 4
-  isNeedRedHp: 1
+  isNeedRedHp: 0
   id: 0
   isNeedAIAgent: 0
   enemyHp: {fileID: 0}
@@ -11131,27 +11131,27 @@ PrefabInstance:
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8724981
+      value: 1.6472764
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.92313
+      value: 1.8901086
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.77
+      value: 1.87
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.71
+      value: 2.06
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8791443199439479527, guid: 3007c46ffc328bc45ad0250236aed912,
         type: 3}

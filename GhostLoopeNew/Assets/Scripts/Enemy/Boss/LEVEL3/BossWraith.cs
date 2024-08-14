@@ -100,6 +100,9 @@ public class BossWraith : Enemy
         enemySan.value = enemySan.maxValue = maxHp;
         enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
         enemyRes.value = enemyRes.maxValue = tenacity.tenacity;
+
+        // 
+        // DontDestroyOnLoad(animator);
     }
 
     protected void Update()
@@ -110,6 +113,9 @@ public class BossWraith : Enemy
         //    currStatus += status.ToString() + "  ";
         //}
         //Debug.LogWarning(currStatus);
+        if (animator == null)
+            animator = GetComponent<AnimatorController>();
+
 
         // cooldown
         if (!wraithStatusContainer.Contains(E_WraithStatus.LOCK))
