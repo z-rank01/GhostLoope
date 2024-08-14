@@ -1986,7 +1986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertDistance: 10
   attackDistance: 10
-  bulletSpawnDistance: 0.5
+  bulletSpawnDistance: 1
   maxHp: 4600
   fireCooldown: 3.5
   enemyBulletType: 3
@@ -1995,6 +1995,7 @@ MonoBehaviour:
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
+  fallenSmoke: {fileID: 0}
   enemyWalkSpeed: 1
   enemyRunSpeed: 12
   skillCoolDown: 8

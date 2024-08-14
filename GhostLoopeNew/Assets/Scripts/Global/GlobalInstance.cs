@@ -73,6 +73,9 @@ public class GlobalInstance : BaseSingletonMono<GlobalInstance>
 
         PoolManager.GetInstance().AddPool(E_PoolType.Egg, globalSetting.Egg);
 
+        PoolManager.GetInstance().AddPool(E_PoolType.Bomb1, globalSetting.Bomb1);
+        PoolManager.GetInstance().AddPool(E_PoolType.SnowBomb1, globalSetting.SnowBomb1);
+
     }
 
     private void Start()

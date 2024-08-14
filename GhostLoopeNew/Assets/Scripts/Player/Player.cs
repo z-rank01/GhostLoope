@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -74,6 +75,7 @@ public class Player : BaseSingletonMono<Player>
     public bool GetSoul_1() { return isGettingSoul_1; }
     public bool GetSoul_2() { return isGettingSoul_2; }
 
+    public NavMeshSurface surface;
     public void SetIsFightingBoss(bool value) 
     { 
         isFightingBoss = value; 
@@ -107,8 +109,7 @@ public class Player : BaseSingletonMono<Player>
     public void Awake()
     {
 
-       
-
+        
 
 
         Init();
@@ -223,6 +224,7 @@ public class Player : BaseSingletonMono<Player>
 
     public void Update()
     {
+        
         //Debug.Log("Player.Transform: " + transform.position);
         // »ØÑª
         float san = playerProperty.GetProperty(E_Property.san);
@@ -324,6 +326,9 @@ public class Player : BaseSingletonMono<Player>
             playerAnimator.Die();
             playerController.Act(E_InputStatus.die);
         }
+
+        //Debug.Log("Build NavMeshSurface");
+        //surface.BuildNavMesh();
     }
 
     // per frame update function

@@ -6,7 +6,7 @@ public class BossEggletMob : EnemyMob
     {
         base.OnEnable();
         // event
-        enemyAgent.speed = enemySpeed;
+        // 
         EventCenter.GetInstance().EventTrigger(E_Event.BossShadeIncreaseMobOnScene);
 
     }
@@ -22,10 +22,11 @@ public class BossEggletMob : EnemyMob
         if (enemyType == E_EnemyType.chasingMob)
         {
             // 进入警戒范围内，追踪玩家
-            if (currDistance <= alertDistance)
+            if (currDistance <= alertDistance && enemyAgent.isOnNavMesh == true)
             {
                 // Debug.Log("enemyAgent: " + enemyAgent);
                 enemyAgent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
+                enemyAgent.speed = enemySpeed;
 
                 // animate
                 moveFrame += Time.deltaTime;

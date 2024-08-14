@@ -56,5 +56,9 @@ public class GlobalSetting : BaseSingletonMono<GlobalSetting>
     public GameObject BossPoisonBomb; //第二关BOSS
     public GameObject BossPoisonBomb1; //第二关BOSS
     public GameObject Egg;
-   
+
+
+    public GameObject Bomb1; // 动态生成怪物
+    public GameObject SnowBomb1; // 动态生成怪物
+
 }

@@ -60,6 +60,8 @@ public class BossShade : Enemy
         // UI
         enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
         enemySan.value = enemySan.maxValue = maxHp;
+        enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+        enemyRes.value = enemyRes.maxValue = 0;
 
         // music
         MusicManager.GetInstance().PlayFireSound("BOSS1-1 ©∑®“Ù–ß");

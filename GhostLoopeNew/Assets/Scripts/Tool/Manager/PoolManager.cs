@@ -26,6 +26,8 @@ public enum E_PoolType
     Egg,
     BossPoisonBomb,
     BossPoisonBomb1,
+    Bomb1,
+    SnowBomb1,
 }
 
 public class PoolManager : BaseSingleton<PoolManager>
