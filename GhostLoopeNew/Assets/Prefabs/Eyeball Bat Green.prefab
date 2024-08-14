@@ -436,13 +436,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertDistance: 5
-  attackDistance: 3
-  bulletSpawnDistance: 1
+  attackDistance: 5
+  bulletSpawnDistance: 1.5
   maxHp: 750
   fireCooldown: 3
   enemyBulletType: 6
   isNeedRedHp: 1
   id: 0
+  isNeedAIAgent: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}

@@ -13444,6 +13444,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.95
       objectReference: {fileID: 0}
+    - target: {fileID: 3933153421130700410, guid: 763995e1db480a940a046c59eff25baa,
+        type: 3}
+      propertyPath: RecoverRatio
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_RootOrder
@@ -53383,7 +53388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb1dccef30cf0d4fbc94e7105abd968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 50
   spawnAmountHp: 25
   spawnHp: {fileID: 1737865544}
   spawnHpOffset: {x: 0, y: 0, z: 0}
@@ -55395,7 +55400,7 @@ MonoBehaviour:
   enemySpawnType: 0b0000000c000000
   alertDistance: 8
   spawnNum: 4
-  spawnRadius: 2
+  spawnRadius: 10
   spawnTime: 5
   enemySpawnPoint: {fileID: 698678800}
   bossSpawnPoint: {fileID: 0}

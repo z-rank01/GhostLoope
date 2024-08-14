@@ -349,14 +349,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05031a00c77d5ce4d8b5fd707e3c0e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertDistance: 5
-  attackDistance: 3
-  bulletSpawnDistance: 1
+  alertDistance: 10
+  attackDistance: 10
+  bulletSpawnDistance: 1.5
   maxHp: 450
   fireCooldown: 3
   enemyBulletType: 5
   isNeedRedHp: 1
   id: 0
+  isNeedAIAgent: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}

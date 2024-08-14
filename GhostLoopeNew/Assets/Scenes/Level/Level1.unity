@@ -17822,7 +17822,7 @@ PrefabInstance:
     - target: {fileID: 2250441607185629463, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}
       propertyPath: bulletSpawnDistance
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4834297271913641476, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}
@@ -20865,6 +20865,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isNeedAIAgent
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250441607185629463, guid: f489a64c5a47c5a459df584af158094b,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4834297271913641476, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}
@@ -26249,7 +26254,7 @@ PrefabInstance:
     - target: {fileID: 2250441607185629463, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}
       propertyPath: bulletSpawnDistance
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4834297271913641476, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}
@@ -29746,6 +29751,11 @@ PrefabInstance:
       propertyPath: isNeedAIAgent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2250441607185629463, guid: f489a64c5a47c5a459df584af158094b,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4834297271913641476, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -33055,7 +33065,7 @@ PrefabInstance:
     - target: {fileID: 3933153421130700410, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: RecoverRatio
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -57497,6 +57507,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isNeedAIAgent
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250441607185629463, guid: f489a64c5a47c5a459df584af158094b,
+        type: 3}
+      propertyPath: bulletSpawnDistance
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4834297271913641476, guid: f489a64c5a47c5a459df584af158094b,
         type: 3}

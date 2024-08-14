@@ -154,7 +154,7 @@ MonoBehaviour:
   extraDamageTime: 0
   playerDamage: 40
   thunderRadius: 100
-  explodeRadius: 100
+  explodeRadius: 4
   isSwallowed: 0
   BulletParticleSystem: {fileID: 3284452308129961762}
   BulletTrailParticle: {fileID: 5712692684332451546}
