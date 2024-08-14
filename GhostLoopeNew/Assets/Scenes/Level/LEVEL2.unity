@@ -13476,7 +13476,7 @@ PrefabInstance:
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -85.857025
+      value: -39.37
       objectReference: {fileID: 0}
     - target: {fileID: 7381733790629744712, guid: 763995e1db480a940a046c59eff25baa,
         type: 3}
@@ -24981,7 +24981,7 @@ GameObject:
   - component: {fileID: 698678800}
   m_Layer: 0
   m_Name: EnemySpawnPoint
-  m_TagString: Untagged
+  m_TagString: computer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24993,12 +24993,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698678799}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.931, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7026702, z: -0, w: 0.7115157}
+  m_LocalPosition: {x: -6.332466, y: -9.9767, z: 52.267532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1647235275}
+  m_Father: {fileID: 961893223}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698938935
@@ -27609,7 +27609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805755813}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.4424667, y: -9.699548, z: 53.087532}
+  m_LocalPosition: {x: -6.4424667, y: -9.95, z: 53.087532}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35992,6 +35992,7 @@ Transform:
   - {fileID: 329786068}
   - {fileID: 293510112}
   - {fileID: 2104403737}
+  - {fileID: 698678800}
   - {fileID: 1647235275}
   - {fileID: 1924009805}
   - {fileID: 1195730726}
@@ -47198,7 +47199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299647947}
   m_LocalRotation: {x: 0.496143, y: -0, z: -0, w: 0.8682409}
-  m_LocalPosition: {x: 0.51, y: 16.481714, z: -60.44401}
+  m_LocalPosition: {x: 0.51, y: 16.481716, z: -13.9569845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55319,8 +55320,7 @@ Transform:
   m_LocalPosition: {x: -6.332466, y: -4.9695473, z: 52.267532}
   m_LocalScale: {x: 2.7005498, y: 5.378252, z: 6.063467}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 698678800}
+  m_Children: []
   m_Father: {fileID: 961893223}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 89.283, z: 0}
@@ -59755,7 +59755,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879233999}
   m_LocalRotation: {x: 0.496143, y: 0, z: 0, w: 0.8682409}
-  m_LocalPosition: {x: 0.51, y: 16.481714, z: -60.44401}
+  m_LocalPosition: {x: 0.51, y: 16.481716, z: -13.9569845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61946,6 +61946,8 @@ MonoBehaviour:
   BossPoisonBomb1: {fileID: 3603415456519080671, guid: edbfd338d7f371341a49c34152d8ef2d,
     type: 3}
   Egg: {fileID: 4197403079796030405, guid: 600d53082dcd3f544ae5affcfacbadad, type: 3}
+  Bomb1: {fileID: 0}
+  SnowBomb1: {fileID: 0}
 --- !u!4 &1972373811
 Transform:
   m_ObjectHideFlags: 0
