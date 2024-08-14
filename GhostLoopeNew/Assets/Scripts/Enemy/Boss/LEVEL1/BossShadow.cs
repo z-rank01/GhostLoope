@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Experimental.Rendering;
+using UnityEngine.UI;
 
 
 public enum E_ShadowStatus
@@ -87,6 +88,13 @@ public class BossShadow : Enemy
         tenacity.SetTenacityParent(this.gameObject);
         tenacityObj.SetActive(false);
         EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
+
+        // UI
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        enemySan.value = enemySan.maxValue = maxHp;
+        enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+        enemyRes.value = enemyRes.maxValue = tenacity.tenacity;
+
     }
 
     protected void Update()
@@ -106,7 +114,7 @@ public class BossShadow : Enemy
         {
             ResetStatus(E_ShadowStatus.skill2);
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
@@ -161,7 +169,11 @@ public class BossShadow : Enemy
             if (!hasSetTargetPosition) SetTarget();
             else
             {
-                if (!reachTarget) DashToward();
+                if (!reachTarget)
+                {
+                    MusicManager.GetInstance().PlayFireSound("BOSS1-2³å´ÌÒôÐ§");
+                    DashToward();
+                }
                 else
                 {
                     // animation
@@ -216,6 +228,9 @@ public class BossShadow : Enemy
             AddStatus(E_ShadowStatus.broken, true);
         }
         CheckHP();
+
+        // update UI value
+        enemyRes.value = tenacity.GetCurrentTenacity();
     }
 
 
@@ -375,6 +390,8 @@ public class BossShadow : Enemy
 
     IEnumerator PreAttack()
     {
+        MusicManager.GetInstance().PlayFireSound("BOSS1-2Ê©·¨ÒôÐ§");
+        
         // start animation
         animator.SetBool("Attack", true);
 
@@ -387,6 +404,7 @@ public class BossShadow : Enemy
 
         yield return new WaitForSeconds(preAttackSeconds);
 
+        MusicManager.GetInstance().PlayFireSound("ÑÒ½¬Òý±¬ÒôÐ§");
         ExertExplosion();
 
         // finish animation
@@ -417,7 +435,7 @@ public class BossShadow : Enemy
         // ÅÐ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
+            MusicManager.GetInstance().PlayFireSound("bossËÀÍöµ¹µØÒôÐ§");
 
             // animation
             animator.SetTrigger("Die");
@@ -484,6 +502,8 @@ public class BossShadow : Enemy
 
     public void LeftSlashAttack(GameObject targetObj)
     {
+        MusicManager.GetInstance().PlayFireSound("»Ó×¦¹¥»÷ÉùÒô");
+        
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
         
         RaycastHit leftHandHitInfo;
@@ -494,16 +514,18 @@ public class BossShadow : Enemy
         {
             //Debug.LogWarning("Hit Something!" + leftHandHitInfo.collider.name);
             GameObject hitObj = leftHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
     }
 
     public void RightSlashAttack(GameObject targetObj)
     {
+        MusicManager.GetInstance().PlayFireSound("»Ó×¦¹¥»÷ÉùÒô");
+
         BossShadow bossShadow = targetObj.GetComponent<BossShadow>();
         RaycastHit rightHandHitInfo;
         if (Physics.SphereCast(bossShadow.rightHandObject.transform.position, 
@@ -512,10 +534,10 @@ public class BossShadow : Enemy
                                out rightHandHitInfo))
         {
             GameObject hitObj = rightHandHitInfo.collider.gameObject;
-            if (hitObj.tag == "Player")
+            if (hitObj != null && hitObj.tag == "Player")
             {
                 //Debug.LogWarning("Hit player!");
-                hitObj.GetComponent<Player>().PlayerReceiveDamage(bossShadow.slashAttackDamage);
+                Player.GetInstance().PlayerReceiveDamage(bossShadow.slashAttackDamage);
             }
         }
     }

@@ -56,6 +56,13 @@ public class BossShade : Enemy
 
         // animation event
         AddDieAnimationEvent();
+
+        // UI
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        enemySan.value = enemySan.maxValue = maxHp;
+
+        // music
+        MusicManager.GetInstance().PlayFireSound("BOSS1-1施法音效");
     }
 
 
@@ -115,7 +122,7 @@ public class BossShade : Enemy
         // 判断怪物是否死亡
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
+            MusicManager.GetInstance().PlayFireSound("爆炸音效");
 
             // animation
             animator.SetTrigger("Die");
@@ -157,6 +164,7 @@ public class BossShade : Enemy
 
     private void SkillSpawnMob()
     {
+        MusicManager.GetInstance().PlayFireSound("boss召唤出蛋到地面的音效");
         Vector3 playerDirection = Player.GetInstance().GetPlayerTransform().position - transform.position;
         var directions = FindFluctuateDirection(playerDirection.normalized, directionNoise);
         for (int i = 0; i < mobNumber; i++)
@@ -191,7 +199,7 @@ public class BossShade : Enemy
         float currDistance = GetPlayerDistance();
 
         // chasing
-        if (currDistance > agent.stoppingDistance)
+        if (currDistance <= alertDistance)
         {
             agent.SetDestination(Player.GetInstance().transform.position);
             agent.speed = enemyWalkSpeed;
@@ -278,8 +286,6 @@ public class BossShade : Enemy
             targetObj.SetActive(false);
             Enemy bossShadow = Instantiate(bossShade.nextStageBossObject, targetObj.transform.position, targetObj.transform.rotation).GetComponent<Enemy>();
 
-            bossShadow.enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
-            bossShadow.enemySan.value = bossShadow.enemySan.maxValue = bossShadow.maxHp;
             //bossShadow.SetSlider(bossShadow.enemySan, bossShadow.enemyRes);
         }
     }

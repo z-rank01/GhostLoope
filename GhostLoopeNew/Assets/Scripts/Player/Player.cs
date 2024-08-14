@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityPlayerPrefs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : BaseSingletonMono<Player>
 {
@@ -63,6 +65,8 @@ public class Player : BaseSingletonMono<Player>
 
     private bool isGameEnd = false; // 游戏是否结束
 
+    public bool isNeedToShowText = false; // 是否需要显示增益文本
+    public string showText; // 所显示的增益文本
     public void SetIsGameEnd(bool value) { isGameEnd = value; }
     public bool GetIsGameEnd() { return isGameEnd; }
     public void SetSoul_1(bool value) { isGettingSoul_1 = value; }
@@ -70,7 +74,16 @@ public class Player : BaseSingletonMono<Player>
     public bool GetSoul_1() { return isGettingSoul_1; }
     public bool GetSoul_2() { return isGettingSoul_2; }
 
-    public void SetIsFightingBoss(bool value) { isFightingBoss = value; }
+    public void SetIsFightingBoss(bool value) 
+    { 
+        isFightingBoss = value; 
+        
+
+        if (isFightingBoss)
+        {
+            MusicManager.GetInstance().PlayFireSound("Boss战音乐");
+        }
+    }
     public bool GetIsFightingBoss() { return isFightingBoss; }
     
     // 玩家只要受到伤害，就将isGettingHurt置为true，开启时长为HealingTime的定时器，定时器结束后将isGettingHurt置为false
@@ -129,6 +142,28 @@ public class Player : BaseSingletonMono<Player>
         SetProperty(E_Property.san, GlobalSetting.GetInstance().san);
         SetProperty(E_Property.resilience, 0.0f); // 玩家默认的韧性值为0
 
+        isGettingSoul_1 = SaveManager.GetInstance().is_Soul1;
+        isGettingSoul_2 = SaveManager.GetInstance().is_Soul2;
+
+
+        string levelName = SceneManager.GetActiveScene().name;
+
+        if (levelName == "Level1")
+        {
+            MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
+            MusicManager.GetInstance().PlayEnvironmentSound("第一关-环境音-微风");
+        }
+        else if (levelName == "Level2")
+        {
+            MusicManager.GetInstance().PlayBackgroundMusic("第二关-配乐");
+            MusicManager.GetInstance().PlayEnvironmentSound("第二关-环境音-小雨");
+        }
+        else if (levelName == "Level3")
+        {
+            MusicManager.GetInstance().PlayBackgroundMusic("第三关-配乐");
+            MusicManager.GetInstance().PlayEnvironmentSound("第三关-环境音-森林");
+        }
+
     }
 
     public void LoadSceneInfo()
@@ -137,7 +172,7 @@ public class Player : BaseSingletonMono<Player>
         transform.position = new Vector3(SaveManager.GetInstance().x, SaveManager.GetInstance().y, SaveManager.GetInstance().z);
 
 
-
+        
 
         Debug.Log("Player Loading");
         Debug.Log(SaveManager.GetInstance().GraveStoneId.Count);

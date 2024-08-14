@@ -6,6 +6,10 @@ public class BossEgg : EnemyEgg
     new protected void OnEnable()
     {
         base.OnEnable();
+
+        // UI
+        enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
+        enemySan.value = enemySan.maxValue = maxHp;
     }
 
     new protected void Update()
@@ -44,13 +48,9 @@ public class BossEgg : EnemyEgg
         {
             if (bossEgg.CheckReadyToSpawn())
             {
+                MusicManager.GetInstance().PlayFireSound("µ∞ø«ÀÈ¡—");
                 Enemy bossShade = Instantiate(spawnObject, transform.position, transform.rotation).GetComponent<Enemy>();
                 this.gameObject.SetActive(false);
-
-                bossShade.enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
-                bossShade.enemySan.value = bossShade.enemySan.maxValue = bossShade.maxHp;
-
-
 
                 //bossShade.SetSlider(bossShade.enemySan, bossShade.enemyRes);
 

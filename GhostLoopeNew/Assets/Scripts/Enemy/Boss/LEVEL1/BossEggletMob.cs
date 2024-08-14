@@ -22,7 +22,7 @@ public class BossEggletMob : EnemyMob
         if (enemyType == E_EnemyType.chasingMob)
         {
             // ½øÈë¾¯½ä·¶Î§ÄÚ£¬×·×ÙÍæ¼Ò
-            if (currDistance > enemyAgent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 // Debug.Log("enemyAgent: " + enemyAgent);
                 enemyAgent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
@@ -76,7 +76,7 @@ public class BossEggletMob : EnemyMob
         // ÅÐ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("òùòð¹Ö±¬Õ¨ÒôÐ§");
+            MusicManager.GetInstance().PlayFireSound("±¬Õ¨ÒôÐ§");
 
             animator.SetTrigger("Die");
         }

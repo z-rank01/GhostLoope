@@ -7,7 +7,7 @@ public class MusicManager : BaseSingletonMono<MusicManager>
 {
     private AudioSource backgroundMusic = null; // ±≥æ∞“Ù¿÷◊Èº˛
 
-    //private AudioSource environmnentMusic = null; // ª∑æ≥“Ù¿÷
+    private AudioSource environmnentMusic = null; // ª∑æ≥“Ù¿÷
 
     //private AudioSource fireMusic = null; // …‰ª˜“Ù¿÷
 
@@ -30,7 +30,7 @@ public class MusicManager : BaseSingletonMono<MusicManager>
         if (backgroundMusic == null)
         {
             GameObject obj = new GameObject();
-            obj.name = "BKMusic";
+            obj.name = "BackgroundMusic";
             backgroundMusic = obj.AddComponent<AudioSource>();
 
             //bkMusic = GameObject.FindGameObjectWithTag("MusicBK").GetComponent<AudioSource>();
@@ -55,23 +55,23 @@ public class MusicManager : BaseSingletonMono<MusicManager>
 
 
 
-    
-
     public void PlayEnvironmentSound(string name)
     {
-        if (soundObj == null)
+
+        if (environmnentMusic == null)
         {
-            soundObj = new GameObject("Sound");
+            GameObject obj = new GameObject();
+            obj.name = "EnvironmentMusic";
+            environmnentMusic = obj.AddComponent<AudioSource>();
+
         }
+
         ResourcesManager.GetInstance().LoadResourceAsync("Music/Environment/" + name, (clip) =>
         {
-            AudioSource source = soundObj.AddComponent<AudioSource>();
-
-            source.clip = clip as AudioClip;
-            source.volume = environmentValue;
-            source.Play();
-
-            soundList.Add(source);
+            environmnentMusic.clip = clip as AudioClip;
+            environmnentMusic.loop = true;
+            environmnentMusic.volume = environmentValue;
+            environmnentMusic.Play();
         });
     }
 
@@ -141,9 +141,9 @@ public class MusicManager : BaseSingletonMono<MusicManager>
     }
     public void ChangeEnvironmentValue(float value)
     {
-        
+        if (environmnentMusic == null) return;
         environmentValue = value;
-        //environmnentMusic.volume = value;
+        environmnentMusic.volume = value;
     }
     public void ChangeFireValue(float value)
     {

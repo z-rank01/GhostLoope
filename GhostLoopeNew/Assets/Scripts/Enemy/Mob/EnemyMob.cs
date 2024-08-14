@@ -121,7 +121,7 @@ public class EnemyMob : Enemy
         // ÅĞ¶Ï¹ÖÎïÊÇ·ñËÀÍö
         if (hp <= 0)
         {
-            MusicManager.GetInstance().PlayFireSound("òùòğ¹Ö±¬Õ¨ÒôĞ§");
+            MusicManager.GetInstance().PlayFireSound("±¬Õ¨ÒôĞ§");
 
             // animation
             

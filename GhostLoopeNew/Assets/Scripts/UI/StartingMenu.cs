@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,13 +59,15 @@ public class StartingMenu : MonoBehaviour
     int FadeAlpha = 10; // 显露出场景的速度，FadeAlpha 帧后FadeImage彻底消失
     public Image FadeImage; // 开始游戏后由黑色逐渐变为透明，显露出场景
 
-
-
+    // 用TextMeshProUGUI才能正确赋值
+    public TextMeshProUGUI updatePropertyText; // 增益显示文本
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //updatePropertyText.SetText("WWWW");
+
+
         San.maxValue = GlobalSetting.GetInstance().san;
         Resilience.maxValue = GlobalSetting.GetInstance().resilience;
 
@@ -92,14 +95,20 @@ public class StartingMenu : MonoBehaviour
 
         if (BeginGame.isLoadGameClicked)
         {
+            BeginGame.isLoadGameClicked = false; // 需要置回false，不然每次回到主界面都会自动点击继续游戏
             // 不能在场景切换前的BeiginGame中调用
             // 只能在新场景加载完成后的对象中调用！
             // SaveManager.GetInstance().LoadGame();
         }
         
-        if (BeginGame.isNewGameClicked || BeginGame.isLoadGameClicked)
+        if (BeginGame.isNewGameClicked)
         {
+
+            MusicManager.GetInstance().PlayFireSound("第一关-配乐");
+
+
             MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
+            MusicManager.GetInstance().PlayEnvironmentSound("第一关-环境音-微风");
             BeginGame.isNewGameClicked = false;
             BeginGame.isLoadGameClicked = false;
         }
@@ -180,6 +189,20 @@ public class StartingMenu : MonoBehaviour
             }
         }
     }
+
+    IEnumerator ShowUpdatePropertyText()
+    {
+        updatePropertyText.gameObject.SetActive(true);
+        updatePropertyText.SetText(Player.GetInstance().showText);
+        for (int i = 0; i <= 20; i++)
+        {
+            updatePropertyText.color = new Color(1, 1, 1, 1 - i * 1.0f / 20);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        updatePropertyText.gameObject.SetActive(false);
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -190,8 +213,12 @@ public class StartingMenu : MonoBehaviour
             GameEndImage.gameObject.SetActive(true);
             UpdateGameEndImage();
         }
-
-
+        // 显示增益文本
+        if (Player.GetInstance().isNeedToShowText)
+        {
+            Player.GetInstance().isNeedToShowText = false;
+            StartCoroutine(ShowUpdatePropertyText());
+        }
 
         // 动态更新最大值
         San.maxValue = GlobalSetting.GetInstance().san;
@@ -239,29 +266,9 @@ public class StartingMenu : MonoBehaviour
     // 播放按钮按下的声音
     public void PlayButtonClickedSound()
     {
-        MusicManager.GetInstance().PlayEnvironmentSound("界面选择音");
+        MusicManager.GetInstance().PlayFireSound("界面选择音");
     }
     
-    public void NewGameButtonClicked()
-    {
-        SceneManager.LoadScene("TestScene");
-
-        Time.timeScale = 1.0f; // 正常继续游戏
-        Player.GetInstance().enabled = true;
-
-
-
-        PlayButtonClickedSound();
-
-
-
-        Debug.Log("new GameButtonClicked");
-        MusicManager.GetInstance().PlayBackgroundMusic("第一关-配乐");
-
-        Setting.gameObject.SetActive(false);
-
-        PauseGame.gameObject.SetActive(true);
-    }
     
     public void SettingButtonClicked()
     {

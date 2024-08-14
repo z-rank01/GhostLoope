@@ -109,11 +109,11 @@ public class BossPoisonBomb : Enemy
         tenacityObj.SetActive(false);
         EventCenter.GetInstance().AddEventListener<float>(E_Event.TenacityReceiveDamage, this.EnemyReceiveDamage);
 
-        
+        // UI
         enemySan = GameObject.Find("Enemy_San").GetComponent<Slider>();
-        
-        enemySan.value = enemySan.maxValue = hp;
+        enemySan.value = enemySan.maxValue = maxHp;
         enemyRes = GameObject.Find("Enemy_Res").GetComponent<Slider>();
+        enemyRes.value = enemyRes.maxValue = tenacity.tenacity;
     }
 
     protected void Update()
@@ -139,7 +139,7 @@ public class BossPoisonBomb : Enemy
             ResetStatus(E_PoisonBombStatus.skill2);
 
             // chasing
-            if (currDistance > agent.stoppingDistance)
+            if (currDistance <= alertDistance)
             {
                 agent.SetDestination(Player.GetInstance().GetPlayerTransform().position);
                 agent.speed = enemyWalkSpeed;
@@ -259,6 +259,9 @@ public class BossPoisonBomb : Enemy
             AddStatus(E_PoisonBombStatus.broken, true);
         }
         CheckHP();
+
+        // update UI value
+        enemyRes.value = tenacity.GetCurrentTenacity();
     }
 
 
@@ -378,6 +381,8 @@ public class BossPoisonBomb : Enemy
     // skill1
     private void ThrowBomb()
     {
+        MusicManager.GetInstance().PlayFireSound("扔炸弹的声音");
+
         BombOfBossPoison bomb = PoolManager.GetInstance().GetObj(E_PoolType.BossPoisonBomb).GetComponent<BombOfBossPoison>();
         bomb.SetOrigin(new Vector3(transform.position.x, transform.position.y + 2, transform.position.z));
         bomb.throwOut();
@@ -397,7 +402,10 @@ public class BossPoisonBomb : Enemy
         // event
         transform.LookAt(Player.GetInstance().transform);
         float crossBoneDistance = GetPlayerDistance() / attackDistance;
-            
+
+        // music
+        MusicManager.GetInstance().PlayFireSound("回旋镖音效");
+
         // animate 
         animator.SetBool("StartCrossboneAttack", true);   
         animator.SetFloat("CrossboneAttack", crossBoneDistance);
@@ -409,6 +417,10 @@ public class BossPoisonBomb : Enemy
     {
         // rotate
         transform.Rotate(transform.up, 0.1f * rotateSpeed);
+
+        // music
+        MusicManager.GetInstance().PlayFireSound("底盘旋转音效");
+        MusicManager.GetInstance().PlayFireSound("第二关boss弹幕子弹（技能）音效");
 
         // get direction and fire
         currSkill3Time += Time.deltaTime;
@@ -446,7 +458,7 @@ public class BossPoisonBomb : Enemy
         if (hp <= 0)
         {
             Player.GetInstance().SetIsFightingBoss(false); // 设置未处于Boss战状态，取消显示怪物血条
-            MusicManager.GetInstance().PlayFireSound("蝙蝠怪爆炸音效");
+            MusicManager.GetInstance().PlayFireSound("爆炸音效");
             RemoveNormalStatus();
             agent.enabled = false;
 
@@ -490,7 +502,12 @@ public class BossPoisonBomb : Enemy
     // interface
     public void DisableAfterDie(GameObject targetObj)
     {
+        MusicManager.GetInstance().PlayFireSound("boss死亡(自爆）音效");
         targetObj.SetActive(false);
+
+        GameObject bulletObj = PoolManager.GetInstance().GetObj(E_PoolType.ExplodeBullet);
+        targetObj.GetComponent<BossPoisonBomb>().EnemyReceiveDamage(bulletObj.GetComponent<Bullet>());
+        PoolManager.GetInstance().ReturnObj(E_PoolType.ExplodeBullet, bulletObj);
     }
 
     public void FinishCrossboneAttack(GameObject targetObj)
