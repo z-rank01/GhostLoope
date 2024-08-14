@@ -244,13 +244,15 @@ MonoBehaviour:
   maxHp: 100
   fireCooldown: 1
   enemyBulletType: 1
-  hpSliderName: 
+  isNeedRedHp: 1
+  id: 0
   enemyHp: {fileID: 0}
   enemySan: {fileID: 0}
   enemyRes: {fileID: 0}
+  fallenSmoke: {fileID: 0}
   spawnObject: {fileID: 585239327103123613, guid: b07e0881dc374e44a88abd855356023c,
     type: 3}
-  spawnCounter: 15
+  spawnCounter: 3
 --- !u!1 &7739709546720629729
 GameObject:
   m_ObjectHideFlags: 0
