@@ -1,11 +1,11 @@
 # 噬魂洛普 GhostLoope
-![头图]()
+![头图](https://github.com/z-rank01/GhostLoope/blob/main/Showcase/startImage.png)
 
 ## 简介
-![简介]()
+![简介](https://github.com/z-rank01/GhostLoope/blob/main/Showcase/introductionImage.png)
 
 ## 特性玩法
-![玩法]()
+![玩法](https://github.com/z-rank01/GhostLoope/blob/main/Showcase/gameplayImage.png)
 1. 玩家射击机制
     - 发射子弹，躲避怪物的弹幕
     - 吸收怪物子弹，反击怪物
@@ -20,6 +20,6 @@
     - 不断袭来的弹幕要能躲开
 
 ## 关卡设计
-![第一关]()
-![第二关]()
-![第三关]()
+![第一关](https://github.com/z-rank01/GhostLoope/blob/main/Showcase/level1.png)
+![第二关](https://github.com/z-rank01/GhostLoope/blob/main/Showcase/level2.png)
+![第三关](https://github.com/z-rank01/GhostLoope/blob/main/Showcase/level3.png)
